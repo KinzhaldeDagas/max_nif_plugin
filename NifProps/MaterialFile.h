@@ -28,7 +28,7 @@ public:
 	Class_ID ClassID() override { return MTLFILE_CLASS_ID; }
 	SClass_ID SuperClassID() override { return MATERIALFILE_CLASS_ID; }
 	static TSTR GetName() { return GetString(IDS_SH_NAME); }
-	void GetClassName(TSTR& s) override { s = GetName(); }
+	void GetClassName(MSTR& s) override { s = GetName(); }
 
 	static IOResult LoadMaterialChunk(BaseMaterial &mtl, ILoad* iload);
 	static IOResult SaveMaterialChunk(BaseMaterial &mtl, ISave* isave);

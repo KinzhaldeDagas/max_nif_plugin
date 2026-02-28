@@ -762,7 +762,8 @@ bool KFMImporter::ImportAnimation()
 						{
 							int idx = -1;
 							for (int i = 1; i <= 100; ++i) {
-								if (strmatch(tvar2, MorpherGetName(mod, i))) {
+							TSTR morphName = MorpherGetName(mod, i);
+							if (strmatch(tvar2, morphName)) {
 									idx = i;
 									break;
 								}
@@ -992,9 +993,12 @@ bool AnimationImport::AddValues(Control *c, NiKeyframeDataRef data, float time)
 {
 #ifdef USE_BIPED
 	// Bipeds are special.  And will crash if you dont treat them with care
-	if ((c->ClassID() == BIPSLAVE_CONTROL_CLASS_ID)
-		|| (c->ClassID() == BIPBODY_CONTROL_CLASS_ID)
-		|| (c->ClassID() == FOOTPRINT_CLASS_ID))
+		if ((c->ClassID() == BIPBODY_CONTROL_CLASS_ID)
+			|| (c->ClassID() == FOOTPRINT_CLASS_ID)
+#ifdef BIPSLAVE_CONTROL_CLASS_ID
+			|| (c->ClassID() == BIPSLAVE_CONTROL_CLASS_ID)
+#endif
+			)
 	{
 		return AddBiped(c, data, time);
 	}
@@ -1299,8 +1303,9 @@ bool AnimationImport::ImportGeoMorph(INode *n, NiGeomMorpherControllerRef ctrl, 
 			verts[j] += baseVerts[j];
 
 		TSTR name(A2THelper(buffer, frameName.c_str(), _countof(buffer)));
-		INode *geoNode = CreateGeoMesh(verts, tris, tm, n);
-		geoNode->SetName(FormatText(TEXT("Morph: %s"), name));
+			INode *geoNode = CreateGeoMesh(verts, tris, tm, n);
+			TSTR morphNodeName = FormatText(TEXT("Morph: %s"), name);
+			geoNode->SetName(morphNodeName);
 
 		MorpherBuildFromNode(mod, i + 1, geoNode);
 		MorpherSetName(mod, i + 1, name);
@@ -1529,7 +1534,7 @@ bool NifImporter::ImportMaterialAnimation( int paramBlockID, int subAnimID, Nifl
 		if( Control* tmpCtrl = (Control*) gi->CreateInstance( CTRL_FLOAT_CLASS_ID, Class_ID( HYBRIDINTERP_FLOAT_CLASS_ID, 0 ) ) )
 		{
 			MergeKeys<IBezFloatKey, FloatKey>( tmpCtrl, keys, 0.0f );
-			TSTR str = mtl->SubAnim( paramBlockID )->SubAnimName( subAnimID );
+				TSTR str = mtl->SubAnimName(paramBlockID);
 			mtl->SubAnim( paramBlockID )->AssignController( tmpCtrl, subAnimID );
 			
 			return true;

@@ -14,6 +14,7 @@ HISTORY:
 #include "MaxNifImport.h"
 #ifdef USE_BIPED
 #include <cs/BipedApi.h>
+#include <cs/OurExp.h>
 #endif
 #include <obj/NiTriBasedGeom.h>
 #include <obj/NiTriBasedGeomData.h>
@@ -27,6 +28,13 @@ HISTORY:
 #include <obj/BSSkin__Instance.h>
 
 using namespace Niflib;
+
+struct NumericStringEquivalence
+{
+	bool operator()(const std::string& lhs, const std::string& rhs) const {
+		return lhs == rhs;
+	}
+};
 
 struct NiNodeNameEquivalence : public NumericStringEquivalence
 {
@@ -139,26 +147,45 @@ void NifImporter::ImportBipeds(vector<NiNodeRef>& nodes)
 #endif
 			float angle = TORAD(bipedAngle);
 			Point3 wpos(0.0f, 0.0f, 0.0f);
-			BOOL arms = (CountNodesByName(bipedNodes, FormatText(TEXT("%s L UpperArm"), bipname.c_str())) > 0) ? TRUE : FALSE;
+			TSTR armsPattern = FormatText(TEXT("%s L UpperArm"), bipname.c_str());
+			BOOL arms = (CountNodesByName(bipedNodes, armsPattern) > 0) ? TRUE : FALSE;
 			BOOL triPelvis = bipedTrianglePelvis ? TRUE : FALSE;
-			int nnecklinks = CountNodesByName(bipedNodes, FormatText(TEXT("%s Neck*"), bipname.c_str()));
-			int nspinelinks = CountNodesByName(bipedNodes, FormatText(TEXT("%s Spine*"), bipname.c_str()));
-			int nleglinks = 3 + CountNodesByName(bipedNodes, FormatText(TEXT("%s L HorseLink"), bipname.c_str()));
-			int ntaillinks = CountNodesByName(bipedNodes, FormatText(TEXT("%s Tail*"), bipname.c_str()));
-			int npony1links = CountNodesByName(bipedNodes, FormatText(TEXT("%s Ponytail1*"), bipname.c_str()));
-			int npony2links = CountNodesByName(bipedNodes, FormatText(TEXT("%s Ponytail2*"), bipname.c_str()));
-			int numfingers = CountNodesByName(bipedNodes, FormatText(TEXT("%s L Finger?"), bipname.c_str()));
-			int nfinglinks = CountNodesByName(bipedNodes, FormatText(TEXT("%s L Finger0*"), bipname.c_str()));
-			int numtoes = CountNodesByName(bipedNodes, FormatText(TEXT("%s L Toe?"), bipname.c_str()));
-			int ntoelinks = CountNodesByName(bipedNodes, FormatText(TEXT("%s L Toe0*"), bipname.c_str()));
-			BOOL prop1exists = CountNodesByName(bipedNodes, FormatText(TEXT("%s Prop1"), bipname.c_str())) ? TRUE : FALSE;
-			BOOL prop2exists = CountNodesByName(bipedNodes, FormatText(TEXT("%s Prop2"), bipname.c_str())) ? TRUE : FALSE;
-			BOOL prop3exists = CountNodesByName(bipedNodes, FormatText(TEXT("%s Prop3"), bipname.c_str())) ? TRUE : FALSE;
-			int forearmTwistLinks = CountNodesByName(bipedNodes, FormatText(TEXT("%s L Fore*Twist*"), bipname.c_str()));
-			int upperarmTwistLinks = CountNodesByName(bipedNodes, FormatText(TEXT("%s L Up*Twist*"), bipname.c_str()));
-			int thighTwistLinks = CountNodesByName(bipedNodes, FormatText(TEXT("%s L Thigh*Twist*"), bipname.c_str()));
-			int calfTwistLinks = CountNodesByName(bipedNodes, FormatText(TEXT("%s L Calf*Twist*"), bipname.c_str()));
-			int horseTwistLinks = CountNodesByName(bipedNodes, FormatText(TEXT("%s L Horse*Twist*"), bipname.c_str()));
+			TSTR neckPattern = FormatText(TEXT("%s Neck*"), bipname.c_str());
+			int nnecklinks = CountNodesByName(bipedNodes, neckPattern);
+			TSTR spinePattern = FormatText(TEXT("%s Spine*"), bipname.c_str());
+			int nspinelinks = CountNodesByName(bipedNodes, spinePattern);
+			TSTR horseLinkPattern = FormatText(TEXT("%s L HorseLink"), bipname.c_str());
+			int nleglinks = 3 + CountNodesByName(bipedNodes, horseLinkPattern);
+			TSTR tailPattern = FormatText(TEXT("%s Tail*"), bipname.c_str());
+			int ntaillinks = CountNodesByName(bipedNodes, tailPattern);
+			TSTR pony1Pattern = FormatText(TEXT("%s Ponytail1*"), bipname.c_str());
+			int npony1links = CountNodesByName(bipedNodes, pony1Pattern);
+			TSTR pony2Pattern = FormatText(TEXT("%s Ponytail2*"), bipname.c_str());
+			int npony2links = CountNodesByName(bipedNodes, pony2Pattern);
+			TSTR fingersPattern = FormatText(TEXT("%s L Finger?"), bipname.c_str());
+			int numfingers = CountNodesByName(bipedNodes, fingersPattern);
+			TSTR fingLinksPattern = FormatText(TEXT("%s L Finger0*"), bipname.c_str());
+			int nfinglinks = CountNodesByName(bipedNodes, fingLinksPattern);
+			TSTR toesPattern = FormatText(TEXT("%s L Toe?"), bipname.c_str());
+			int numtoes = CountNodesByName(bipedNodes, toesPattern);
+			TSTR toeLinksPattern = FormatText(TEXT("%s L Toe0*"), bipname.c_str());
+			int ntoelinks = CountNodesByName(bipedNodes, toeLinksPattern);
+			TSTR prop1Pattern = FormatText(TEXT("%s Prop1"), bipname.c_str());
+			BOOL prop1exists = CountNodesByName(bipedNodes, prop1Pattern) ? TRUE : FALSE;
+			TSTR prop2Pattern = FormatText(TEXT("%s Prop2"), bipname.c_str());
+			BOOL prop2exists = CountNodesByName(bipedNodes, prop2Pattern) ? TRUE : FALSE;
+			TSTR prop3Pattern = FormatText(TEXT("%s Prop3"), bipname.c_str());
+			BOOL prop3exists = CountNodesByName(bipedNodes, prop3Pattern) ? TRUE : FALSE;
+			TSTR foreTwistPattern = FormatText(TEXT("%s L Fore*Twist*"), bipname.c_str());
+			int forearmTwistLinks = CountNodesByName(bipedNodes, foreTwistPattern);
+			TSTR upTwistPattern = FormatText(TEXT("%s L Up*Twist*"), bipname.c_str());
+			int upperarmTwistLinks = CountNodesByName(bipedNodes, upTwistPattern);
+			TSTR thighTwistPattern = FormatText(TEXT("%s L Thigh*Twist*"), bipname.c_str());
+			int thighTwistLinks = CountNodesByName(bipedNodes, thighTwistPattern);
+			TSTR calfTwistPattern = FormatText(TEXT("%s L Calf*Twist*"), bipname.c_str());
+			int calfTwistLinks = CountNodesByName(bipedNodes, calfTwistPattern);
+			TSTR horseTwistPattern = FormatText(TEXT("%s L Horse*Twist*"), bipname.c_str());
+			int horseTwistLinks = CountNodesByName(bipedNodes, horseTwistPattern);
 
 			NiNodeRef root = nodes[0];
 			IBipMaster* master = nullptr;
@@ -193,11 +220,19 @@ void NifImporter::ImportBipeds(vector<NiNodeRef>& nodes)
 				master->SetDisplaySettings(BDISP_BONES);
 				LPCTSTR bipname = master->GetRootName();
 
-				// Rename twists, if necessary for Oblivion
-				RenameNode(gi, FormatText(TEXT("%s L ForeTwist"), bipname), FormatText(TEXT("%s L ForearmTwist"), bipname));
-				RenameNode(gi, FormatText(TEXT("%s R ForeTwist"), bipname), FormatText(TEXT("%s R ForearmTwist"), bipname));
-				RenameNode(gi, FormatText(TEXT("%s R LUpArmTwist"), bipname), FormatText(TEXT("%s L UpperArmTwist"), bipname));
-				RenameNode(gi, FormatText(TEXT("%s R LUpArmTwist"), bipname), FormatText(TEXT("%s R UpperArmTwist"), bipname));
+					// Rename twists, if necessary for Oblivion
+					TSTR oldForeL = FormatText(TEXT("%s L ForeTwist"), bipname);
+					TSTR newForeL = FormatText(TEXT("%s L ForearmTwist"), bipname);
+					RenameNode(gi, oldForeL, newForeL);
+					TSTR oldForeR = FormatText(TEXT("%s R ForeTwist"), bipname);
+					TSTR newForeR = FormatText(TEXT("%s R ForearmTwist"), bipname);
+					RenameNode(gi, oldForeR, newForeR);
+					TSTR oldUpL = FormatText(TEXT("%s R LUpArmTwist"), bipname);
+					TSTR newUpL = FormatText(TEXT("%s L UpperArmTwist"), bipname);
+					RenameNode(gi, oldUpL, newUpL);
+					TSTR oldUpR = FormatText(TEXT("%s R LUpArmTwist"), bipname);
+					TSTR newUpR = FormatText(TEXT("%s R UpperArmTwist"), bipname);
+					RenameNode(gi, oldUpR, newUpR);
 
 				if (NiNodeRef nifBip = FindNodeByName(nodes, bipname))
 				{
@@ -453,8 +488,10 @@ void NifImporter::AlignBiped(IBipMaster* master, NiNodeRef node)
 	}
 	for (TCHAR *p = DataForWrite(s1); *p != 0; ++p) if (_istspace(*p)) *p = TEXT(' ');
 	for (TCHAR *p = DataForWrite(s2); *p != 0; ++p) if (_istspace(*p)) *p = TEXT(' ');
-	OutputDebugString(s1 + TEXT("\n"));
-	OutputDebugString(s2 + TEXT("\n"));
+	TSTR s1out = s1 + TEXT("\n");
+	TSTR s2out = s2 + TEXT("\n");
+	OutputDebugString(s1out);
+	OutputDebugString(s2out);
 
 	for (vector<NiNodeRef>::iterator itr = childNodes.begin(), end = childNodes.end(); itr != end; ++itr) {
 		AlignBiped(master, *itr);
@@ -588,7 +625,8 @@ void NifImporter::ImportBones(NiNodeRef node, bool recurse)
 		tstring name = A2TString(node->GetName());
 		if (name.empty())
 		{
-			name = FormatText(TEXT("noname:%d"), ++unnamedCounter);
+			TSTR generatedName = FormatText(TEXT("noname:%d"), ++unnamedCounter);
+			name = generatedName;
 			setnoname = true;
 		}
 

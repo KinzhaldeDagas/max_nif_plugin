@@ -258,7 +258,8 @@ Exporter::Result Exporter::doExport(NiNodeRef &root, INode *node)
 Exporter::Result Exporter::exportNodes(NiNodeRef &parent, INode *node)
 {
 	TSTR nodeName = node->GetName();
-	ProgressUpdate(Geometry, FormatText(TEXT("'%s' Geometry"), nodeName.data()));
+	TSTR progressText = FormatText(TEXT("'%s' Geometry"), nodeName.data());
+	ProgressUpdate(Geometry, progressText);
 	//bool coll = npIsCollision(node);
 	bool coll = isCollision(node);
 	// Abort if is a collision node or is hidden and we are not exporting hidden

@@ -94,6 +94,7 @@ public:
    const TCHAR* 	Category() { return TEXT("NifTools"); }
 
    const TCHAR*	InternalName() { return TEXT("bhkBox"); }	// returns fixed parsable name (scripter-visible name)
+   const MCHAR*	NonLocalizedClassName() { return _M("bhkBox"); }
    HINSTANCE		HInstance() { return hInstance; }			// returns owning module handle
 };
 

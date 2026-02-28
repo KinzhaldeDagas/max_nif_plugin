@@ -13,14 +13,6 @@
 #include "..\NifProps\bhkHelperFuncs.h"
 #include "..\NifProps\bhkHelperInterface.h"
 #include "vectorstream.hpp"
-#ifdef _DEBUG
-#include <assert.h>
-#include <crtdbg.h>
-#define ASSERT _ASSERTE
-#else
-#define ASSERT(x)
-#endif
-
 static Class_ID SCUBA_CLASS_ID(0x6d3d77ac, 0x79c939a9);
 extern Class_ID BHKRIGIDBODYMODIFIER_CLASS_ID;
 extern Class_ID BHKLISTOBJECT_CLASS_ID;
@@ -31,8 +23,8 @@ extern Class_ID BHKPROXYOBJECT_CLASS_ID;
 
 enum
 {
-	CAPSULE_RADIUS = 0,
-	CAPSULE_HEIGHT = 1,
+	CAPSULE_RADIUS_PARAM = 0,
+	CAPSULE_HEIGHT_PARAM = 1,
 };
 
 extern bool GetHavokMaterialsFromIndex(int idx, /*HavokMaterial*/int* havk_material, /*SkyrimHavokMaterial*/int* skyrim_havok_material);
@@ -442,7 +434,8 @@ Exporter::Result Exporter::exportCollision(NiNodeRef &parent, INode *node)
 	if (isHandled(node) || (node->IsHidden() && !mExportHidden))
 		return Exporter::Skip;
 
-	ProgressUpdate(Collision, FormatText(TEXT("'%s' Collision"), node->GetName()));
+	TSTR progressText = FormatText(TEXT("'%s' Collision"), node->GetName());
+	ProgressUpdate(Collision, progressText);
 
 	// marked as collision?
 	//bool coll = npIsCollision(node);
@@ -908,8 +901,8 @@ bhkShapeRef Exporter::makeCapsuleShape(INode *node, Object *obj, Matrix3& tm, in
 	float height = 0.1f;
 	if (IParamBlock2* params = obj->GetParamBlockByID(0))
 	{
-		params->GetValue(CAPSULE_RADIUS, 0, radius, FOREVER);
-		params->GetValue(CAPSULE_HEIGHT, 0, height, FOREVER);
+		params->GetValue(CAPSULE_RADIUS_PARAM, 0, radius, FOREVER);
+		params->GetValue(CAPSULE_HEIGHT_PARAM, 0, height, FOREVER);
 	}
 
 	bhkCapsuleShapeRef capsule = CreateNiObject<bhkCapsuleShape>();

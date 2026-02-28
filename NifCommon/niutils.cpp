@@ -338,7 +338,7 @@ NameValueCollectionW ReadIniSection(LPCWSTR Section, LPCWSTR iniFileName)
 	DWORD len = 2048 * sizeof(wchar_t);
 	LPWSTR buf = (LPWSTR)calloc(len + 2, 1);
 	while (nullptr != buf) {
-		DWORD rlen = GetPrivateProfileSectionW(Section, buf, len, iniFileName);
+		DWORD rlen = ::GetPrivateProfileSectionW(Section, buf, len, iniFileName);
 		if (rlen != (len - 2)) break;
 		len += 2;
 		buf = (LPWSTR)realloc(buf, len*sizeof(wchar_t));
@@ -392,7 +392,7 @@ bool ReadIniSectionAsList(LPCWSTR Section, LPCWSTR iniFileName, NameValueListW& 
 	DWORD len = 2048 * sizeof(wchar_t);
 	LPWSTR buf = (LPWSTR)calloc(len + 2, 1);
 	while (nullptr != buf) {
-		DWORD rlen = GetPrivateProfileSectionW(Section, buf, len, iniFileName);
+		DWORD rlen = ::GetPrivateProfileSectionW(Section, buf, len, iniFileName);
 		if (rlen != (len - 2)) break;
 		len += 2;
 		buf = (LPWSTR)realloc(buf, len*sizeof(wchar_t));
@@ -918,9 +918,12 @@ void PosRotScaleNode(INode *n, Point3 p, Quat& q, float s, PosRotScale prs, Time
 		if (prs & prsScale && s == FloatNegINF) prs = PosRotScale(prs & ~prsScale);
 #ifdef USE_BIPED
 		// Bipeds are special.  And will crash if you dont treat them with care
-		if ((c->ClassID() == BIPSLAVE_CONTROL_CLASS_ID)
-			|| (c->ClassID() == BIPBODY_CONTROL_CLASS_ID)
-			|| (c->ClassID() == FOOTPRINT_CLASS_ID))
+		if ((c->ClassID() == BIPBODY_CONTROL_CLASS_ID)
+			|| (c->ClassID() == FOOTPRINT_CLASS_ID)
+#ifdef BIPSLAVE_CONTROL_CLASS_ID
+			|| (c->ClassID() == BIPSLAVE_CONTROL_CLASS_ID)
+#endif
+			)
 		{
 			ScaleValue sv(Point3(s, s, s));
 			// Get the Biped Export Interface from the controller 
@@ -1228,7 +1231,8 @@ TSTR PrintMatrix3(Matrix3& m)
 
 void DumpMatrix3(Matrix3& m)
 {
-	OutputDebugString(PrintMatrix3(m));
+	TSTR out = PrintMatrix3(m);
+	OutputDebugString(out);
 }
 
 TSTR PrintMatrix44(Matrix44& m)
@@ -1246,7 +1250,8 @@ TSTR PrintMatrix44(Matrix44& m)
 }
 void DumpMatrix44(Matrix44& m)
 {
-	OutputDebugString(PrintMatrix44(m));
+	TSTR out = PrintMatrix44(m);
+	OutputDebugString(out);
 }
 
 INode* FindINode(Interface *i, const string& name)
@@ -1549,7 +1554,7 @@ static Value* LocalExecuteScript(CharStream* source, bool *res) {
 
 		source->flush_whitespace();
 		while (!source->at_eos()) {
-			vl.code = vl.parser->compile(source);
+			vl.code = vl.parser->compile(source, 0);
 			vl.result = vl.code->eval()->get_heap_ptr();
 			source->flush_whitespace();
 		}
@@ -1604,7 +1609,7 @@ void GetIniFileName(LPTSTR iniName)
 #endif
 	*iniName = 0;
 	if (gi) {
-		LPCTSTR pluginDir = gi->GetDir(APP_PLUGCFG_DIR);
+		const MSTR pluginDir = gi->GetDir(APP_PLUGCFG_DIR);
 		PathCombine(iniName, pluginDir, TEXT("MaxNifTools.ini"));
 
 		int forcePlugcfg = GetIniValue(TEXT("System"), TEXT("ForcePlugcfg"), 0, iniName);
@@ -1821,7 +1826,7 @@ bool GetTexFullName(Texmap *texMap, TSTR& fName)
 	if (texMap && texMap->ClassID() == Class_ID(BMTEX_CLASS_ID, 0)) {
 		TSTR fileName = static_cast<BitmapTex*>(texMap)->GetMapName();
 		if (fileName.isNull()) {
-			fileName = static_cast<BitmapTex*>(texMap)->GetFullName();
+			fileName = static_cast<BitmapTex*>(texMap)->GetName();
 			int idx = fileName.last('(');
 			if (idx >= 0) {
 				fileName.remove(idx, fileName.length() - idx + 1);
@@ -1843,7 +1848,7 @@ bool GetTexFullName(Texmap *texMap, tstring& fName)
 	if (texMap && texMap->ClassID() == Class_ID(BMTEX_CLASS_ID, 0)) {
 		TSTR fileName = static_cast<BitmapTex*>(texMap)->GetMapName();
 		if (fileName.isNull()) {
-			fileName = static_cast<BitmapTex*>(texMap)->GetFullName();
+			fileName = static_cast<BitmapTex*>(texMap)->GetName();
 			int idx = fileName.last('(');
 			if (idx >= 0) {
 				fileName.remove(idx, fileName.length() - idx + 1);

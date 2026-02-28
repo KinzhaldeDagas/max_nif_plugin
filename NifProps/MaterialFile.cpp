@@ -151,10 +151,11 @@ public:
 	const TCHAR *  ClassName()  override { return GetString(IDS_BGSM_FILE); }
 	SClass_ID      SuperClassID()  override { return MATERIALFILE_CLASS_ID; }
 	Class_ID       ClassID()  override { return BGSMFILE_CLASS_ID; }
-	const TCHAR*   Category()  override { return GetString(IDS_CATEGORY); }
-	const TCHAR*   InternalName()  override { return _T("MaterialFile"); }
-	HINSTANCE      HInstance()  override { return hInstance; }          // returns owning module handle
-};
+		const TCHAR*   Category()  override { return GetString(IDS_CATEGORY); }
+		const TCHAR*   InternalName()  override { return _T("MaterialFile"); }
+		const MCHAR*   NonLocalizedClassName() override { return _M("MaterialFile"); }
+		HINSTANCE      HInstance()  override { return hInstance; }          // returns owning module handle
+	};
 
 static BGSMFileClassDesc theBGSMFileClassDesc;
 
@@ -368,10 +369,11 @@ public:
 	const TCHAR *  ClassName()  override { return GetString(IDS_BGEM_FILE); }
 	SClass_ID      SuperClassID()  override { return MATERIALFILE_CLASS_ID; }
 	Class_ID       ClassID()  override { return BGEMFILE_CLASS_ID; }
-	const TCHAR*   Category()  override { return GetString(IDS_CATEGORY); }
-	const TCHAR*   InternalName()  override { return _T("MaterialFile"); }
-	HINSTANCE      HInstance()  override { return hInstance; }          // returns owning module handle
-};
+		const TCHAR*   Category()  override { return GetString(IDS_CATEGORY); }
+		const TCHAR*   InternalName()  override { return _T("MaterialFile"); }
+		const MCHAR*   NonLocalizedClassName() override { return _M("MaterialFile"); }
+		HINSTANCE      HInstance()  override { return hInstance; }          // returns owning module handle
+	};
 
 static BGEMFileClassDesc theBGEMFileClassDesc;
 

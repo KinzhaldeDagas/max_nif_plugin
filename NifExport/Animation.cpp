@@ -959,7 +959,8 @@ NiTimeControllerRef AnimationExport::exportController(INode *node, Interval rang
 			return timeControl;
 	}
 
-	ne.ProgressUpdate(Exporter::Animation, FormatText(TEXT("'%s' Animation"), node->GetName()));
+		TSTR progressText = FormatText(TEXT("'%s' Animation"), node->GetName());
+		ne.ProgressUpdate(Exporter::Animation, progressText);
 
 	// Primary recursive decent routine
 

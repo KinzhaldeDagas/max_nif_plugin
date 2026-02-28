@@ -43,9 +43,9 @@ extern Class_ID bhkSphereObject_CLASS_ID;
 static Class_ID SCUBA_CLASS_ID(0x6d3d77ac, 0x79c939a9);
 enum
 {
-	CAPSULE_RADIUS = 0,
-	CAPSULE_HEIGHT = 1,
-	CAPSULE_CENTERS = 2,
+	CAPSULE_RADIUS_PARAM = 0,
+	CAPSULE_HEIGHT_PARAM = 1,
+	CAPSULE_CENTERS_PARAM = 2,
 };
 
 extern int GetHavokIndexFromMaterials(/*HavokMaterial*/ int havk_material, /*SkyrimHavokMaterial*/ int skyrim_havok_material);
@@ -537,9 +537,9 @@ bool CollisionImport::ImportCapsule(INode *rbody, bhkRigidBodyRef body, bhkCapsu
 		RefTargetHandle t = ob->GetReference(0);
 		if (IParamBlock2* pblock2 = ob->GetParamBlockByID(0))
 		{
-			pblock2->SetValue(CAPSULE_RADIUS, 0, radius);
-			pblock2->SetValue(CAPSULE_HEIGHT, 0, height);
-			pblock2->SetValue(CAPSULE_CENTERS, 0, heighttype);
+			pblock2->SetValue(CAPSULE_RADIUS_PARAM, 0, radius);
+			pblock2->SetValue(CAPSULE_HEIGHT_PARAM, 0, height);
+			pblock2->SetValue(CAPSULE_CENTERS_PARAM, 0, heighttype);
 		}
 
 		if (INode *n = ni.CreateImportNode(shape->GetType().GetTypeName().c_str(), ob, parent)) {
@@ -679,7 +679,8 @@ bool CollisionImport::ImportPackedNiTriStripsShape(INode *rbody, bhkRigidBodyRef
 				ImportBase(body, shape, parent, inode, ltm);
 
 				if (n > 1)
-					inode->SetName(FormatText(TEXT("%s:%d"), TEXT("OblivionSubShape"), i).data());
+					TSTR partName = FormatText(TEXT("%s:%d"), TEXT("OblivionSubShape"), i);
+					inode->SetName(partName);
 
 				nodes.Append(1, &inode);
 			}
@@ -738,7 +739,8 @@ bool CollisionImport::ImportCompressedMeshShape(INode *rbody, bhkRigidBodyRef bo
 
 			CreatebhkCollisionModifier(inode, bv_type_cmsd, mtlIdx, lyrIdx, 0);
 			ImportBase(body, shape, parent, inode, tm);
-			inode->SetName(FormatText(TEXT("%s:Big"), TEXT("CMSD")));
+				TSTR nodeName = FormatText(TEXT("%s:Big"), TEXT("CMSD"));
+				inode->SetName(nodeName);
 			nodes.Append(1, &inode);
 		}
 
@@ -799,7 +801,10 @@ bool CollisionImport::ImportCompressedMeshShape(INode *rbody, bhkRigidBodyRef bo
 			INode *inode = ImportCollisionMesh(verts, tris, lm, parent);
 			CreatebhkCollisionModifier(inode, bv_type_cmsd, mtlIdx, lyrIdx, 0);
 			ImportBase(body, shape, parent, inode, ltm);
-			if (multipleShapes) inode->SetName(FormatText(TEXT("%s:%d"), TEXT("CMSD"), i++).data());
+			if (multipleShapes) {
+				TSTR chunkName = FormatText(TEXT("%s:%d"), TEXT("CMSD"), i++);
+				inode->SetName(chunkName);
+			}
 			//AddShape(rbody, inode);
 			nodes.Append(1, &inode);
 		}

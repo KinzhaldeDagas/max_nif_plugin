@@ -65,6 +65,7 @@ public:
 	const TCHAR		*Category() { return GetString(IDS_CATEGORY); }
 
 	const TCHAR		*InternalName() { return _T("NifExport"); }	// returns fixed parsable name (scripter-visible name)
+	const MCHAR		*NonLocalizedClassName() { return _M("NifExport"); }
 	HINSTANCE		HInstance() { return hInstance; }					// returns owning module handle
 
 
@@ -144,14 +145,17 @@ INT_PTR CALLBACK NifExportOptionsDlgProc(HWND hWnd, UINT message, WPARAM wParam,
 		SendDlgItemMessage(hWnd, IDC_CBO_ANIM_TYPE, CB_SETCURSEL, WPARAM(Exporter::mExportType), 0);
 
 		CheckDlgButton(hWnd, IDC_CHK_TRANSFORMS2, Exporter::mExportTransforms);
-		SetDlgItemText(hWnd, IDC_ED_PRIORITY2, FormatText(TEXT("%.1f"), Exporter::mDefaultPriority));
+		TSTR priorityText = FormatText(TEXT("%.1f"), Exporter::mDefaultPriority);
+		SetDlgItemText(hWnd, IDC_ED_PRIORITY2, priorityText);
 		//CheckDlgButton(hWnd, IDC_CHK_USE_TIME_TAGS, Exporter::mUseTimeTags);           
 
 		// Skin
 		CheckDlgButton(hWnd, IDC_CHK_SKIN, Exporter::mExportSkin);
 		CheckDlgButton(hWnd, IDC_CHK_SKINPART, Exporter::mMultiplePartitions);
-		SetDlgItemText(hWnd, IDC_ED_BONES_PART, FormatText(TEXT("%d"), Exporter::mBonesPerPartition));
-		SetDlgItemText(hWnd, IDC_ED_BONES_VERTEX, FormatText(TEXT("%d"), Exporter::mBonesPerVertex));
+		TSTR bonesPerPartText = FormatText(TEXT("%d"), Exporter::mBonesPerPartition);
+		SetDlgItemText(hWnd, IDC_ED_BONES_PART, bonesPerPartText);
+		TSTR bonesPerVertText = FormatText(TEXT("%d"), Exporter::mBonesPerVertex);
+		SetDlgItemText(hWnd, IDC_ED_BONES_VERTEX, bonesPerVertText);
 
 		CheckDlgButton(hWnd, IDC_CHK_ALLOW_ACCUM, Exporter::mAllowAccum);
 
@@ -517,7 +521,8 @@ int NifExport::DoExportInternal(const TCHAR *name, ExpInterface *ei, Interface *
 	Niflib::NifInfo info(nifVersion, nifUserVer, nifUserVer2);
 	info.endian = ENDIAN_LITTLE;
 	info.creator = T2AString(Exporter::mCreatorName);
-	info.exportInfo1 = T2A(FormatText(TEXT("Niftools 3ds Max Plugins %s"), fileVersion.data()));
+	TSTR exportInfo = FormatText(TEXT("Niftools 3ds Max Plugins %s"), fileVersion.data());
+	info.exportInfo1 = T2A(exportInfo);
 
 	Exporter exp(i, appSettings);
 

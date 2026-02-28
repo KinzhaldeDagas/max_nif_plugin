@@ -368,4 +368,4 @@ FARPROC WINAPI delayHookFailureFunc(unsigned dliNotify, PDelayLoadInfo pdli)
 }
 
 // __delayLoadHelper gets the hook function in here:
-PfnDliHook __pfnDliFailureHook2 = delayHookFailureFunc;
+ExternC const PfnDliHook __pfnDliFailureHook2 = delayHookFailureFunc;

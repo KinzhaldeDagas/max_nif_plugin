@@ -75,6 +75,7 @@ class NifPropsClassDesc : public ClassDesc2
 	const TCHAR* 	Category() { return GetString(IDS_CATEGORY); }
 
 	const TCHAR*	InternalName() { return _T("NifProps"); }
+	const MCHAR*	NonLocalizedClassName() { return _M("NifProps"); }
 	HINSTANCE		HInstance() { return hInstance; }
 	
 
