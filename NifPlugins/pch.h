@@ -8,11 +8,6 @@
 //------------------------------
 // Standard Library
 //------------------------------
-// Avoid conflict between WinSDK's global ::byte (rpcndr.h) and std::byte
-#ifndef _HAS_STD_BYTE
-#  define _HAS_STD_BYTE 0
-#endif
-
 #include <algorithm>
 #include <cmath>
 #include <cstdint>
@@ -99,7 +94,13 @@
 //------------------------------
 // Niflib
 //------------------------------
+// Niflib headers use legacy unqualified `byte` in some versions, which clashes
+// with `std::byte` when both are visible. Map bare `byte` tokens only while
+// including niflib headers, then restore normal behavior for the Max SDK.
+typedef unsigned char niflib_legacy_byte;
+#define byte niflib_legacy_byte
 #include "niflib.h"
+#undef byte
 
 // Generated headers are layout-dependent across niflib forks/builds.
 // Gate them to prevent hard build breaks in the PCH.
