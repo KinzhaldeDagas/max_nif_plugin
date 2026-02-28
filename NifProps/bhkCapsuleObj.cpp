@@ -29,8 +29,7 @@ HISTORY:
 #ifndef _countof
 #define _countof(x) (sizeof(x)/sizeof((x)[0]))
 #endif
-Class_ID BHKCAPSULEOBJECT_CLASS_ID = Class_ID(0x7f8f629a, BHKRIGIDBODYCLASS_DESC.PartB());
-
+Class_ID bhkCapsuleObject_CLASS_ID = Class_ID(0x7f8f629a, 0x1d88470a);
 class bhkCapsuleObject : public SimpleObject2
 {
 public:			
@@ -58,7 +57,7 @@ public:
 
    // Animatable methods		
    void DeleteThis() {delete this;}
-   Class_ID ClassID() { return BHKCAPSULEOBJECT_CLASS_ID; } 
+   Class_ID ClassID() { return bhkCapsuleObject_CLASS_ID; } 
    SClass_ID SuperClassID() { return HELPER_CLASS_ID; }
 
    int	NumParamBlocks() { return 1; }					// return number of ParamBlocks in this instance
@@ -98,7 +97,7 @@ public:
    }
    const TCHAR *	ClassName() { return GetString(IDS_RB_CAPSULE_CLASS); }
    SClass_ID		SuperClassID() { return HELPER_CLASS_ID; }
-   Class_ID		   ClassID() { return BHKCAPSULEOBJECT_CLASS_ID; }
+   Class_ID		   ClassID() { return bhkCapsuleObject_CLASS_ID; }
    const TCHAR* 	Category() { return TEXT("NifTools"); }
 
    const TCHAR*	InternalName() { return _T("bhkCapsule"); }	// returns fixed parsable name (scripter-visible name)
@@ -214,7 +213,8 @@ INT_PTR CapsuleParamDlgProc::DlgProc(TimeValue t,IParamMap2 *map,HWND hWnd,UINT 
 
 		  Interval valid;
 		  int sel = NP_INVALID_HVK_MATERIAL;
-		  so->pblock2->GetValue( PB_MATERIAL, 0, sel, valid);
+		  IParamBlock2* pblock = so->GetParamBlockByID(cap_params);
+		  if (pblock) pblock->GetValue( PB_MATERIAL, 0, sel, valid);
 		  mCbMaterial.select( sel + 1 );
 
          Update(t);
@@ -223,10 +223,11 @@ INT_PTR CapsuleParamDlgProc::DlgProc(TimeValue t,IParamMap2 *map,HWND hWnd,UINT 
    case WM_COMMAND:
       switch (LOWORD(wParam)) 
       {
-      case IDC_CB_MATERIAL:
-         if (HIWORD(wParam)==CBN_SELCHANGE) {
-            so->pblock2->SetValue( PB_MATERIAL, 0, mCbMaterial.selection() - 1);
-         }
+	  case IDC_CB_MATERIAL:
+		 if (HIWORD(wParam)==CBN_SELCHANGE) {
+			IParamBlock2* pblock = so->GetParamBlockByID(cap_params);
+			if (pblock) pblock->SetValue( PB_MATERIAL, 0, mCbMaterial.selection() - 1);
+		 }
          break;
       }
       break;	
@@ -348,13 +349,13 @@ int CapsuleObjCreateCallBack::proc(ViewExp *vpt,int msg, int point, int flags, I
             INode *node = GetCOREInterface()->GetINodeByHandle(handle);
             if (node) node->SetWireColor(RGB(255, 0, 0));
          }
-         ob->pblock2->SetValue(PB_RADIUS1,0,0.0f);
-         ob->pblock2->SetValue(PB_RADIUS2,0,0.0f);
-         ob->pblock2->SetValue(PB_SCALE,0,NifPropsGlobals::bhkScaleFactor);
+         if (IParamBlock2* pblock = ob->GetParamBlockByID(cap_params)) pblock->SetValue(PB_RADIUS1,0,0.0f);
+         if (IParamBlock2* pblock = ob->GetParamBlockByID(cap_params)) pblock->SetValue(PB_RADIUS2,0,0.0f);
+         if (IParamBlock2* pblock = ob->GetParamBlockByID(cap_params)) pblock->SetValue(PB_SCALE,0,NifPropsGlobals::bhkScaleFactor);
          ob->suspendSnap = TRUE;				
          sp[0] = m;
          p[0] = vpt->SnapPoint(m,m,NULL,SNAP_IN_3D);
-         ob->pblock2->SetValue(PB_LENGTH,0,0.0f);
+         if (IParamBlock2* pblock = ob->GetParamBlockByID(cap_params)) pblock->SetValue(PB_LENGTH,0,0.0f);
          mat.SetTrans(p[0]);
          break;
 
@@ -366,8 +367,8 @@ int CapsuleObjCreateCallBack::proc(ViewExp *vpt,int msg, int point, int flags, I
          r = Length(p[1]-p[0]);
          mat.SetTrans(p[0]);
 
-         ob->pblock2->SetValue(PB_RADIUS1,0,r);
-         ob->pblock2->SetValue(PB_RADIUS2,0,r);
+         if (IParamBlock2* pblock = ob->GetParamBlockByID(cap_params)) pblock->SetValue(PB_RADIUS1,0,r);
+         if (IParamBlock2* pblock = ob->GetParamBlockByID(cap_params)) pblock->SetValue(PB_RADIUS2,0,r);
          ob->pmapParam->Invalidate();
 
          if (flags&MOUSE_CTRL) 
@@ -392,7 +393,7 @@ int CapsuleObjCreateCallBack::proc(ViewExp *vpt,int msg, int point, int flags, I
          r = Length(p[2]-p[1]);
          mat.SetTrans(p[0]);
 
-         ob->pblock2->SetValue(PB_LENGTH,0,r);
+         if (IParamBlock2* pblock = ob->GetParamBlockByID(cap_params)) pblock->SetValue(PB_LENGTH,0,r);
          ob->pmapParam->Invalidate();
 
          // Stop unless Ctrl is selected then we size the final radius
@@ -411,13 +412,13 @@ int CapsuleObjCreateCallBack::proc(ViewExp *vpt,int msg, int point, int flags, I
          if (flags&MOUSE_CTRL) // ignore radius
          {
             r = Length(p[1]-p[0]);
-            ob->pblock2->SetValue(PB_RADIUS2,0,r);
+            if (IParamBlock2* pblock = ob->GetParamBlockByID(cap_params)) pblock->SetValue(PB_RADIUS2,0,r);
          }
          else
          {
             // start radius at r1
             r = Length((p[3]-p[2]) + (p[1]-p[0]));
-            ob->pblock2->SetValue(PB_RADIUS2,0,r);
+            if (IParamBlock2* pblock = ob->GetParamBlockByID(cap_params)) pblock->SetValue(PB_RADIUS2,0,r);
          }
          ob->pmapParam->Invalidate();
          if (msg==MOUSE_POINT) 
@@ -459,7 +460,7 @@ void bhkCapsuleObject::InvalidateUI()
 RefTargetHandle bhkCapsuleObject::Clone(RemapDir& remap) 
 {
    bhkCapsuleObject* newob = new bhkCapsuleObject(FALSE);	
-   newob->ReplaceReference(0,remap.CloneRef(pblock));
+   newob->ReplaceReference(0,remap.CloneRef(pblock2));
    newob->ivalid.SetEmpty();	
    BaseClone(this, newob, remap);
    return(newob);
