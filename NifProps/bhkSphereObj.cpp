@@ -224,7 +224,8 @@ INT_PTR SphereParamDlgProc::DlgProc(TimeValue t,IParamMap2 *map,HWND hWnd,UINT m
 
 		  Interval valid;
 		  int sel = NP_INVALID_HVK_MATERIAL;
-		  so->pblock2->GetValue( PB_MATERIAL, 0, sel, valid);
+		  IParamBlock2* pblock = so->GetParamBlockByID(sphere_params);
+		  if (pblock) pblock->GetValue( PB_MATERIAL, 0, sel, valid);
 		  mCbMaterial.select( sel + 1 );
 
          Update(t);
@@ -233,10 +234,11 @@ INT_PTR SphereParamDlgProc::DlgProc(TimeValue t,IParamMap2 *map,HWND hWnd,UINT m
    case WM_COMMAND:
       switch (LOWORD(wParam)) 
       {
-      case IDC_CB_MATERIAL:
-         if (HIWORD(wParam)==CBN_SELCHANGE) {
-            so->pblock2->SetValue( PB_MATERIAL, 0, mCbMaterial.selection() - 1 );
-         }
+	  case IDC_CB_MATERIAL:
+		 if (HIWORD(wParam)==CBN_SELCHANGE) {
+			IParamBlock2* pblock = so->GetParamBlockByID(sphere_params);
+			if (pblock) pblock->SetValue( PB_MATERIAL, 0, mCbMaterial.selection() - 1 );
+		 }
          break;
       }
       break;	
@@ -359,7 +361,7 @@ int SphereObjCreateCallBack::proc(ViewExp *vpt,int msg, int point, int flags, IP
             INode *node = GetCOREInterface()->GetINodeByHandle(handle);
             if (node) node->SetWireColor(RGB(255, 0, 0));
          }
-         ob->pblock2->SetValue(PB_RADIUS,0,0.0f);
+         if (IParamBlock2* pblock = ob->GetParamBlockByID(sphere_params)) pblock->SetValue(PB_RADIUS,0,0.0f);
          ob->suspendSnap = TRUE;				
          sp0 = m;
          p0 = vpt->SnapPoint(m,m,NULL,SNAP_IN_3D);
@@ -372,7 +374,7 @@ int SphereObjCreateCallBack::proc(ViewExp *vpt,int msg, int point, int flags, IP
          r = Length(p1-p0) / NifPropsGlobals::bhkScaleFactor;
          mat.SetTrans(p0);
 
-         ob->pblock2->SetValue(PB_RADIUS,0,r);
+         if (IParamBlock2* pblock = ob->GetParamBlockByID(sphere_params)) pblock->SetValue(PB_RADIUS,0,r);
          ob->pmapParam->Invalidate();
 
          if (flags&MOUSE_CTRL) 
@@ -464,7 +466,7 @@ void bhkSphereObject::InvalidateUI()
 RefTargetHandle bhkSphereObject::Clone(RemapDir& remap) 
 {
    bhkSphereObject* newob = new bhkSphereObject(FALSE);	
-   newob->ReplaceReference(0,remap.CloneRef(pblock));
+   newob->ReplaceReference(0,remap.CloneRef(pblock2));
    newob->ivalid.SetEmpty();	
    BaseClone(this, newob, remap);
    return(newob);

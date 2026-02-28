@@ -1275,7 +1275,11 @@
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <DataExecutionPrevention>
       </DataExecutionPrevention>
+      <AdditionalLibraryDirectories>C:\Users\mello\Desktop\xaxSource\niflib\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\mello\Desktop\xaxSource\niflib;C:\Users\mello\Desktop\xaxSource\niflib\include;C:\Users\mello\Desktop\xaxSource\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release - Max 2016|x64'">
     <Link>
@@ -1288,12 +1292,12 @@
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <DataExecutionPrevention>
       </DataExecutionPrevention>
-      <AdditionalLibraryDirectories>C:\src\skyblivion-niflib\niflib\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\mello\Desktop\xaxSource\niflib\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <ClCompile>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <ForceConformanceInForLoopScope>false</ForceConformanceInForLoopScope>
-      <AdditionalIncludeDirectories>C:\src\skyblivion-niflib\niflib;C:\src\skyblivion-niflib\niflib\include;C:\src\skyblivion-niflib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\mello\Desktop\xaxSource\niflib;C:\Users\mello\Desktop\xaxSource\niflib\include;C:\Users\mello\Desktop\xaxSource\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
