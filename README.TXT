@@ -1,4 +1,4 @@
-                        MaxPlugins 3.8
+                        MaxPlugins 4.0
                         ================
 
     ATTENTION:
@@ -26,7 +26,7 @@
     ------------
 
       Plugins:
-        3D Studio Max 2012, 2015, 2016
+        3D Studio Max 2012, 2015, 2016, 2026
 
     Installation
     ------------
@@ -92,4 +92,5 @@
 
     If your collision mesh comes out deformed, go to the utilities tab, 
     choose "Reset XForm" and click "Reset Selected". This should fix it.
+
     
