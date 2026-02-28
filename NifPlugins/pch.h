@@ -94,13 +94,12 @@
 //------------------------------
 // Niflib
 //------------------------------
-// Niflib headers use legacy unqualified `byte` in some versions, which clashes
-// with `std::byte` when both are visible. Map bare `byte` tokens only while
-// including niflib headers, then restore normal behavior for the Max SDK.
-typedef unsigned char niflib_legacy_byte;
-#define byte niflib_legacy_byte
+// Niflib headers use legacy unqualified `byte` in many declarations.
+// With C++17, that becomes ambiguous against `std::byte` + WinSDK `::byte`.
+// Force legacy semantics for unqualified `byte` tokens across the niflib
+// include block, then restore normal behavior immediately afterward.
+#define byte unsigned char
 #include "niflib.h"
-#undef byte
 
 // Generated headers are layout-dependent across niflib forks/builds.
 // Gate them to prevent hard build breaks in the PCH.
@@ -152,6 +151,8 @@ struct BSSkinBoneTrans;
 
 #include "niutils.h"
 #include "AppSettings.h"
+
+#undef byte
 
 //------------------------------
 // TriStripper / NvTriStrip
