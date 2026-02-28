@@ -52,6 +52,7 @@ public:
 	const TCHAR	*Category() { return GetString(IDS_CATEGORY); }
 
 	const TCHAR	*InternalName() { return _T("_KfExport"); }	// returns fixed parsable name (scripter-visible name)
+	const MCHAR	*NonLocalizedClassName() { return _M("_KfExport"); }
 	HINSTANCE	HInstance() { return hInstance; }					// returns owning module handle
 };
 
