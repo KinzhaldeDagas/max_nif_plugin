@@ -29,8 +29,7 @@ HISTORY:
 #ifndef _countof
 #define _countof(x) (sizeof(x)/sizeof((x)[0]))
 #endif
-Class_ID BHKCAPSULEOBJECT_CLASS_ID = Class_ID(0x7f8f629a, BHKRIGIDBODYCLASS_DESC.PartB());
-
+Class_ID BHKCAPSULEOBJECT_CLASS_ID = Class_ID(0x7f8f629a, 0x1d88470a);
 class bhkCapsuleObject : public SimpleObject2
 {
 public:			
@@ -214,7 +213,8 @@ INT_PTR CapsuleParamDlgProc::DlgProc(TimeValue t,IParamMap2 *map,HWND hWnd,UINT 
 
 		  Interval valid;
 		  int sel = NP_INVALID_HVK_MATERIAL;
-		  if (IParamBlock2* pblock = so->GetParamBlockByID(cap_params)) pblock->GetValue( PB_MATERIAL, 0, sel, valid);
+		  IParamBlock2* pblock = so->GetParamBlockByID(cap_params);
+		  if (pblock) pblock->GetValue( PB_MATERIAL, 0, sel, valid);
 		  mCbMaterial.select( sel + 1 );
 
          Update(t);
@@ -223,10 +223,11 @@ INT_PTR CapsuleParamDlgProc::DlgProc(TimeValue t,IParamMap2 *map,HWND hWnd,UINT 
    case WM_COMMAND:
       switch (LOWORD(wParam)) 
       {
-      case IDC_CB_MATERIAL:
-         if (HIWORD(wParam)==CBN_SELCHANGE) {
-            if (IParamBlock2* pblock = so->GetParamBlockByID(cap_params)) pblock->SetValue( PB_MATERIAL, 0, mCbMaterial.selection() - 1);
-         }
+	  case IDC_CB_MATERIAL:
+		 if (HIWORD(wParam)==CBN_SELCHANGE) {
+			IParamBlock2* pblock = so->GetParamBlockByID(cap_params);
+			if (pblock) pblock->SetValue( PB_MATERIAL, 0, mCbMaterial.selection() - 1);
+		 }
          break;
       }
       break;	
