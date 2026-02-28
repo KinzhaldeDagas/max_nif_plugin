@@ -65,6 +65,7 @@ class MaxNifImportClassDesc : public ClassDesc2 {
 	const TCHAR* 	Category() { return GetString(IDS_CATEGORY); }
 
 	const TCHAR*	InternalName() { return _T("MaxNifImport"); }	// returns fixed parsable name (scripter-visible name)
+	const MCHAR*	NonLocalizedClassName() { return _M("MaxNifImport"); }
 	HINSTANCE		HInstance() { return hInstance; }					// returns owning module handle
 	
 

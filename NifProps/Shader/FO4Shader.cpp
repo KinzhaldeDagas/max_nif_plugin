@@ -254,8 +254,8 @@ public:
 
 	// texture maps
 	long nTexChannelsSupported() override { return STD2_NMAX_TEXMAPS - 4; }
-	TSTR GetTexChannelName(long nChan) override { return GetString(texChannelNames[nChan].channelName); }
-	TSTR GetTexChannelInternalName(long nChan) override { return GetString(texChannelNames[nChan].maxName); }
+	MSTR GetTexChannelName(long nChan, bool localized = true) override { return GetString(texChannelNames[nChan].channelName); }
+	MSTR GetTexChannelInternalName(long nChan, bool localized = true) override { return GetString(texChannelNames[nChan].maxName); }
 	long ChannelType(long nChan) override { return texChannelNames[nChan].channelType; }
 	long StdIDToChannel(long stdID) override { return FO4ShaderStdIDToChannel[stdID]; }
 
@@ -270,13 +270,13 @@ public:
 	Class_ID ClassID() override { return FO4SHADER_CLASS_ID; }
 	SClass_ID SuperClassID() override { return SHADER_CLASS_ID; }
 	TSTR GetName() override { return GetString(IDS_FO4_SHADER); }
-	void GetClassName(TSTR& s) override { s = GetName(); }
+	void GetClassName(MSTR& s) override { s = GetName(); }
 	void DeleteThis() override { delete this; }
 
 	int NumSubs() override { return 1; }
 
 	Animatable* SubAnim(int i) override;
-	TSTR SubAnimName(int i) override;
+	MSTR SubAnimName(int i) override;
 
 	int SubNumToRefNum(int subNum) override { return subNum; }
 
@@ -409,8 +409,8 @@ public:
 	BOOL ChangeShader(const Class_ID& clsid);
 
 	//getName
-	LPCTSTR GetMaterialName() const override { return pMtlFileRef ? pMtlFileRef->materialName : TEXT(""); }
-	LPCTSTR GetFileName() const override { return pMtlFileRef ? pMtlFileRef->materialFileName : TEXT(""); }
+	LPCTSTR GetMaterialName() const override { return pMtlFileRef ? pMtlFileRef->materialName.data() : TEXT(""); }
+	LPCTSTR GetFileName() const override { return pMtlFileRef ? pMtlFileRef->materialFileName.data() : TEXT(""); }
 	void SetMaterialName(LPCTSTR name) override { pMtlFileRef->SetName(name); }
 	void SetFileName(LPCTSTR path) override { pMtlFileRef->SetFileName(path); }
 	void SetFileName(LPCTSTR name, LPCTSTR path) const { pMtlFileRef->SetName(name), pMtlFileRef->SetFileName(path); }
@@ -438,6 +438,7 @@ public:
 	Class_ID       ClassID()  override { return FO4SHADER_CLASS_ID; }
 	const TCHAR*   Category()  override { return GetString(IDS_CATEGORY); }
 	const TCHAR*   InternalName()  override { return _T("FO4Shader"); }   // returns fixed parsable name (scripter-visible name)
+	const MCHAR*   NonLocalizedClassName() override { return _M("FO4Shader"); }
 	HINSTANCE      HInstance()  override { return hInstance; }          // returns owning module handle
 };
 

@@ -135,6 +135,7 @@ public:
    const TCHAR* 	Category() { return TEXT("NifTools"); }
 
    const TCHAR*	InternalName() { return _T("bhkListShape"); }	// returns fixed parsable name (scripter-visible name)
+   const MCHAR*	NonLocalizedClassName() { return _M("bhkListShape"); }
    HINSTANCE		HInstance() { return hInstance; }			// returns owning module handle
 };
 
@@ -210,9 +211,10 @@ BOOL ListPickObjectMode::Filter(INode *node)
 		//if (node->TestForLoop(FOREVER,(ReferenceMaker *) mod)!=REF_SUCCEED)
 		//   return FALSE;
 
-		for (int i = 0;i < mod->pblock2->Count(PB_MESHLIST); i++) {
+		IParamBlock2* pb = mod->GetParamBlockByID(list_params);
+		for (int i = 0; pb && i < pb->Count(PB_MESHLIST); i++) {
 			INode *tnode = NULL;
-			mod->pblock2->GetValue(PB_MESHLIST,0,tnode,FOREVER,i);	
+			pb->GetValue(PB_MESHLIST,0,tnode,FOREVER,i);	
 			if  (node == tnode)
 				return FALSE;
 		}
@@ -246,7 +248,8 @@ BOOL ListPickObjectMode::Pick(IObjParam *ip,ViewExp *vpt)
 		theHold.Begin();
 		ObjectState os = node->EvalWorldState(0);
 		if (os.obj->CanConvertToType(triObjectClassID)) {
-			mod->pblock2->Append(PB_MESHLIST,1,&node,1);
+			if (IParamBlock2* pb = mod->GetParamBlockByID(list_params))
+				pb->Append(PB_MESHLIST,1,&node,1);
 			rv = TRUE;
 		}
 		theHold.Accept(GetString(IDS_ADD_MESH));
@@ -304,7 +307,8 @@ INT_PTR ListParamDlgProc::DlgProc(TimeValue t,IParamMap2 *map,HWND hWnd,UINT msg
 
 		  Interval valid;
 		  int sel = NP_INVALID_HVK_MATERIAL;
-		  so->pblock2->GetValue( PB_MATERIAL, 0, sel, valid);
+		  if (IParamBlock2* pb = so->GetParamBlockByID(list_params))
+			  pb->GetValue( PB_MATERIAL, 0, sel, valid);
 		  mCbMaterial.select( sel + 1 );
 
          Update(t);
@@ -322,7 +326,8 @@ INT_PTR ListParamDlgProc::DlgProc(TimeValue t,IParamMap2 *map,HWND hWnd,UINT msg
       {
       case IDC_CB_MATERIAL:
          if (HIWORD(wParam)==CBN_SELCHANGE) {
-            so->pblock2->SetValue( PB_MATERIAL, 0, mCbMaterial.selection() - 1 );
+			if (IParamBlock2* pb = so->GetParamBlockByID(list_params))
+				pb->SetValue( PB_MATERIAL, 0, mCbMaterial.selection() - 1 );
          }
          break;
       }

@@ -512,6 +512,7 @@ public:
 	Class_ID		ClassID() { return BSDSMODIFIER_CLASS_ID; }
 	const TCHAR* 	Category() { return GetString(IDS_CATEGORY); }
 	const TCHAR * InternalName() { return TEXT("BSDSModifier"); }
+	const MCHAR * NonLocalizedClassName() { return _M("BSDSModifier"); }
 	HINSTANCE HInstance() { return hInstance; }
 };
 

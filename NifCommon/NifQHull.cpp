@@ -1,6 +1,8 @@
 #include "Max.h"
 #include "MeshDelta.h"
 
+#if __has_include(<../qhull/src/libqhull/libqhull.h>)
+
 extern "C"
 {
 #include <../qhull/src/libqhull/libqhull.h>
@@ -12,11 +14,19 @@ extern "C"
 #include <../qhull/src/libqhull/io.h>
 #include <../qhull/src/libqhull/stat.h>
 };
+#define HAVE_QHULL 1
+#else
+#define HAVE_QHULL 0
+#endif
 
 using namespace Niflib;
 
 void compute_convex_hull(Mesh& mesh, Mesh& outmesh)
 {  
+#if !HAVE_QHULL
+	outmesh = mesh;
+	return;
+#else
 	MNMesh mn;
 	map<int, int> ptmap;
 
@@ -100,4 +110,5 @@ void compute_convex_hull(Mesh& mesh, Mesh& outmesh)
 	mn.EliminateBadVerts(0);
 	mn.Triangulate();
 	mn.OutToTri(outmesh);
+#endif
 }

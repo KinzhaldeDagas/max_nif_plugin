@@ -1,5 +1,9 @@
 #pragma warning( disable:4800 )
 
+#ifndef _HAS_STD_BYTE
+#define _HAS_STD_BYTE 0
+#endif
+
 #include "resource.h"
 
 #include <deque>
@@ -8,6 +12,22 @@
 #include <string>
 #include <sstream>
 #include <set>
+
+#if __cplusplus >= 201703L
+namespace std {
+template <class Arg, class Result>
+struct unary_function {
+	typedef Arg argument_type;
+	typedef Result result_type;
+};
+template <class Arg1, class Arg2, class Result>
+struct binary_function {
+	typedef Arg1 first_argument_type;
+	typedef Arg2 second_argument_type;
+	typedef Result result_type;
+};
+}
+#endif
 
 #include "Max.h"
 #include "resource.h"

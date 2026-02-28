@@ -176,6 +176,7 @@ class bhkRigidBodyModifierClassDesc : public ClassDesc2
 	const TCHAR* 	Category() { return GetString(IDS_CATEGORY); }
 
 	const TCHAR*	InternalName() { return _T("bhkRigidBodyModifier"); }
+	const MCHAR*	NonLocalizedClassName() { return _M("bhkRigidBodyModifier"); }
 	HINSTANCE		HInstance() { return hInstance; }
 };
 

@@ -51,7 +51,7 @@ typedef struct BaseMaterial
     bool BlendState;
 	AlphaBlendFunc BlendFunc1;
 	AlphaBlendFunc BlendFunc2;
-    ::byte AlphaTestRef;
+	unsigned char AlphaTestRef;
     bool AlphaTest;
     bool ZBufferWrite;
     bool ZBufferTest;
@@ -149,7 +149,7 @@ typedef struct BGEMFile : BaseMaterial {
 	float FalloffStartOpacity;
 	float FalloffStopOpacity;
 	float LightingInfluence; // 1.0f
-	::byte EnvmapMinLOD;
+	unsigned char EnvmapMinLOD;
 	float SoftDepth; // 100.0f
 } BGEMFile;
 

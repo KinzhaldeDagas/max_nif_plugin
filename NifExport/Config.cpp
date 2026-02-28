@@ -203,7 +203,7 @@ void Exporter::readKfConfig(Interface *i)
 void Exporter::writeKfConfig(Interface *i)
 {
    TCHAR iniName[MAX_PATH];
-   LPCTSTR pluginDir = i->GetDir(APP_PLUGCFG_DIR);
+	const MSTR pluginDir = i->GetDir(APP_PLUGCFG_DIR);
    PathCombine(iniName, pluginDir, TEXT("MaxNifTools.ini"));
 
    SetIniValue(KfExportSection, TEXT("IncludeHidden"), mExportHidden, iniName);

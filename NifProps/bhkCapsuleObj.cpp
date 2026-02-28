@@ -101,6 +101,7 @@ public:
    const TCHAR* 	Category() { return TEXT("NifTools"); }
 
    const TCHAR*	InternalName() { return _T("bhkCapsule"); }	// returns fixed parsable name (scripter-visible name)
+   const MCHAR*	NonLocalizedClassName() { return _M("bhkCapsule"); }
    HINSTANCE		HInstance() { return hInstance; }			// returns owning module handle
 };
 

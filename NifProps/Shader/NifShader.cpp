@@ -363,6 +363,7 @@ public:
 	Class_ID       ClassID() { return NIFSHADER_CLASS_ID; }
 	const TCHAR*   Category() { return GetString(IDS_CATEGORY); }
 	const TCHAR*   InternalName() { return _T("NifShader"); }   // returns fixed parsable name (scripter-visible name)
+	const MCHAR*   NonLocalizedClassName() { return _M("NifShader"); }
 	HINSTANCE      HInstance() { return hInstance; }          // returns owning module handle
 };
 

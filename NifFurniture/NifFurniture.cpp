@@ -489,6 +489,7 @@ public:
 	const TCHAR* 	Category() { return GetString(IDS_CATEGORY); }
 
 	const TCHAR*	InternalName() { return TEXT("NifFurnitureMarker"); }	// returns fixed parsable name (scripter-visible name)
+	const MCHAR*	NonLocalizedClassName() { return _M("NifFurnitureMarker"); }
 	HINSTANCE		HInstance() { return hInstance; }					// returns owning module handle
 };
 

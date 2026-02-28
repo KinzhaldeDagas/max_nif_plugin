@@ -85,7 +85,8 @@ static INT_PTR CALLBACK KfExportOptionsDlgProc(HWND hWnd, UINT message, WPARAM w
 		CheckDlgButton(hWnd, IDC_CHK_LIGHTS, Exporter::mExportLights);
 		CheckDlgButton(hWnd, IDC_CHK_CAMERA, Exporter::mExportCameras);
 		CheckDlgButton(hWnd, IDC_CHK_TRANSFORMS, Exporter::mExportTransforms);
-		SetDlgItemText(hWnd, IDC_ED_PRIORITY, FormatText(TEXT("%.1f"), Exporter::mDefaultPriority));
+		TSTR priorityText = FormatText(TEXT("%.1f"), Exporter::mDefaultPriority);
+		SetDlgItemText(hWnd, IDC_ED_PRIORITY, priorityText);
 
 		tstring selection = Exporter::mGameName;
 		tstring version = Exporter::mNifVersion;
