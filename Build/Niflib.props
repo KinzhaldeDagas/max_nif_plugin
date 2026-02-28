@@ -1,0 +1,17 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <NiflibRoot Condition="'$(NiflibRoot)'==''">C:\src\niflib</NiflibRoot>
+  </PropertyGroup>
+
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>
+        $(NiflibRoot)\include;
+        $(NiflibRoot)\src;
+        $(NiflibRoot)\src\gen;
+        $(NiflibRoot)\src\obj;
+        %(AdditionalIncludeDirectories)
+      </AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+</Project>

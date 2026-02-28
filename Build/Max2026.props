@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup Label="Max2026">
+    <MaxSdkDir>$(MAX_SDK_DIR)</MaxSdkDir>
+  </PropertyGroup>
+
+  <!-- These configuration names are non-canonical (they include spaces), so map explicitly. -->
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release - Max 2026|x64'">
+    <MaxSdkLibDir>$(MaxSdkDir)\lib\x64\Release</MaxSdkLibDir>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug - Max 2026|x64'">
+    <!-- Max SDK commonly ships only Release libs; using Release here is standard practice unless Debug exists. -->
+    <MaxSdkLibDir>$(MaxSdkDir)\lib\x64\Release</MaxSdkLibDir>
+  </PropertyGroup>
+
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(MaxSdkDir)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN64;_WIN64;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(MaxSdkLibDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+
+</Project>

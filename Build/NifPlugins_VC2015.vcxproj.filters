@@ -4,9 +4,6 @@
     <Filter Include="NifProps">
       <UniqueIdentifier>{7ab0cdca-ea0a-4be3-90c6-b079a11695f1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="NifProps\Core">
-      <UniqueIdentifier>{88bb1dc2-e817-4346-8d8d-e626bd488907}</UniqueIdentifier>
-    </Filter>
     <Filter Include="NifProps\Collision">
       <UniqueIdentifier>{39a6428e-a90e-433c-83cc-6e09421991cb}</UniqueIdentifier>
     </Filter>
@@ -79,19 +76,22 @@
     <Filter Include="MtlUtils">
       <UniqueIdentifier>{c9ecfbd7-8249-4069-9706-4d03a80dba4f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="NifProps\Collision\Core">
+      <UniqueIdentifier>{88bb1dc2-e817-4346-8d8d-e626bd488907}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\NifProps\iNifProps.h">
-      <Filter>NifProps\Core</Filter>
+      <Filter>NifProps\Collision\Core</Filter>
     </ClInclude>
     <ClInclude Include="..\NifProps\NifProps.h">
-      <Filter>NifProps\Core</Filter>
+      <Filter>NifProps\Collision\Core</Filter>
     </ClInclude>
     <ClInclude Include="..\NifProps\NifStrings.h">
-      <Filter>NifProps\Core</Filter>
+      <Filter>NifProps\Collision\Core</Filter>
     </ClInclude>
     <ClInclude Include="..\NifProps\resource.h">
-      <Filter>NifProps\Core</Filter>
+      <Filter>NifProps\Collision\Core</Filter>
     </ClInclude>
     <ClInclude Include="..\NifProps\bhkHelperFuncs.h">
       <Filter>NifProps\Collision</Filter>
@@ -199,12 +199,12 @@
       <Filter>MtlUtils</Filter>
     </ClInclude>
     <ClInclude Include="..\NifProps\MaterialFile.h">
-      <Filter>NifProps\Core</Filter>
+      <Filter>NifProps\Collision\Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\NifProps\nifProps.cpp">
-      <Filter>NifProps\Core</Filter>
+      <Filter>NifProps\Collision\Core</Filter>
     </ClCompile>
     <ClCompile Include="..\NifProps\bhkBoxObj.cpp">
       <Filter>NifProps\Collision</Filter>
@@ -366,7 +366,7 @@
       <Filter>NifProps\Shader</Filter>
     </ClCompile>
     <ClCompile Include="..\NifProps\MaterialFile.cpp">
-      <Filter>NifProps\Core</Filter>
+      <Filter>NifProps\Collision\Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
