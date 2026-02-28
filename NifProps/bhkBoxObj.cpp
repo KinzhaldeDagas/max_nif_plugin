@@ -205,7 +205,7 @@ INT_PTR BoxParamDlgProc::DlgProc(TimeValue t,IParamMap2 *map,HWND hWnd,UINT msg,
 
 			Interval valid;
 			int sel = NP_INVALID_HVK_MATERIAL;
-			so->pblock2->GetValue( PB_MATERIAL, 0, sel, valid);
+			if (IParamBlock2* pblock = so->GetParamBlockByID(box_params)) pblock->GetValue( PB_MATERIAL, 0, sel, valid);
 			mCbMaterial.select( sel + 1 );
 
 			Update(t);
@@ -216,7 +216,7 @@ INT_PTR BoxParamDlgProc::DlgProc(TimeValue t,IParamMap2 *map,HWND hWnd,UINT msg,
 		{
 		case IDC_CB_MATERIAL:
 			if (HIWORD(wParam)==CBN_SELCHANGE) {
-				so->pblock2->SetValue( PB_MATERIAL, 0, mCbMaterial.selection() - 1 );
+				if (IParamBlock2* pblock = so->GetParamBlockByID(box_params)) pblock->SetValue( PB_MATERIAL, 0, mCbMaterial.selection() - 1 );
 			}
 			break;
 		}
@@ -357,10 +357,10 @@ int BoxObjCreateCallBack::proc(ViewExp *vpt,int msg, int point, int flags, IPoin
             }
 
             sp0 = m;
-            ob->pblock2->SetValue(PB_WIDTH,0,0.0f);
-            ob->pblock2->SetValue(PB_LENGTH,0,0.0f);
-            ob->pblock2->SetValue(PB_HEIGHT,0,0.0f);
-            ob->pblock2->SetValue(PB_SCALE,0,NifPropsGlobals::bhkScaleFactor);
+            if (IParamBlock2* pblock = ob->GetParamBlockByID(box_params)) pblock->SetValue(PB_WIDTH,0,0.0f);
+            if (IParamBlock2* pblock = ob->GetParamBlockByID(box_params)) pblock->SetValue(PB_LENGTH,0,0.0f);
+            if (IParamBlock2* pblock = ob->GetParamBlockByID(box_params)) pblock->SetValue(PB_HEIGHT,0,0.0f);
+            if (IParamBlock2* pblock = ob->GetParamBlockByID(box_params)) pblock->SetValue(PB_SCALE,0,NifPropsGlobals::bhkScaleFactor);
             ob->suspendSnap = TRUE;								
             p0 = vpt->SnapPoint(m,m,nullptr,SNAP_IN_3D);
             p1 = p0 + Point3(.01,.01,.01);
@@ -388,9 +388,9 @@ int BoxObjCreateCallBack::proc(ViewExp *vpt,int msg, int point, int flags, IPoin
             }
 
             s = NifPropsGlobals::bhkScaleFactor;
-            ob->pblock2->SetValue(PB_WIDTH,0,float(fabs(d.x / s / 2.0f)));
-            ob->pblock2->SetValue(PB_LENGTH,0,float(fabs(d.y / s / 2.0f)));
-            ob->pblock2->SetValue(PB_HEIGHT,0,float(fabs(d.z / s / 2.0f)));
+            if (IParamBlock2* pblock = ob->GetParamBlockByID(box_params)) pblock->SetValue(PB_WIDTH,0,float(fabs(d.x / s / 2.0f)));
+            if (IParamBlock2* pblock = ob->GetParamBlockByID(box_params)) pblock->SetValue(PB_LENGTH,0,float(fabs(d.y / s / 2.0f)));
+            if (IParamBlock2* pblock = ob->GetParamBlockByID(box_params)) pblock->SetValue(PB_HEIGHT,0,float(fabs(d.z / s / 2.0f)));
             ob->pmapParam->Invalidate();										
 
             if (msg==MOUSE_POINT && (Length(sp1-sp0)<3 || Length(d)<0.1f)) {
@@ -417,9 +417,9 @@ int BoxObjCreateCallBack::proc(ViewExp *vpt,int msg, int point, int flags, IPoin
             }
 
             s = NifPropsGlobals::bhkScaleFactor;
-            ob->pblock2->SetValue(PB_WIDTH,0,float(fabs(d.x / s / 2.0f)));
-            ob->pblock2->SetValue(PB_LENGTH,0,float(fabs(d.y / s / 2.0f)));
-            ob->pblock2->SetValue(PB_HEIGHT,0,float(fabs(d.z / s / 2.0f)));
+            if (IParamBlock2* pblock = ob->GetParamBlockByID(box_params)) pblock->SetValue(PB_WIDTH,0,float(fabs(d.x / s / 2.0f)));
+            if (IParamBlock2* pblock = ob->GetParamBlockByID(box_params)) pblock->SetValue(PB_LENGTH,0,float(fabs(d.y / s / 2.0f)));
+            if (IParamBlock2* pblock = ob->GetParamBlockByID(box_params)) pblock->SetValue(PB_HEIGHT,0,float(fabs(d.z / s / 2.0f)));
             ob->pmapParam->Invalidate();				
 
             if (msg==MOUSE_POINT) 
