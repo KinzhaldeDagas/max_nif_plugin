@@ -8,6 +8,11 @@
 //------------------------------
 // Standard Library
 //------------------------------
+// Avoid conflict between WinSDK's global ::byte (rpcndr.h) and std::byte
+#ifndef _HAS_STD_BYTE
+#  define _HAS_STD_BYTE 0
+#endif
+
 #include <algorithm>
 #include <cmath>
 #include <cstdint>

@@ -29,7 +29,7 @@ HISTORY:
 #ifndef _countof
 #define _countof(x) (sizeof(x)/sizeof((x)[0]))
 #endif
-Class_ID BHKCAPSULEOBJECT_CLASS_ID = Class_ID(0x7f8f629a, 0x1d88470a);
+Class_ID bhkCapsuleObject_CLASS_ID = Class_ID(0x7f8f629a, 0x1d88470a);
 class bhkCapsuleObject : public SimpleObject2
 {
 public:			
@@ -57,7 +57,7 @@ public:
 
    // Animatable methods		
    void DeleteThis() {delete this;}
-   Class_ID ClassID() { return BHKCAPSULEOBJECT_CLASS_ID; } 
+   Class_ID ClassID() { return bhkCapsuleObject_CLASS_ID; } 
    SClass_ID SuperClassID() { return HELPER_CLASS_ID; }
 
    int	NumParamBlocks() { return 1; }					// return number of ParamBlocks in this instance
@@ -97,7 +97,7 @@ public:
    }
    const TCHAR *	ClassName() { return GetString(IDS_RB_CAPSULE_CLASS); }
    SClass_ID		SuperClassID() { return HELPER_CLASS_ID; }
-   Class_ID		   ClassID() { return BHKCAPSULEOBJECT_CLASS_ID; }
+   Class_ID		   ClassID() { return bhkCapsuleObject_CLASS_ID; }
    const TCHAR* 	Category() { return TEXT("NifTools"); }
 
    const TCHAR*	InternalName() { return _T("bhkCapsule"); }	// returns fixed parsable name (scripter-visible name)
