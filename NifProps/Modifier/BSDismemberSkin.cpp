@@ -810,8 +810,8 @@ int BSDSModifier::HitTest(TimeValue t, INode* inode, int type, int crossing, int
 	else gw->setRndLimits(gw->getRndLimits() & ~GW_BACKCULL);
 	gw->clearHitCode();
 
-#if VERSION_3DSMAX < ((10000<<16)+(26<<8)+0)
 	SubObjHitList hitList;
+#if VERSION_3DSMAX < ((10000<<16)+(26<<8)+0)
 	MeshSubHitRec *rec;
 #endif
 
@@ -871,7 +871,8 @@ int BSDSModifier::HitTest(TimeValue t, INode* inode, int type, int crossing, int
 		rec = rec->Next();
 	}
 #else
-	res = mesh.SubObjectHitTest(gw, gw->getMaterial(), &hr, flags | hitFlags);
+	res = mesh.SubObjectHitTest(gw, gw->getMaterial(), &hr, flags | hitFlags, hitList);
+	(void)hitList;
 #endif
 
 	gw->setRndLimits(savedLimits);

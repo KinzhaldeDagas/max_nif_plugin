@@ -30,6 +30,21 @@ HISTORY:
 using namespace Niflib;
 
 
+#if VERSION_3DSMAX >= ((10000<<16)+(26<<8)+0) // 3ds Max 2026+
+class IBipMaster {
+public:
+	virtual LPCTSTR GetRootName() = 0;
+	virtual void SetRootName(LPTSTR) = 0;
+	virtual void BeginModes(int, int) = 0;
+	virtual void SetTrianglePelvis(int) = 0;
+	virtual void SetDisplaySettings(int) = 0;
+	virtual BOOL SetBipedScale(INode*, float, BOOL, BOOL, BOOL) = 0;
+	virtual BOOL SetBipedPos(INode*, Point3&, BOOL, BOOL, BOOL) = 0;
+	virtual BOOL SetBipedRot(INode*, Quat, BOOL, BOOL, BOOL) = 0;
+};
+#endif
+
+
 struct NumericStringEquivalence
 {
 	bool operator()(const std::string& lhs, const std::string& rhs) const {
