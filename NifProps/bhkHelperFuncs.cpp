@@ -9,6 +9,28 @@
 
 using namespace std;
 
+// Fallback aliases for older niflib enum sets.
+#ifndef SKY_HAV_MAT_HEAVY_STONE
+#  define SKY_HAV_MAT_HEAVY_STONE SKY_HAV_MAT_STONE
+#endif
+#ifndef SKY_HAV_MAT_BOTTLE
+#  ifdef SKY_HAV_MAT_MATERIAL_BOTTLE_SMALL
+#    define SKY_HAV_MAT_BOTTLE SKY_HAV_MAT_MATERIAL_BOTTLE_SMALL
+#  else
+#    define SKY_HAV_MAT_BOTTLE SKY_HAV_MAT_BARREL
+#  endif
+#endif
+#ifndef SKY_HAV_MAT_MATERIAL_BOULDER_SMALL
+#  ifdef SKY_HAV_MAT_MATERIAL_BOULDER_MEDIUM
+#    define SKY_HAV_MAT_MATERIAL_BOULDER_SMALL SKY_HAV_MAT_MATERIAL_BOULDER_MEDIUM
+#  else
+#    define SKY_HAV_MAT_MATERIAL_BOULDER_SMALL SKY_HAV_MAT_BROKEN_STONE
+#  endif
+#endif
+#ifndef SKY_HAV_MAT_MATERIAL_CARPET
+#  define SKY_HAV_MAT_MATERIAL_CARPET SKY_HAV_MAT_CLOTH
+#endif
+
 #define MAKE_QUAD(na,nb,nc,nd,sm,b) {MakeQuad(nverts,&(mesh.faces[nf]),na, nb, nc, nd, sm, b);nf+=2;}
 
 // Misc stuff

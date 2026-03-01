@@ -9,6 +9,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <_ProjectFileVersion>14.0.23107.0</_ProjectFileVersion>
+    <TargetExt>.dlu</TargetExt>
     <OutDir>$(SolutionDir)Staging\$(PlatformName)\$(Configuration)\$(ProjectName)\</OutDir>
     <IntDir>$(SolutionDir)Temp\$(PlatformName)\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>

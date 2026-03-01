@@ -64,6 +64,7 @@
 #endif
 
 #include "nif_math.h"
+#include "nif_basic_types.h"
 #include "nif_io.h"
 
 #ifndef _countof
