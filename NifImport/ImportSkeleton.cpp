@@ -29,7 +29,8 @@ HISTORY:
 
 using namespace Niflib;
 
-#if VERSION_3DSMAX >= ((10000<<16)+(26<<8)+0) // 3ds Max 2024+
+
+#if VERSION_3DSMAX >= ((10000<<16)+(26<<8)+0) // 3ds Max 2026+
 class IBipMaster {
 public:
 	virtual LPCTSTR GetRootName() = 0;
@@ -42,6 +43,7 @@ public:
 	virtual BOOL SetBipedRot(INode*, Quat, BOOL, BOOL, BOOL) = 0;
 };
 #endif
+
 
 struct NumericStringEquivalence
 {
@@ -262,8 +264,11 @@ void NifImporter::ImportBipeds(vector<NiNodeRef>& nodes)
 	catch (...)
 	{
 	}
-	if (master)
+	if (master) {
+#if VERSION_3DSMAX < ((10000<<16)+(26<<8)+0) // before 3ds Max 2024
 		master->EndModes(BMODE_FIGURE, TRUE);
+#endif
+	}
 #endif
 }
 
@@ -356,11 +361,11 @@ static float CalcScale(INode *bone, NiNodeRef node, vector<NiNodeRef>& children)
 void PosRotScaleBiped(IBipMaster* master, INode *n, Point3 p, Quat& q, float s, PosRotScale prs, TimeValue t = 0)
 {
 	if (prs & prsScale)
-		master->SetBipedScale(TRUE, ScaleValue(Point3(s, s, s)), t, n);
+		master->SetBipedScale(n, s, TRUE, TRUE, TRUE);
 	if (prs & prsRot)
-		master->SetBipedRot(q, t, n, FALSE);
+		master->SetBipedRot(n, q, TRUE, TRUE, FALSE);
 	if (prs & prsPos)
-		master->SetBipedPos(p, t, n, FALSE);
+		master->SetBipedPos(n, p, TRUE, TRUE, FALSE);
 }
 
 AngAxis CalcAngAxis(Point3 vs, Point3 vf)
@@ -480,7 +485,7 @@ void NifImporter::AlignBiped(IBipMaster* master, NiNodeRef node)
 				if (fabs(s - 1.0f) < (FLT_EPSILON*100.0f))
 					break;
 				s1 += FormatText(TEXT(" (%g)"), s);
-				master->SetBipedScale(TRUE, ScaleValue(Point3(s, s, s)), 0, bone);
+				master->SetBipedScale(bone, s, TRUE, TRUE, TRUE);
 			}
 			PosRotScale prs = prsDefault;
 			PosRotScaleBiped(master, bone, p, q, scale, prs);

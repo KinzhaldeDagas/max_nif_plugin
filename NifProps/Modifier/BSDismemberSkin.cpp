@@ -641,7 +641,9 @@ void BSDSModifier::ModifyObject(TimeValue t, ModContext &mc, ObjectState *os, IN
 
 	BitArray& faceSel = d->GetFaceSel();
 	faceSel.SetSize(tobj->GetMesh().getNumFaces(), TRUE);
+	#if VERSION_3DSMAX < ((10000<<16)+(26<<8)+0)
 	tobj->GetMesh().faceSel = faceSel;
+#endif
 	tobj->GetMesh().selLevel = level == 0 ? SEL_OBJECT : GetSelectionLevel();
 
 	Interval outValid;
@@ -809,7 +811,9 @@ int BSDSModifier::HitTest(TimeValue t, INode* inode, int type, int crossing, int
 	gw->clearHitCode();
 
 	SubObjHitList hitList;
+#if VERSION_3DSMAX < ((10000<<16)+(26<<8)+0)
 	MeshSubHitRec *rec;
+#endif
 
 	if (!mc->localData || !((BSDSData*)mc->localData)->GetMesh()) return 0;
 
@@ -826,6 +830,7 @@ int BSDSModifier::HitTest(TimeValue t, INode* inode, int type, int crossing, int
 	Mesh &mesh = *((BSDSData*)mc->localData)->GetMesh();
 
 	// cache backfacing vertices as hidden:
+#if VERSION_3DSMAX < ((10000<<16)+(26<<8)+0)
 	BitArray oldHide;
 	if ((hitFlags & SUBHIT_VERTS) && ignoreBackfaces) {
 		BOOL flip = mat.Parity();
@@ -865,6 +870,10 @@ int BSDSModifier::HitTest(TimeValue t, INode* inode, int type, int crossing, int
 		vpt->LogHit(inode, mc, rec->dist, rec->index, NULL);
 		rec = rec->Next();
 	}
+#else
+	res = mesh.SubObjectHitTest(gw, gw->getMaterial(), &hr, flags | hitFlags, hitList);
+	(void)hitList;
+#endif
 
 	gw->setRndLimits(savedLimits);
 	return res;
@@ -1573,6 +1582,7 @@ INT_PTR BSDSModifierMainDlgProc::DlgProc(TimeValue t, IParamMap2 *map,
 	if (!mod) return FALSE;
 	ICustToolbar *iToolbar;
 	ICustButton *but;
+	(void)but;
 	int matid;
 	int nParts;
 	int nActive;
@@ -1814,7 +1824,9 @@ LocalModData *BSDSData::Clone() {
 BSDSData::BSDSData(Mesh &mesh) {
 	held = 0; this->mesh = NULL; temp = NULL;
 	SetActivePartition(0);
+	#if VERSION_3DSMAX < ((10000<<16)+(26<<8)+0)
 	GetFaceSel() = mesh.faceSel;
+#endif
 }
 
 BSDSData::BSDSData()
@@ -1861,7 +1873,11 @@ void BSDSData::SetFaceSel(int index, BitArray &set, IBSDismemberSkinModifier *im
 	BSDSModifier *mod = (BSDSModifier *)imod;
 	if (theHold.Holding()) theHold.Put(new BSDSSelectRestore(mod, this, SEL_FACE));
 	GetFaceSel(index) = set;
-	if (mesh) mesh->faceSel = set;
+	if (mesh) {
+#if VERSION_3DSMAX < ((10000<<16)+(26<<8)+0)
+		mesh->faceSel = set;
+#endif
+	}
 }
 
 void BSDSData::SetActivePartition(DWORD partition)

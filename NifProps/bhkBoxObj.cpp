@@ -245,7 +245,7 @@ bhkBoxObject::~bhkBoxObject()
 
 void bhkBoxObject::BeginEditParams(IObjParam *ip,ULONG flags,Animatable *prev)
 {
-   SimpleObject::BeginEditParams(ip,flags,prev);
+   SimpleObject2::BeginEditParams(ip,flags,prev);
 
    //if (pmapParam == nullptr) {
    //   pmapParam = CreateCPParamMap2(
@@ -277,7 +277,7 @@ void bhkBoxObject::EndEditParams( IObjParam *ip, ULONG flags,Animatable *next )
 {		
    param_blk.SetUserDlgProc();
 
-   SimpleObject::EndEditParams(ip,flags,next);
+   SimpleObject2::EndEditParams(ip,flags,next);
    this->ip = nullptr;
    pmapParam = nullptr;
    //if (pmapParam && flags&END_EDIT_REMOVEUI ) {
