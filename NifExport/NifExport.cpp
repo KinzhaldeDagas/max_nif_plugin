@@ -482,12 +482,14 @@ int NifExport::DoExportInternal(const TCHAR *name, ExpInterface *ei, Interface *
 	// locate the "default" app setting
 	tstring fname = path;
 	AppSettings *appSettings = Exporter::importAppSettings(fname);
+	if (appSettings == nullptr)
+		return FALSE;
 
 	Exporter::mSuppressPrompts = suppressPrompts;
 	if (!suppressPrompts)
 	{
 		if (DialogBoxParam(hInstance, MAKEINTRESOURCE(IDD_NIF_PANEL), GetActiveWindow(), NifExportOptionsDlgProc, (LPARAM)this) != IDOK)
-			return true;
+			return FALSE;
 
 		// write config to registry
 		Exporter::writeConfig(i);
@@ -495,6 +497,8 @@ int NifExport::DoExportInternal(const TCHAR *name, ExpInterface *ei, Interface *
 		Exporter::writeConfig(i->GetRootNode());
 
 		appSettings = Exporter::exportAppSettings();
+		if (appSettings == nullptr)
+			return FALSE;
 		appSettings->WriteSettings(i);
 	}
 
@@ -596,7 +600,7 @@ int NifExport::DoExportInternal(const TCHAR *name, ExpInterface *ei, Interface *
 			WinExec(T2A(nifskope.c_str()), SW_SHOWNORMAL);
 		}
 	}
-	return true;
+	return TRUE;
 }
 
 
