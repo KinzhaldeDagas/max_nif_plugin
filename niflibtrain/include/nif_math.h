@@ -1396,8 +1396,8 @@ typedef uint16_t hfloat;
 
 NIFLIB_API float ConvertHFloatToFloat(hfloat h);
 NIFLIB_API hfloat ConvertFloatToHFloat(float f);
-NIFLIB_API float ConvertByteToFloat(byte value);
-NIFLIB_API byte ConvertFloatToByte(float value);
+NIFLIB_API float ConvertByteToFloat(unsigned char value);
+NIFLIB_API unsigned char ConvertFloatToByte(float value);
 
 
 //--ostream functions for printing with cout--//
