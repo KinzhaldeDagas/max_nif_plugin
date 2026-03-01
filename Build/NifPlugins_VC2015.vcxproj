@@ -724,6 +724,7 @@
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release - Max 2026|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(ProjectDir)Sheets\Max_System_$(Platform).props" />
     <Import Project="$(ProjectDir)Sheets\Release_Settings.props" />
     <Import Project="Max2026.props" />
   </ImportGroup>
@@ -735,6 +736,7 @@
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug - Max 2026|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(ProjectDir)Sheets\Max_System_$(Platform).props" />
     <Import Project="$(ProjectDir)Sheets\Debug_Settings.props" />
     <Import Project="Max2026.props" />
   </ImportGroup>
