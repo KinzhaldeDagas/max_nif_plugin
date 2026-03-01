@@ -1,0 +1,552 @@
+--------------------------------------------------------------------------------------
+-- Utility functions to merge a benchmark result file into the current scene,
+-- and compare selected data object-by-object
+--
+-- Author: Lee Betchen
+-- Created: February 2020
+--------------------------------------------------------------------------------------
+
+-- Function merges the specified benchmark file into the scene, converts objects to Editable Polys, and compares geometry and topology of same-named
+-- objects. Note that numbers of faces and vertices are always compared for each object.
+--
+-- benchmarkFileName:  the name of benchmark result file, in the directory ./TestData/, to which the present scene should be compared; input
+-- testName:           test case name for the present comparison, used for output messages; input
+-- topologyTol:        fraction, multiplied by benchmark number vertices/faces, to form tolerance for comparison, should be non-zero in cases where
+--                     result is non-deterministic, whence we should not be comparing same-index gemoetry/topology; input
+-- nVerticesToCompare: same-index vertex positions are compared between current and benchmark objects for nVerticesToCompare evenly-spaced vertex
+--                     indices; input
+-- nFacesToCompare:    data for same-index faces are compared between current and benchmark objects, presently including vertex lists and smoothing
+--                     groups, for nFacesToCompare evenly-spaced face indices; input
+-- doClone:            when true, clones of original scene objects are compared, rather than the objects themselves, and the scene is left in the
+--                     same state as on entry; input
+Function CompareWithBenchmark benchmarkFileName testName topologyTol nVerticesToCompare nFacesToCompare doClone = 
+(
+	format "* compareWithBenchMark % % \n" benchmarkFileName testName
+	epsVal = 0.000001
+
+	-- Enter Modify mode
+	max modify mode
+
+	-- Set the number of clones that we should create; either none, or all geometric objects
+	nClones = 0
+	nObjectsOriginal = geometry.count
+	if (doClone) do
+	(
+		nClones = nObjectsOriginal
+	)
+
+	-- Rename the current scene geometry objects to avoid name conflicts with the benchmark file
+	nObjectsOriginalTot = objects.count
+	for obj = 1 to nObjectsOriginalTot do
+	(
+		originalObject = objects[obj]
+		adjustedName = originalObject.name + "_original"
+		originalObject.name = adjustedName
+	)
+
+	-- Clone geometric objects, if requested
+	if (doClone) do
+	(
+		for obj = 1 to nObjectsOriginal do
+		(
+			originalObject = geometry[obj]
+			isCloned = maxOps.CloneNodes originalObject offset:[0.0,0.0,0.0]  actualNodeList:&nodeList newNodes:&newNodes
+			Assert_true isCloned message: ("Error test case " + testName + " (clone)")
+			nNodesList = nodeList.count
+			nNodesNew = newNodes.count
+			nObjectsCurr = geometry.count
+			nObjectsExpectedCurr = nObjectsOriginal + obj
+			Assert_equal 1 nNodesList message: ("Error test case " + testName + " (clone node list)")
+			Assert_equal 1 nNodesNew message: ("Error test case " + testName + " (clone new node list)")
+			Assert_equal nObjectsExpectedCurr nObjectsCurr message: ("Error test case " + testName + " (post-clone number of nodes)")
+			if (nObjectsCurr == nObjectsExpectedCurr) do
+			(
+				clonedObject = geometry[nObjectsCurr]
+				Assert_equal ((newNodes[1]).name) (clonedObject.name) message: ("Error test case " + testName + " (post-clone node name)")
+			)
+		)
+	)
+
+	-- Proceed only if any cloning was successful
+	nObjects = geometry.count
+	nObjectsExpected = nObjectsOriginal + nClones
+	Assert_equal nObjectsExpected nObjects message: ("Error test case " + testName + " (post-clone number of objects)")
+	if (nObjects == nObjectsExpected) do
+	(
+		-- Convert original or cloned objects, as appropriate, to Editable Polys
+		for obj = 1 to nObjectsOriginal do
+		(
+			objectCurr = geometry[nClones + obj]
+			select objectCurr
+			convertTo $ PolyMeshObject
+		)
+
+		-- Merge in the specified benchmark file
+		local filePath = getFileNamePath(getSourceFileName())
+		local fileName = filePath + "/TestData/" + benchmarkFileName
+		isMerged = mergeMaxFile fileName quiet:true
+		Assert_true isMerged message: ("Error test case " + testName + " (merge)")
+
+		-- Check to ensure that we have the same number of geometry objects in the benchmark file as we did in the pre-merge scene
+		nObjects = geometry.count
+		nObjectsExpected = 2 * nObjectsOriginal + nClones
+		Assert_equal nObjectsExpected nObjects message: ("Error test case " + testName + " (post-merge number of objects)")
+
+		-- Proceed only if merge succeeded
+		if (isMerged and (nObjects == nObjectsExpected)) do
+		(
+			-- Convert the benchmark geometry objects to Editable Polys, and compare with the current scene objects
+			for obj = 1 to nObjectsOriginal do
+			(
+				objectCurr = geometry[nClones + obj]
+				benchmarkObject = geometry[nObjectsOriginal + nClones + obj]
+
+				-- Check original and benchmark object names for consistency
+				benchmarkName = benchmarkObject.name + "_original"
+				Assert_equal benchmarkName ((geometry[obj]).name) message: ("Error test case " + testName + " (object name, object " + (obj as string) + ")")
+
+				-- Convert benchmark object to Editable Poly
+				select benchmarkObject
+				convertTo $ PolyMeshObject
+				nVerticesBenchmark = $.numVerts
+				nFacesBenchmark = $.numFaces
+
+				-- Compare number of faces and number of vertices between current and benchmark objects
+				select objectCurr
+				nVerticesCurr = $.numVerts
+				nFacesCurr = $.numFaces
+				nVerticesTolMin = nVerticesBenchmark * (1.0 - (topologyTol + epsVal))
+				nVerticesTolMax = nVerticesBenchmark * (1.0 + (topologyTol + epsVal))
+				nFacesTolMin = nFacesBenchmark * (1.0 - (topologyTol + epsVal))
+				nFacesTolMax = nFacesBenchmark * (1.0 + (topologyTol + epsVal))
+				Assert_true ((nVerticesCurr >= nVerticesTolMin) and (nVerticesCurr <= nVerticesTolMax)) message: ("Error test case " + testName + " (number of vertices, object " + (obj as string) + ", benchmark " + (nVerticesBenchmark as string) + ", current " + (nVerticesCurr as string) + ")")
+				Assert_true ((nFacesCurr >= nFacesTolMin) and (nFacesCurr <= nFacesTolMax)) message: ("Error test case " + testName + " (number of faces, object " + (obj as string) + ", benchmark " + (nFacesBenchmark as string) + ", current " + (nFacesCurr as string) + ")")
+
+				-- If requested, compare positions for each specified vertex
+				if (nVerticesToCompare > 0) do
+				(
+					nVertices = nVerticesCurr
+					if (nVerticesBenchmark < nVertices) do
+					(
+						nVertices = nVerticesBenchmark
+					)
+
+					nVerticesCompared = nVerticesToCompare
+					nVerticesIncrement = nVertices / nVerticesCompared
+					if (nVerticesIncrement == 0) do
+					(
+						nVerticesIncrement = 1
+						nVerticesCompared = nVertices
+					)
+
+					for v = 1 to nVerticesCompared do
+					(
+						indexVertex = 1 + (v - 1) * nVerticesIncrement
+						xVertexBenchmark = benchmarkObject.getVertex indexVertex
+						xVertexCurr = objectCurr.getVertex indexVertex
+						Assert_point3_equal xVertexBenchmark xVertexCurr tolerance:0.001 message: ("Error test case " + testName + " (vertex position, object " + (obj as string) + ", vertex " + (indexVertex as string) + ")")
+					)
+				)
+
+				-- If requested, compare smoothing groups and face vertex indices for each specified face
+				if (nFacesToCompare > 0) do
+				(
+					nFaces = nFacesCurr
+					if (nFacesBenchmark < nFaces) do
+					(
+						nFaces = nFacesBenchmark
+					)
+
+					nFacesCompared = nFacesToCompare
+					nFacesIncrement = nFaces / nFacesCompared
+					if (nFacesIncrement == 0) do
+					(
+						nFacesIncrement = 1
+						nFacesCompared = nFaces
+					)
+
+					for f = 1 to nFacesCompared do
+					(
+						indexFace = 1 + (f - 1) * nFacesIncrement
+						smoothingGroupBenchmark = polyop.getFaceSmoothGroup benchmarkObject indexFace
+						smoothingGroupCurr = polyop.getFaceSmoothGroup objectCurr indexFace
+						Assert_equal smoothingGroupBenchmark smoothingGroupCurr message: ("Error test case " + testName + " (face smoothing group, object " + (obj as string) + ", face " + (indexFace as string) + ")")
+						nVerticesFaceBenchmark = polyOp.getFaceDeg benchmarkObject indexFace
+						nVerticesFaceCurr = polyOp.getFaceDeg objectCurr indexFace
+						Assert_equal nVerticesFaceBenchmark nVerticesFaceCurr message: ("Error test case " + testName + " (number of face vertices, object " + (obj as string) + ", face " + (indexFace as string) + ")")
+						nVerticesFace = nVerticesFaceCurr
+						if (nVerticesFaceBenchmark < nVerticesFace) do
+						(
+							nVerticesFace = nVerticesFaceBenchmark
+						)
+
+						faceVerticesBenchmark = polyop.getFaceVerts benchmarkObject indexFace
+						faceVerticesCurr = polyop.getFaceVerts objectCurr indexFace
+						for v = 1 to nVerticesFace do
+						(
+							Assert_equal faceVerticesBenchmark[v] faceVerticesCurr[v] message: ("Error test case " + testName + " (face vertex index, object " + (obj as string) + ", face " + (indexFace as string) + ", vertex " + (v as string) + ")")
+						)
+					)
+				)
+			)
+		)
+	)
+
+	-- Clean up; delete any non-original objects presently in the scene, and revert names of original scene objects
+	nObjectsTot = objects.count
+	if (nObjectsTot > nObjectsOriginalTot) do
+	(
+		for obj = (nObjectsOriginalTot + 1) to nObjectsTot do
+		(
+			indexObject = nObjectsTot - obj + nObjectsOriginalTot + 1
+			select objects[indexObject]
+			delete $
+		)
+	)
+	
+	for obj = 1 to nObjectsOriginalTot do
+	(
+		originalObject = objects[obj]
+		nCharName = (originalObject.name).count
+		Assert_equal "_original" (substring (originalObject.name) (nCharName - 8) 9) message: ("Error test case " + testName + " (clean up, object " + (obj as string) + ")")
+		originalObject.name = substring (originalObject.name) 1 (nCharName - 9)
+	)
+)
+
+-- Function merges the specified benchmark file into the scene, converts the specified object to an Editable Poly, and compares geometry and topology
+-- of the same-named benchmark object. Note that numbers of faces and vertices are always compared.
+--
+-- benchmarkFileName:      the name of benchmark result file, in the directory ./TestData/, to which the present scene should be compared; input
+-- testName:               test case name for the present comparison, used for output messages; input
+-- topologyTol:            fraction, multiplied by benchmark number vertices/faces, to form tolerance for comparison, should be non-zero in cases
+--                         where result is non-deterministic, whence we should not be comparing same-index gemoetry/topology; input
+-- objectName:             name of the geometric object in the scene for which comparisons are to be performed; input
+-- doClone:                when true, a clone of the original scene object is compared, rather than the object itself, and the scene is left in the
+--                         same state as on entry; input
+-- vertexList:             list of vertex indices for which to compare position vectors between current and benchmark object; input
+-- faceList:               list of face indices for which to compare face data between current and benchmark objects, presently including vertex
+--                         lists, vertex positions, smoothing groups, and material IDs; input
+-- indexMap, doCompareMap: when doCompareMap is true, support for map channel indexMap is compared between current and benchmark objects, and if the
+--                         channel is supported, the map faces corresponding to the faces specified in faceList are also compared; input
+-- doCompareNormals:       when true, the vertex normals for the faces specified in faceList are compared between current and benchmark objects;
+--                         input
+Function CompareSpecifiedWithBenchmark benchmarkFileName testName topologyTol objectName doClone &vertexList &faceList indexMap doCompareMap doCompareNormals = 
+(
+	format "* CompareSpecifiedWithBenchmark % % \n" benchmarkFileName testName
+	invalidIndex = -1
+	epsVal = 0.000001
+	nObjectsToCompare = 2
+
+	-- Enter Modify mode
+	max modify mode
+
+	-- Search for the specified geometric object by name
+	indexObject = invalidIndex
+	nObjectsOriginal = geometry.count
+	for obj = 1 to nObjectsOriginal do
+	(
+		originalObject = geometry[obj]
+		if ((originalObject.name) == objectName) do
+		(
+			Assert_equal invalidIndex indexObject message: ("Error test case " + testName + " (specified object name non-unique)")
+			indexObject = obj
+		)
+	)
+	
+	-- Proceed only if the specified geometric object was found
+	Assert_true (indexObject != invalidIndex) message: ("Error test case " + testName + " (specified object not found)")
+	if (indexObject != invalidIndex) do
+	(
+		-- Set the number of clones that we should create; either none, or all geometric objects
+		nClones = 0
+		if (doClone) do
+		(
+			nClones = 1
+		)
+
+		-- Rename the current scene geometry objects to avoid name conflicts with the benchmark file
+		nObjectsOriginalTot = objects.count
+		for obj = 1 to nObjectsOriginalTot do
+		(
+			originalObject = objects[obj]
+			adjustedName = originalObject.name + "_original"
+			originalObject.name = adjustedName
+		)
+
+		-- If requested, clone the specified object, and adjust indexObject to refer to the clone
+		indexObjectOriginal = indexObject
+		nObjects = nObjectsOriginal
+		nObjectsExpected = nObjectsOriginal + nClones
+		if (doClone) do
+		(
+			originalObject = geometry[indexObject]
+			isCloned = maxOps.CloneNodes originalObject offset:[0.0,0.0,0.0]  actualNodeList:&nodeList newNodes:&newNodes
+			Assert_true isCloned message: ("Error test case " + testName + " (clone)")
+			nNodesList = nodeList.count
+			nNodesNew = newNodes.count
+			nObjects = geometry.count
+			Assert_equal 1 nNodesList message: ("Error test case " + testName + " (clone node list)")
+			Assert_equal 1 nNodesNew message: ("Error test case " + testName + " (clone new node list)")
+			Assert_equal nObjectsExpected nObjects message: ("Error test case " + testName + " (post-clone number of nodes)")
+			if (nObjects == nObjectsExpected) do
+			(
+				indexObject = nObjects
+				clonedObject = geometry[indexObject]
+				Assert_equal ((newNodes[1]).name) (clonedObject.name) message: ("Error test case " + testName + " (post-clone node name)")
+			)
+		)
+
+		-- Proceed only if any cloning was successful
+		if (nObjects == nObjectsExpected) do
+		(
+			objectCurr = geometry[indexObject]
+
+			-- Convert original or cloned object, as appropriate, to Editable Poly
+			select objectCurr
+			convertTo $ PolyMeshObject
+
+			-- Merge in the specified benchmark file
+			local filePath = getFileNamePath(getSourceFileName())
+			local fileName = filePath + "/TestData/" + benchmarkFileName
+			isMerged = mergeMaxFile fileName quiet:true
+			Assert_true isMerged message: ("Error test case " + testName + " (merge)")
+
+			-- Check to ensure that we have the same number of geometry objects in the benchmark file as we did in the pre-merge scene
+			nObjects = geometry.count
+			nObjectsExpected = 2 * nObjectsOriginal + nClones
+			Assert_equal nObjectsExpected nObjects message: ("Error test case " + testName + " (post-merge number of objects)")
+
+			-- Proceed only if merge succeeded
+			if (isMerged and (nObjects == nObjectsExpected)) do
+			(
+				objectCurr = geometry[indexObject]
+				benchmarkObject = geometry[nObjectsOriginal + nClones + indexObjectOriginal]
+
+				-- Check original and benchmark object names for consistency
+				benchmarkName = benchmarkObject.name + "_original"
+				Assert_equal benchmarkName ((geometry[indexObjectOriginal]).name) message: ("Error test case " + testName + " (object name)")
+
+				-- Convert benchmark object to Editable Poly
+				select benchmarkObject
+				convertTo $ PolyMeshObject
+				nVerticesBenchmark = $.numVerts
+				nFacesBenchmark = $.numFaces
+
+				-- Compare number of faces and number of vertices between current and benchmark objects
+				select objectCurr
+				nVerticesCurr = $.numVerts
+				nFacesCurr = $.numFaces
+				nVerticesTolMin = nVerticesBenchmark * (1.0 - (topologyTol + epsVal))
+				nVerticesTolMax = nVerticesBenchmark * (1.0 + (topologyTol + epsVal))
+				nFacesTolMin = nFacesBenchmark * (1.0 - (topologyTol + epsVal))
+				nFacesTolMax = nFacesBenchmark * (1.0 + (topologyTol + epsVal))
+				Assert_true ((nVerticesCurr >= nVerticesTolMin) and (nVerticesCurr <= nVerticesTolMax)) message: ("Error test case " + testName + " (number of vertices, benchmark " + (nVerticesBenchmark as string) + ", current " + (nVerticesCurr as string) + ")")
+				Assert_true ((nFacesCurr >= nFacesTolMin) and (nFacesCurr <= nFacesTolMax)) message: ("Error test case " + testName + " (number of faces, benchmark " + (nFacesBenchmark as string) + ", current " + (nFacesCurr as string) + ")")
+
+				-- If we are comparing mappings, compare support for channel indexMap between current and benchmark objects
+				doCompareMapChannel = false
+				if (doCompareMap) do
+				(
+					isMapSupportedBenchmark = polyOp.getMapSupport benchmarkObject indexMap
+					isMapSupportedCurr = polyOp.getMapSupport objectCurr indexMap
+					Assert_equal isMapSupportedBenchmark isMapSupportedCurr message: ("Error test case " + testName + " (map channel support)")
+					if ((isMapSupportedBenchmark) and (isMapSupportedCurr)) do
+					(
+						doCompareMapChannel = true;
+					)
+				)
+
+				-- Compare positions for each specified vertex
+				nVerticesToCompare = vertexList.count
+				if (nVerticesToCompare > 0) do
+				(
+					nVertices = nVerticesCurr
+					if (nVerticesBenchmark < nVertices) do
+					(
+						nVertices = nVerticesBenchmark
+					)
+				
+					for v = 1 to nVerticesToCompare do
+					(
+						Assert_true ((vertexList[v] >= 1) and (vertexList[v] <= nVertices)) message: ("Error test case " + testName + " (vertex index " + (v as string) + ")")
+						if ((vertexList[v] >= 1) and (vertexList[v] <= nVertices)) do
+						(
+							xVertexBenchmark = benchmarkObject.getVertex vertexList[v]
+							xVertexCurr = objectCurr.getVertex vertexList[v]
+							Assert_point3_equal xVertexBenchmark xVertexCurr tolerance:0.001 message: ("Error test case " + testName + " (vertex position, vertex " + (vertexList[v] as string) + ")")
+						)
+					)
+				)
+
+				-- Compare smoothing groups, material IDs, and face vertex indices and positions for each specified face, along with
+				-- map faces and face vertex normals, if requested
+				nFacesToCompare = faceList.count
+				if (nFacesToCompare > 0) do
+				(
+					nFaces = nFacesCurr
+					if (nFacesBenchmark < nFaces) do
+					(
+						nFaces = nFacesBenchmark
+					)
+				
+					for f = 1 to nFacesToCompare do
+					(
+						Assert_true ((faceList[f] >= 1) and (faceList[f] <= nFaces)) message: ("Error test case " + testName + " (face index " + (f as string) + ")")
+						if ((faceList[f] >= 1) and (faceList[f] <= nFaces)) do
+						(
+							smoothingGroupBenchmark = polyop.getFaceSmoothGroup benchmarkObject faceList[f]
+							smoothingGroupCurr = polyop.getFaceSmoothGroup objectCurr faceList[f]
+							Assert_equal smoothingGroupBenchmark smoothingGroupCurr message: ("Error test case " + testName + " (face smoothing group, face " + (faceList[f] as string) + ")")
+							materialIDBenchmark = polyop.getFaceMatID benchmarkObject faceList[f]
+							materialIDCurr = polyop.getFaceMatID objectCurr faceList[f]
+							Assert_equal materialIDBenchmark materialIDCurr message: ("Error test case " + testName + " (face material ID, face " + (faceList[f] as string) + ")")
+							nVerticesFaceBenchmark = polyOp.getFaceDeg benchmarkObject faceList[f]
+							nVerticesFaceCurr = polyOp.getFaceDeg objectCurr faceList[f]
+							Assert_equal nVerticesFaceBenchmark nVerticesFaceCurr message: ("Error test case " + testName + " (number of face vertices, face " + (faceList[f] as string) + ")")
+							nVerticesFace = nVerticesFaceCurr
+							if (nVerticesFaceBenchmark < nVerticesFace) do
+							(
+								nVerticesFace = nVerticesFaceBenchmark
+							)
+
+							faceVerticesBenchmark = polyop.getFaceVerts benchmarkObject faceList[f]
+							faceVerticesCurr = polyop.getFaceVerts objectCurr faceList[f]
+							for v = 1 to nVerticesFace do
+							(
+								Assert_equal faceVerticesBenchmark[v] faceVerticesCurr[v] message: ("Error test case " + testName + " (face vertex index, face " + (faceList[f] as string) + ", vertex " + (v as string) + ")")
+								xVertexBenchmark = benchmarkObject.getVertex faceVerticesBenchmark[v]
+								xVertexCurr = objectCurr.getVertex faceVerticesCurr[v]
+								Assert_point3_equal xVertexBenchmark xVertexCurr tolerance:0.001 message: ("Error test case " + testName + " (face vertex position, face " + (faceList[f] as string) + ", vertex " + (v as string) + ")")
+							)
+
+							-- Compare map vertex indices and positions, if requested
+							if (doCompareMapChannel) do
+							(
+								mapVerticesBenchmark = polyOp.getMapFace benchmarkObject indexMap faceList[f]
+								mapVerticesCurr = polyOp.getMapFace objectCurr indexMap faceList[f]
+								nMapVerticesBenchmark = mapVerticesBenchmark.count
+								nMapVerticesCurr = mapVerticesCurr.count
+								Assert_true ((nMapVerticesBenchmark >= nVerticesFace) and (nMapVerticesCurr >= nVerticesFace)) message: ("Error test case " + testName + " (number of face map vertices, face " + (faceList[f] as string) + ")")
+								if ((nMapVerticesBenchmark >= nVerticesFace) and (nMapVerticesCurr >= nVerticesFace)) do
+								(
+									for v = 1 to nVerticesFace do
+									(
+										Assert_equal mapVerticesBenchmark[v] mapVerticesCurr[v] message: ("Error test case " + testName + " (face map vertex index, face " + (faceList[f] as string) + ", vertex " + (v as string) + ")")
+										Assert_point3_equal (polyOp.getMapVert benchmarkObject indexMap mapVerticesBenchmark[v]) (polyOp.getMapVert objectCurr indexMap mapVerticesCurr[v]) tolerance:0.001 message: ("Error test case " + testName + " (face map vertex position, face " + (faceList[f] as string) + ", vertex " + (v as string) + ")")
+									)
+								)
+							)
+						)
+					)
+
+					-- Compare face vertex normals, if requested
+					if (doCompareNormals) do
+					(
+						-- Add Edit Normals modifiers to the current and benchmark objects
+						select benchmarkObject
+						addModifier $ (EditNormals())
+						($.modifiers[1]).RebuildNormals()
+						($.modifiers[1]).RecomputeNormals()
+						select objectCurr
+						addModifier $ (EditNormals())
+						($.modifiers[1]).RebuildNormals()
+						($.modifiers[1]).RecomputeNormals()
+
+						-- Compare vertex normals for each specified face; because of a peculiarity with the Edit Normals MaxScript
+						-- interface, we need to select an object before fetching information about it via the Edit Normals
+						-- modifier, and because switching between object entails some expensive evaluations, we will first fetch
+						-- all required data from each object into local arrays, so that we need to select each object only once,
+						-- rather than once per face vertex
+						faceVertexNormals = #(#(),#())
+						faceVertexNormalIndices = #(#(),#())
+						isFaceVertexNormalSpecified = #(#(),#())
+						isFaceVertexNormalExplicit = #(#(),#())
+						faceVerticesBegin = #(#(),#())
+						objectsToCompare = #(benchmarkObject,objectCurr)
+						for obj = 1 to nObjectsToCompare do
+						(
+							nFaceVerticesTot = 0
+							select objectsToCompare[obj]
+							(faceVerticesBegin[obj]).count = nFacesToCompare + 1
+							for f = 1 to nFacesToCompare do
+							(
+								faceVerticesBegin[obj][f] = nFaceVerticesTot + 1
+								if ((faceList[f] >= 1) and (faceList[f] <= nFaces)) do
+								(
+									nVerticesFace = ($.modifiers[1]).GetFaceDegree faceList[f]
+									nFaceVerticesTot = nFaceVerticesTot + nVerticesFace
+								)
+							)
+
+							faceVerticesBegin[obj][nFacesToCompare + 1] = nFaceVerticesTot + 1
+							(faceVertexNormals[obj]).count = nFaceVerticesTot
+							(faceVertexNormalIndices[obj]).count = nFaceVerticesTot
+							(isFaceVertexNormalSpecified[obj]).count = nFaceVerticesTot
+							(isFaceVertexNormalExplicit[obj]).count = nFaceVerticesTot
+							for f = 1 to nFacesToCompare do
+							(
+								nVerticesFace = faceVerticesBegin[obj][f + 1] - faceVerticesBegin[obj][f]
+								for v = 1 to nVerticesFace do
+								(
+									indexVertexInListObj = faceVerticesBegin[obj][f] + v - 1
+									indexNormal = ($.modifiers[1]).GetNormalID faceList[f] v
+									faceVertexNormalIndices[obj][indexVertexInListObj] = indexNormal
+									isFaceVertexNormalSpecified[obj][indexVertexInListObj] = ($.modifiers[1]).GetFaceNormalSpecified faceList[f] v
+									isFaceVertexNormalExplicit[obj][indexVertexInListObj] = ($.modifiers[1]).GetNormalExplicit indexNormal
+									faceVertexNormals[obj][indexVertexInListObj] = ($.modifiers[1]).GetNormal indexNormal
+								)
+							)
+						)
+
+						-- Compare the data fetched above for each specified face
+						indexVertexInList = #()
+						indexVertexInList.count = nObjectsToCompare
+						for f = 1 to nFacesToCompare do
+						(
+							nVerticesFaceBenchmark = faceVerticesBegin[1][f + 1] - faceVerticesBegin[1][f]
+							nVerticesFaceCurr = faceVerticesBegin[2][f + 1] - faceVerticesBegin[2][f]
+							nVerticesFace = nVerticesFaceCurr
+							if (nVerticesFaceBenchmark < nVerticesFace) do
+							(
+								nVerticesFace = nVerticesFaceBenchmark
+							)
+
+							for v = 1 to nVerticesFace do
+							(
+								for obj = 1 to nObjectsToCompare do
+								(
+									indexVertexInList[obj] = faceVerticesBegin[obj][f] + v - 1
+								)
+								
+								Assert_equal faceVertexNormalIndices[1][indexVertexInList[1]] faceVertexNormalIndices[2][indexVertexInList[2]] message: ("Error test case " + testName + " (face vertex normal index, face " + (faceList[f] as string) + ", vertex " + (v as string) + ")")
+								Assert_equal isFaceVertexNormalSpecified[1][indexVertexInList[1]] isFaceVertexNormalSpecified[2][indexVertexInList[2]] message: ("Error test case " + testName + " (face vertex normal specified flag, face " + (faceList[f] as string) + ", vertex " + (v as string) + ")")
+								Assert_equal isFaceVertexNormalExplicit[1][indexVertexInList[1]] isFaceVertexNormalExplicit[2][indexVertexInList[2]] message: ("Error test case " + testName + " (face vertex normal explicit flag, face " + (faceList[f] as string) + ", vertex " + (v as string) + ")")
+								Assert_point3_equal faceVertexNormals[1][indexVertexInList[1]] faceVertexNormals[2][indexVertexInList[2]] tolerance:0.001 message: ("Error test case " + testName + " (face vertex normal vector, face " + (faceList[f] as string) + ", vertex " + (v as string) + ")")
+							)
+						)
+					)
+				)
+			)
+		)
+
+		-- Clean up; delete any non-original objects presently in the scene, and revert names of original scene objects
+		nObjectsTot = objects.count
+		if (nObjectsTot > nObjectsOriginalTot) do
+		(
+			for obj = (nObjectsOriginalTot + 1) to nObjectsTot do
+			(
+				indexObject = nObjectsTot - obj + nObjectsOriginalTot + 1
+				select objects[indexObject]
+				delete $
+			)
+		)
+	
+		for obj = 1 to nObjectsOriginalTot do
+		(
+			originalObject = objects[obj]
+			nCharName = (originalObject.name).count
+			Assert_equal "_original" (substring (originalObject.name) (nCharName - 8) 9) message: ("Error test case " + testName + " (clean up, object " + (obj as string) + ")")
+			originalObject.name = substring (originalObject.name) 1 (nCharName - 9)
+		)
+	)
+)

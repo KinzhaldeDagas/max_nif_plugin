@@ -1,0 +1,173 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build" ToolsVersion="Current">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Hybrid|x64">
+      <Configuration>Hybrid</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{7158176C-7774-420C-93D5-8709E14826DA}</ProjectGuid>
+    <MaxSDK>../../../../maxsdk</MaxSDK>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <Keyword>QtVS_v302</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <Import Project="$(MaxSDK)\ProjectSettings\PropertySheets\3dsmax.general.project.settings.props" />
+  <Import Project="$(GeomProps)" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <PropertyGroup Condition="'$(QtMsBuild)'=='' or !Exists('$(QtMsBuild)\qt.targets')">
+    <QtMsBuild>$(MSBuildProjectDirectory)\QtMsBuild</QtMsBuild>
+  </PropertyGroup>
+  <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')">
+    <Message Importance="High" Text="QtMsBuild: could not locate qt.targets, qt.props; project may not build correctly." />
+  </Target>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(MaxSDK)\ProjectSettings\PropertySheets\3dsmax.cpp.props" />
+  </ImportGroup>
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt_defaults.props')">
+    <Import Project="$(QtMsBuild)\qt_defaults.props" />
+  </ImportGroup>
+  <PropertyGroup Label="QtSettings">
+    <QtModules>core;gui;widgets</QtModules>
+  </PropertyGroup>
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt.props')">
+    <Import Project="$(QtMsBuild)\qt.props" />
+  </ImportGroup>
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir>$(MaxBuildStdplugs)</OutDir>
+    <TargetName>MXSAgni</TargetName>
+    <TargetExt>.dlx</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(MaxSdkInc);$(DirectXSDKInc);$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>mxsagni_pch.h</ForcedIncludeFiles>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>mxsagni_pch.h</PrecompiledHeaderFile>
+      <PreprocessorDefinitions>_CRT_NON_CONFORMING_SWPRINTFS;MAX_SILENCE_DEPRECATED_MATRIX_BOOL_CTOR;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <ResourceCompile>
+      <AdditionalIncludeDirectories>$(MaxSdkInc);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(MaxSdkLib);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <ModuleDefinitionFile>.\MXSAgni.def</ModuleDefinitionFile>
+      <AdditionalDependencies>assetmanagement.lib;bmm.lib;core.lib;gfx.lib;MaxQtBridge.lib;maxscrpt.lib;maxutil.lib;mesh.lib;mnmath.lib;MouseCursors.lib;msimg32.lib;poly.lib;Propsys.lib;SceneScriptSecurityManager.lib;shlwapi.lib;version.lib;wininet.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <None Include="check.ico" />
+    <None Include="checksel.ico" />
+    <None Include="disabled.bmp" />
+    <None Include="submenu.ico" />
+    <None Include="submenusel.ico" />
+    <None Include="MXSAgni.def" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="MXSAgni.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="AngleCtrl.cpp" />
+    <ClCompile Include="avg_DLX.cpp" />
+    <ClCompile Include="BinStream.cpp" />
+    <ClCompile Include="bit.cpp" />
+    <ClCompile Include="clipboard.cpp" />
+    <ClCompile Include="common_funcs.cpp" />
+    <ClCompile Include="ExtClass.cpp" />
+    <ClCompile Include="GraphicsWindow.cpp" />
+    <ClCompile Include="GroupBox.cpp" />
+    <ClCompile Include="i3_func.cpp" />
+    <ClCompile Include="i3_init.cpp" />
+    <ClCompile Include="i3_ui_progbar.cpp" />
+    <ClCompile Include="i3_ui_timer.cpp" />
+    <ClCompile Include="ik.cpp" />
+    <ClCompile Include="ImgTag.cpp" />
+    <ClCompile Include="lam_ctrl.cpp" />
+    <ClCompile Include="le_wraps.cpp" />
+    <ClCompile Include="LinkCtrl.cpp" />
+    <ClCompile Include="MemStream.cpp" />
+    <ClCompile Include="meshop.cpp" />
+    <ClCompile Include="MOUSTRAK.CPP" />
+    <ClCompile Include="mxsagni_pch.cpp">
+      <PrecompiledHeader>Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="mxs_units.cpp" />
+    <ClCompile Include="mxs_variables.cpp" />
+    <ClCompile Include="MXSAgni.cpp" />
+    <ClCompile Include="MXSAgni_main.CPP" />
+    <ClCompile Include="polyop.cpp" />
+    <ClCompile Include="polyops.cpp" />
+    <ClCompile Include="QHyperlinkSecurityWarningDialog.cpp" />
+    <ClCompile Include="refs.cpp" />
+    <ClCompile Include="registry.cpp" />
+    <ClCompile Include="rk_wraps.cpp" />
+    <ClCompile Include="SimpleParser.cpp" />
+    <ClCompile Include="sysInfo.cpp" />
+    <ClCompile Include="systemTools.cpp" />
+    <ClCompile Include="tabbedDialogAccess.cpp" />
+    <ClCompile Include="testonly.cpp" />
+    <ClCompile Include="UIExtend.cpp" />
+    <ClCompile Include="viewport.cpp" />
+    <ClCompile Include="windows.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="agnidefs.h" />
+    <ClInclude Include="avg_dlx.h" />
+    <ClInclude Include="BinStream.h" />
+    <ClInclude Include="binstream_wraps.h" />
+    <ClInclude Include="bit_wraps.h" />
+    <ClInclude Include="clipboard_wraps.h" />
+    <ClInclude Include="ExtClass.h" />
+    <ClInclude Include="ExtClass_glbls.h" />
+    <ClInclude Include="ExtFuncs.h" />
+    <ClInclude Include="ExtGlbls.h" />
+    <ClInclude Include="GraphicsWindow_wraps.h" />
+    <ClInclude Include="i3.h" />
+    <ClInclude Include="ik_wraps.h" />
+    <ClInclude Include="iMemStream.h" />
+    <ClInclude Include="lam_glbls.h" />
+    <ClInclude Include="lam_wraps.h" />
+    <ClInclude Include="le_wraps.h" />
+    <ClInclude Include="meshop_defs.h" />
+    <ClInclude Include="mxsagni_pch.h" />
+    <ClInclude Include="mxs_units.h" />
+    <ClInclude Include="mxs_variables_wraps.h" />
+    <ClInclude Include="MXSAgni.h" />
+    <ClInclude Include="namedefs.h" />
+    <QtMoc Include="QHyperlinkSecurityWarningDialog.h" />
+    <ClInclude Include="refs_wraps.h" />
+    <ClInclude Include="registry_wraps.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="rk_glbls.h" />
+    <ClInclude Include="rk_wraps.h" />
+    <ClInclude Include="sysInfo_glbls.h" />
+    <ClInclude Include="sysInfo_wraps.h" />
+    <ClInclude Include="systemTools_wraps.h" />
+    <ClInclude Include="testonly.h" />
+    <ClInclude Include="viewport_glbls.h" />
+    <ClInclude Include="viewport_wraps.h" />
+    <ClInclude Include="windows_wraps.h" />
+    <ClInclude Include="WSMClasses.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="QHyperlinkSecurityWarningDialog.ui" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
+    <Import Project="$(QtMsBuild)\qt.targets" />
+  </ImportGroup>
+<ItemGroup>
+    <ClCompile Include="GeneratedFiles\qrc_mxsagni_translations.cpp">
+    <PrecompiledHeader />
+    </ClCompile>
+</ItemGroup></Project>

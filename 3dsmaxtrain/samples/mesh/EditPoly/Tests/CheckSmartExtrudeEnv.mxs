@@ -1,0 +1,16 @@
+/*
+	@param TestName:		checkmaxdata
+	@param Author:			Jesse Desmarais
+	@param Created:			08/17/2021
+	@param LastMod:		 
+	@param ModBy:		   
+	@param Description:		Used by EditPoly.UnitTest to determine if an env var is set correctly.
+*/
+
+		
+	testObj = box()
+	addmodifier testObj (Edit_Poly())
+	format "ADSK_3DSMAX_SMART_EXTRUDE SET : %" testObj.editpoly.enableEnhancedHotkeyExtrude 
+	
+	
+quitmax #noprompt

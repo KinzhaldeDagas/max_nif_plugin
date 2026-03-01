@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Hybrid|x64">
+      <Configuration>Hybrid</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{D198BFB0-B828-4CBD-87B3-1F866E6CB6B4}</ProjectGuid>
+    <Keyword>AtlProj</Keyword>
+    <MaxSDK>../../../../maxsdk</MaxSDK>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <Import Project="$(MaxSDK)\ProjectSettings\PropertySheets\3dsmax.general.project.settings.props" />
+  <Import Project="$(GeomProps)" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(MaxSDK)\ProjectSettings\PropertySheets\3dsmax.cpp.props" />
+  </ImportGroup>
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir>$(MaxBuildStdplugs)</OutDir>
+    <TargetName>MXSActiveX</TargetName>
+    <TargetExt>.dlx</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(MaxSdkInc);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>stdafx.h</ForcedIncludeFiles>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
+      <PreprocessorDefinitions>_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <ResourceCompile>
+      <AdditionalIncludeDirectories>$(MaxSdkInc);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(MaxSdkLib);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <ModuleDefinitionFile>.\MXSActiveX.def</ModuleDefinitionFile>
+      <AdditionalDependencies>assetmanagement.lib;bmm.lib;core.lib;maxscrpt.lib;maxutil.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="comwraps.cpp" />
+    <ClCompile Include="MethInfo.Cpp" />
+    <ClCompile Include="MSComObject.cpp" />
+    <ClCompile Include="MXSActiveX.cpp" />
+    <ClCompile Include="mxsactivex_pch.cpp">
+      <PrecompiledHeader>Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="TypeAttr.Cpp" />
+    <ClCompile Include="VarUtils.Cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="MXSActiveX.def" />
+    <None Include="Notes.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="MXSActiveX.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="classcfg.h" />
+    <ClInclude Include="compro.h" />
+    <ClInclude Include="comwraps.h" />
+    <ClInclude Include="MethInfo.H" />
+    <ClInclude Include="MSComObject.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="StdAfx.h" />
+    <ClInclude Include="TypeAttr.H" />
+    <ClInclude Include="VarUtils.H" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+</Project>

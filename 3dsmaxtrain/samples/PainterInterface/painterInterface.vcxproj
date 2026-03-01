@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Hybrid|x64">
+      <Configuration>Hybrid</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{7C001507-7839-4855-869D-ADB5367E7F28}</ProjectGuid>
+    <MaxSDK>../../../maxsdk</MaxSDK>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <Keyword>QtVS_v302</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <Import Project="$(MaxSDK)\ProjectSettings\PropertySheets\3dsmax.general.project.settings.props" />
+  <Import Project="$(GeomProps)" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(MaxSDK)\ProjectSettings\PropertySheets\3dsmax.cpp.props" />
+  </ImportGroup>
+  <PropertyGroup Condition="'$(QtMsBuild)'=='' or !Exists('$(QtMsBuild)\qt.targets')">
+  <QtMsBuild>$(MSBuildProjectDirectory)\QtMsBuild</QtMsBuild>
+  </PropertyGroup>
+  <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')">
+    <Message Importance="High" Text="QtMsBuild: could not locate qt.targets, qt.props; project may not build correctly." />
+  </Target>
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt_defaults.props')">
+    <Import Project="$(QtMsBuild)\qt_defaults.props" />
+  </ImportGroup>
+  <PropertyGroup Label="QtSettings">
+    <QtModules>core;widgets</QtModules>
+  </PropertyGroup>
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt.props')">
+    <Import Project="$(QtMsBuild)\qt.props" />
+  </ImportGroup>
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir>$(MaxBuildStdplugs)</OutDir>
+    <TargetName>painterInterface</TargetName>
+    <TargetExt>.dlu</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <ForcedIncludeFiles>painterInterface_pch.h</ForcedIncludeFiles>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>painterInterface_pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(MaxSdkInc);$(MaxSDK)\samples\painterinterface\wacom_include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_NON_CONFORMING_SWPRINTFS;_USRDLL;MAX_SILENCE_DEPRECATED_MATRIX_BOOL_CTOR;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <ResourceCompile>
+      <AdditionalIncludeDirectories>$(MaxSdkInc);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(MaxSdkLib);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <ModuleDefinitionFile>.\painterInterface.def</ModuleDefinitionFile>
+      <AdditionalDependencies>bmm.lib;core.lib;maxscrpt.lib;maxutil.lib;mesh.lib;mnmath.lib;paramblk2.lib;poly.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="BoundsTree.cpp" />
+    <ClCompile Include="BrushPresets.cpp" />
+    <ClCompile Include="BrushPresetsMgr.cpp" />
+    <ClCompile Include="DllEntry.cpp" />
+    <ClCompile Include="normal.cpp" />
+    <ClCompile Include="painterInterface.cpp" />
+    <ClCompile Include="painterInterfaceFP.cpp" />
+    <ClCompile Include="painterInterfaceOptionsDialog.cpp" />
+    <ClCompile Include="painterInterfaceTablet.cpp" />
+    <ClCompile Include="PaintMode.cpp" />
+    <ClCompile Include="PaintMouseProc.cpp" />
+    <ClCompile Include="PointGatherer.cpp" />
+    <ClCompile Include="painterInterface_pch.cpp">
+      <PrecompiledHeader>Create</PrecompiledHeader>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="painterInterface.def" />
+    <None Include="skin_param.bmp" />
+    <None Include="skin_param_mask.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="painterInterface.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="BoundsTree.h" />
+    <ClInclude Include="BrushPresets.h" />
+    <ClInclude Include="..\..\include\IPainterInterface.h" />
+    <ClInclude Include="painterInterface.h" />
+    <ClInclude Include="PointGatherer.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="veroverrides.h" />
+    <ClInclude Include="painterInterface_pch.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
+    <Import Project="$(QtMsBuild)\qt.targets" />
+  </ImportGroup>
+</Project>

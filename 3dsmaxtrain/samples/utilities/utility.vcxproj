@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Hybrid|x64">
+      <Configuration>Hybrid</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{C436F674-98F8-4EBC-986C-28DAC5EB8BF8}</ProjectGuid>
+    <MaxSDK>../../../maxsdk</MaxSDK>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <Import Project="$(MaxSDK)\ProjectSettings\PropertySheets\3dsmax.general.project.settings.props" />
+  <Import Project="$(GeomProps)" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(MaxSDK)\ProjectSettings\PropertySheets\3dsmax.cpp.props" />
+  </ImportGroup>
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir>$(MaxBuildStdplugs)</OutDir>
+    <TargetName>utility</TargetName>
+    <TargetExt>.dlu</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(MaxSdkInc);$(MaxSdkInc)\xref;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>util.h</ForcedIncludeFiles>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>util.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ResourceCompile>
+      <AdditionalIncludeDirectories>$(MaxSdkInc);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(MaxSdkLib);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <ModuleDefinitionFile>.\util.def</ModuleDefinitionFile>
+      <AdditionalDependencies>assetmanagement.lib;bmm.lib;core.lib;maxutil.lib;mesh.lib;mnmath.lib;paramblk2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="appdata.cpp" />
+    <ClCompile Include="celltex.cpp" />
+    <ClCompile Include="colclip.cpp" />
+    <ClCompile Include="collapse.cpp" />
+    <ClCompile Include="filter.cpp" />
+    <ClCompile Include="linkinfo.cpp" />
+    <ClCompile Include="ortkeys.cpp" />
+    <ClCompile Include="randkeys.cpp" />
+    <ClCompile Include="refobj.cpp" />
+    <ClCompile Include="rescale.cpp" />
+    <ClCompile Include="selkeys.cpp" />
+    <ClCompile Include="setkeyUtil.cpp" />
+    <ClCompile Include="shapechk.cpp" />
+    <ClCompile Include="util.cpp">
+      <PrecompiledHeader>Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="utiltest.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="util.def" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="util.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="util.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+</Project>

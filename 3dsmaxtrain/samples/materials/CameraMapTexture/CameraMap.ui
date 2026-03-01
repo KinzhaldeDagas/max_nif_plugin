@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>CameraMapRollup</class>
+ <widget class="QWidget" name="CameraMapRollup">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>313</width>
+    <height>427</height>
+   </rect>
+  </property>
+  <layout class="QGridLayout" name="gridLayout" columnstretch="0,2,1">
+   <item row="0" column="2">
+    <widget class="MaxSDK::QmaxSpinBox" name="MapChannel"/>
+   </item>
+   <item row="3" column="1" colspan="2">
+    <widget class="QPushButton" name="zbuffer">
+     <property name="text">
+      <string>ZBuffer</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0" alignment="Qt::AlignLeft">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>Camera:</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="1" colspan="2">
+    <widget class="QPushButton" name="mask">
+     <property name="text">
+      <string>Alpha</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1" alignment="Qt::AlignRight">
+    <widget class="QLabel" name="label_4">
+     <property name="text">
+      <string>Map Channel:</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="0">
+    <widget class="QCheckBox" name="useMask">
+     <property name="text">
+      <string>Mask:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="7" column="0" colspan="2">
+    <widget class="QCheckBox" name="backFace">
+     <property name="text">
+      <string>Remove Back Face Pixels</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0">
+    <widget class="QCheckBox" name="useZBuffer">
+     <property name="text">
+      <string>ZBuffer Mask:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="9" column="2">
+    <widget class="MaxSDK::QmaxDoubleSpinBox" name="angleThreshold">
+     <property name="suffix">
+      <string> °</string>
+     </property>
+     <property name="singleStep">
+      <double>0.500000000000000</double>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="2">
+    <widget class="MaxSDK::QmaxDoubleSpinBox" name="ZFudge"/>
+   </item>
+   <item row="1" column="1" colspan="2">
+    <widget class="QPushButton" name="camera">
+     <property name="text">
+      <string>Pick Camera</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1" colspan="2">
+    <widget class="QPushButton" name="texture">
+     <property name="text">
+      <string>Texture</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="1">
+    <widget class="QLabel" name="label_2">
+     <property name="text">
+      <string>ZFudge:</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="0" colspan="2">
+    <widget class="QCheckBox" name="maskUsesProjection">
+     <property name="text">
+      <string>Mask Uses the Camera Projection</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0" alignment="Qt::AlignLeft">
+    <widget class="QLabel" name="label_5">
+     <property name="text">
+      <string>Texture:</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="10" column="0" colspan="3">
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
+      <string>Aspect Ratio</string>
+     </property>
+     <layout class="QGridLayout" name="aspectLayout" columnstretch="2,1,0,1">
+      <item row="1" column="0" colspan="4">
+       <widget class="QRadioButton" name="mode_bitmap">
+        <property name="toolTip">
+         <string>&lt;b&gt;Attached Bitmap:&lt;/b&gt;&lt;br/&gt;
+In this mode, the aspect ratio of any attached &lt;b&gt;Bitmap&lt;/b&gt; is automatically used. However, if any other type of texture is used, from which the inherent aspect ratio can not be deduced, the &lt;b&gt;Custom&lt;/b&gt; aspect ratio is used as a fallback.</string>
+        </property>
+        <property name="text">
+         <string>Attached Bitmap (when available)</string>
+        </property>
+        <attribute name="buttonGroup">
+         <string notr="true">aspectMode</string>
+        </attribute>
+       </widget>
+      </item>
+      <item row="3" column="3">
+       <widget class="MaxSDK::QmaxDoubleSpinBox" name="vaspect">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Vertical Aspect Ratio&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="MaxSDK::QmaxDoubleSpinBox" name="haspect">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Horizontal Aspect Ratio&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="2">
+       <widget class="QLabel" name="label_6">
+        <property name="text">
+         <string>/</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0" alignment="Qt::AlignTop">
+       <widget class="QRadioButton" name="mode_custom">
+        <property name="toolTip">
+         <string>&lt;b&gt;Custom:&lt;/b&gt;&lt;br/&gt;
+Set any custom width-to-height ratio for use as the projections aspect ratio. This ratio is also used if the &lt;b&gt;Attached Bitmap&lt;/b&gt; mode is selected, but the attached texture &lt;i&gt;isn't&lt;/i&gt; a pure &lt;b&gt;Bitmap&lt;/b&gt;.</string>
+        </property>
+        <property name="text">
+         <string>Custom:</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+        <attribute name="buttonGroup">
+         <string notr="true">aspectMode</string>
+        </attribute>
+       </widget>
+      </item>
+      <item row="0" column="0" colspan="4">
+       <widget class="QRadioButton" name="mode_legacy">
+        <property name="toolTip">
+         <string>&lt;b&gt;Rendered Image:&lt;/b&gt;&lt;br/&gt;
+Matches the aspect ratio of the image currently being rendered, which is the legacy behavior. In this mode, there is a risk of the projection changing when output resolution is changed.</string>
+        </property>
+        <property name="text">
+         <string>Rendered Image (Legacy Mode)</string>
+        </property>
+        <attribute name="buttonGroup">
+         <string notr="true">aspectMode</string>
+        </attribute>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="9" column="0" colspan="2">
+    <widget class="QLabel" name="label_3">
+     <property name="text">
+      <string>Angle Threshold:</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>MaxSDK::QmaxSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header location="global">Qt/QmaxSpinBox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MaxSDK::QmaxDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header location="global">Qt/QmaxSpinBox.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+ <buttongroups>
+  <buttongroup name="aspectMode"/>
+ </buttongroups>
+</ui>

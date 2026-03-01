@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Hybrid|x64">
+      <Configuration>Hybrid</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectName>EditPolyModifier</ProjectName>
+    <ProjectGuid>{ACD84BC0-D60B-403D-B38D-52A1EF46CB9A}</ProjectGuid>
+    <RootNamespace>EditPolyMod</RootNamespace>
+    <MaxSDK>../../../../maxsdk</MaxSDK>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <Import Project="$(MaxSDK)\ProjectSettings\PropertySheets\3dsmax.general.project.settings.props" />
+  <Import Project="$(GeomProps)" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(MaxSDK)\ProjectSettings\PropertySheets\3dsmax.cpp.props" />
+  </ImportGroup>
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir>$(MaxBuildStdplugs)</OutDir>
+    <TargetName>EditPolyMod</TargetName>
+    <TargetExt>.dlm</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <ForcedIncludeFiles>EPoly.h</ForcedIncludeFiles>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>EPoly.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(MaxSDK)\samples\mesh\editpoly;..\PolyShared;$(MaxSdkInc);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_NON_CONFORMING_SWPRINTFS;MAX_SILENCE_DEPRECATED_MATRIX_BOOL_CTOR;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <ResourceCompile>
+      <AdditionalIncludeDirectories>$(MaxSdkInc);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Link>
+      <ModuleDefinitionFile>.\EditPolyMod.def</ModuleDefinitionFile>
+      <AdditionalLibraryDirectories>$(MaxSdkLib);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>core.lib;gfx.lib;maxscrpt.lib;maxutil.lib;mesh.lib;mnmath.lib;MouseCursors.lib;paramblk2.lib;poly.lib;polypaint.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\EditableModifierCommon\CreateFaceMouseProcTemplate.cpp" />
+    <ClCompile Include="EditPoly.cpp" />
+    <ClCompile Include="EditPolyAccel.cpp" />
+    <ClCompile Include="EditPolyData.cpp" />
+    <ClCompile Include="EditPolyGrips.cpp" />
+    <ClCompile Include="EditPolyLocalOps.cpp" />
+    <ClCompile Include="EditPolyModContextEnumProc.cpp" />
+    <ClCompile Include="EditPolyModes.cpp" />
+    <ClCompile Include="EditPolyOps.cpp" />
+    <ClCompile Include="EditPolyPaint.cpp" />
+    <ClCompile Include="EditPolyRestore.cpp" />
+    <ClCompile Include="EditPolyUI.cpp" />
+    <ClCompile Include="EditPolyUIGeom.cpp" />
+    <ClCompile Include="EditPolyUISettings.cpp" />
+    <ClCompile Include="EditPolyUISubobj.cpp" />
+    <ClCompile Include="EditPolyUISurface.cpp" />
+    <ClCompile Include="EPoly.cpp">
+      <PrecompiledHeader>Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\PolyShared\WaitingStatus.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="EditPolyMod.def" />
+    <None Include="plusminus.bmp" />
+    <None Include="PlusMinusMask.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="EPoly.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\EditableModifierCommon\CreateFaceMouseProcTemplate.h" />
+    <ClInclude Include="EditPoly.h" />
+    <ClInclude Include="EditPolyGrips.h" />
+    <ClInclude Include="EditPolyModContextEnumProc.h" />
+    <ClInclude Include="EditPolyUI.h" />
+    <ClInclude Include="EPoly.h" />
+    <ClInclude Include="..\PolyShared\PolyModeRightClickProcessor.h" />
+    <ClInclude Include="..\PolyShared\PolyModeSelectionProcessor.h" />
+    <ClInclude Include="..\PolyShared\PolySelectionProcessor.h" />
+    <ClInclude Include="..\PolyShared\WaitingStatus.h" />
+    <ClInclude Include="..\..\..\include\iEPolyMod.h" />
+    <ClInclude Include="..\..\..\include\macrorec.h" />
+    <ClInclude Include="..\..\..\include\MeshNormalSpec.h" />
+    <ClInclude Include="..\..\..\Include\MNCommon.h" />
+    <ClInclude Include="..\..\..\Include\MNMesh.h" />
+    <ClInclude Include="..\..\..\include\MNNormalSpec.h" />
+    <ClInclude Include="..\..\..\include\polyobj.h" />
+    <ClInclude Include="..\PolyPaint\PolyPaint.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="..\..\..\include\xtcobject.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+</Project>

@@ -1,0 +1,104 @@
+//**************************************************************************/
+// Copyright (c) 2007 Autodesk, Inc.
+// All rights reserved.
+//
+// Use of this software is subject to the terms of the Autodesk license
+// agreement provided at the time of installation or download, or which
+// otherwise accompanies this software in either electronic or hard copy form.
+//**************************************************************************/
+/**********************************************************************
+*<
+FILE: helpers.h
+
+DESCRIPTION: Helper object header file
+
+CREATED BY: Tom Hudson
+
+HISTORY: Created 31 January 1995
+
+*>	Copyright (c) 1995, All Rights Reserved.
+**********************************************************************/
+#pragma once
+
+#include <object.h>
+#include "CompassRoseObjCreateCallBack.h"
+
+#define COMPASS_CLASS_ID Class_ID(0x69011e82, 0x5622b0d)
+#define AXIS_LENGTH 10.0f //used to be 25.0 before creation proc changed
+#define RU_UPDATE WM_USER + 666
+
+void DrawCompassRoseAxis(ViewExp *vpt,  float length, BOOL sel, BOOL frozen);
+Box3 GetCompassRoseAxisBoundingBox(ViewExp *vpt, const Matrix3 &tm,float length,int resetTM);
+
+
+class CompassRoseObject : public HelperObject {
+public:			
+	// Class vars
+	static HWND hParams;
+	static IObjParam *iObjParams;
+	static int dlgShowAxis;
+	static float dlgAxisLength;
+
+	// Snap suspension flag (TRUE during creation only)
+	BOOL suspendSnap;
+
+	// Params
+	BOOL showAxis;
+	float axisLength;
+	int extDispFlags;
+
+	CompassRoseObject();
+	~CompassRoseObject();
+
+	// From BaseObject
+	const TCHAR* GetObjectName(bool localized) const override;
+	int HitTest(TimeValue t, INode* inode, int type, int crossing, int flags, IPoint2 *p, ViewExp *vpt);
+	void Snap(TimeValue t, INode* inode, SnapInfo *snap, IPoint2 *p, ViewExp *vpt);
+	void SetExtendedDisplay(int flags);
+	int Display(TimeValue t, INode* inode, ViewExp *vpt, int flags);
+	CreateMouseCallBack* GetCreateMouseCallBack();
+	void BeginEditParams( IObjParam *ip, ULONG flags,Animatable *prev);
+	void EndEditParams( IObjParam *ip, ULONG flags,Animatable *next);
+
+	// From Object
+	ObjectState Eval(TimeValue time);
+	void InitNodeName(TSTR& s);
+	Interval ObjectValidity(TimeValue t) {return FOREVER;}
+	int CanConvertToType(Class_ID obtype) 
+	{
+		if (obtype == anyObjectClassID)
+			return TRUE;
+		return FALSE;
+	}
+	Object* ConvertToType(TimeValue t, Class_ID obtype) 
+	{
+		if (obtype == anyObjectClassID)
+			return this;
+		assert(0);
+		return NULL;
+	}
+	void GetWorldBoundBox(TimeValue t, INode *mat, ViewExp *vpt, Box3& box );
+	void GetLocalBoundBox(TimeValue t, INode *mat, ViewExp *vpt, Box3& box );
+	int DoOwnSelectHilite()	{ return 1; }
+	BOOL HasViewDependentBoundingBox() { return TRUE; }
+
+	// Animatable methods
+	void DeleteThis() { delete this; }
+	Class_ID ClassID() { return COMPASS_CLASS_ID; }  
+	void GetClassName(MSTR& s, bool localized) const override;
+	int IsKeyable(){ return 0;}
+
+	//  inherited virtual methods for Reference-management
+	RefResult NotifyRefChanged( const Interval& changeInt, RefTargetHandle hTarget, PartID& partID, RefMessage message, BOOL propagate );
+	RefTargetHandle Clone(RemapDir& remap);
+
+	IOResult Load(ILoad *iload);
+	IOResult Save(ISave *isave);
+
+private:
+	static CompassRoseObjCreateCallBack sCompassRoseCreateCB;
+	static MSTR sObjectName;
+
+};
+
+

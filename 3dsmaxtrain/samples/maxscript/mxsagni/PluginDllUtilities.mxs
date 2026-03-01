@@ -1,0 +1,113 @@
+/*
+    @param TestName:        PluginDllUtilities
+    @param Author:
+    @param Created:
+    @param LastMod:         February 13, 2020
+    @param ModBy:           Amy Goldenberg
+    @param Description:     utility functions for LoadDllsFromDir.UnitTest.ms
+*/
+
+-- Generates the full path of all plug-ins 
+-- The information is returned as a sorted array or plug-in dll full paths
+-- \param loaded - if true, processes the loaded plug-ins, 
+-- if false processes the deferred ones, if not supplied processes all plug-ins
+fn getPluginDllsFullPath loaded: =
+(
+	local pluginInfoArray = #()
+	for i=1 to pluginManager.pluginDllCount do
+	(
+		if (unsupplied == loaded or undefined == loaded or loaded == pluginManager.isPluginDllLoaded i) do
+		(
+			append pluginInfoArray (pluginManager.pluginDllFullPath i)
+		)
+	)
+	qsort pluginInfoArray stricmp
+	pluginInfoArray
+)
+
+-- Counts the number of loaded or deferred plug-ins
+-- \param loaded - if true, counts the number of loaded plug-ins, 
+-- if false counts the number of deferred ones, if not supplied returns the count of all plug-ins
+fn countPluginDlls loaded: = 
+(
+	if (unsupplied == loaded or undefined == loaded) do return pluginManager.pluginDllCount
+	
+	local count = 0
+	for i=1 to pluginManager.pluginDllCount do
+	(
+		if (loaded == (pluginManager.isPluginDllLoaded i)) do 
+		(
+			count = count + 1
+		)
+	)
+	return count
+)
+
+-- Prints out statistics about all the plug-ins: counts (total, deferred) and memory used by all loaded plug-ins
+fn dumpPluginDllInfoSummary = 
+(
+	s = "Total plugin count: " + pluginManager.pluginDllCount as string
+	print s
+	
+	s = "Deferred plugins: " + (countPluginDlls loaded:false) as string
+	print s
+	
+	s = "Loaded plugins: " + (countPluginDlls loaded:true) as string
+	print s
+	
+	sizeKb = pluginManager.loadedPluginDllSize
+	s = "Loaded plugins size: " + (sizeKb as string) + "Kb, " + ((sizeKb / 1024) as string) + "Mb"
+	print s
+	OK
+)
+
+-- Prints out info on all plug-ins and summary info
+-- The info for each plugin is returned as a sorted string array in order to allow
+-- to use this information in spreadsheets
+-- \param loaded - if true, dumps information on loaded plug-ins, if false, dumps information on deferred plug-ins,
+-- if unsupplied dumps information on all the plug-ins
+fn dumpPluginDllsInfo loaded: dumpSummary:false =
+(
+	local pluginInfoArray = #()
+	for i=1 to pluginManager.pluginDllCount do
+	(
+		if (unsupplied == loaded or undefined == loaded or loaded == (pluginManager.isPluginDllLoaded i)) do 
+		(
+			local stringBuf = stringstream ""
+			format "%, Loaded=%, Size=%" (pluginManager.pluginDllFullPath i) (pluginManager.isPluginDllLoaded i) (pluginManager.pluginDllSize i) to:stringBuf
+			append pluginInfoArray (stringBuf as string)
+		)
+	)
+	if (dumpSummary) do dumpPluginDllInfoSummary()
+	qsort pluginInfoArray stricmp
+	pluginInfoArray
+)
+
+-- Loads all deferred plug-ins
+fn loadDeferredplugins = 
+(
+	for i=1 to pluginManager.pluginDllCount do
+	(
+		if (false == (pluginManager.isPluginDllLoaded i)) do 
+		(
+			pluginManager.loadPluginDll i
+		)
+	)	
+)
+
+-- Returns 1 if the plug-in Dll with the specified name is loaded, 0 if it is deferred, -1 if it's not known to the PluginManager
+fn isPluginDllLoaded pluginDllFullPath =
+(
+	local pluginLoaded = undefined
+	for i=1 to pluginManager.pluginDllCount do
+	(
+		if (0 == (stricmp (pluginManager.pluginDllFullPath i) pluginDllFullPath)) do 
+		(
+			pluginLoaded = pluginManager.isPluginDllLoaded i
+			exit 
+		)
+	)	
+	pluginLoaded
+)
+
+

@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<RCC version="1.0">
+	<qresource prefix="__qmax_translations">
+        
+		<file>BasicOps_de-DE.qm</file>
+		
+		<file>BasicOps_fr-FR.qm</file>
+		
+		<file>BasicOps_ja-JP.qm</file>
+		
+		<file>BasicOps_ko-KR.qm</file>
+		
+		<file>BasicOps_pt-BR.qm</file>
+		
+		<file>BasicOps_zh-CN.qm</file>
+		
+	</qresource>
+</RCC>

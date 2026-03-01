@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Hybrid|x64">
+      <Configuration>Hybrid</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{83064531-FC65-4945-ACFA-7BD0E34BAFB9}</ProjectGuid>
+    <MaxSDK>../../../../maxsdk</MaxSDK>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <Import Project="$(MaxSDK)\ProjectSettings\PropertySheets\3dsmax.general.project.settings.props" />
+  <Import Project="$(GeomProps)" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(MaxSDK)\ProjectSettings\PropertySheets\3dsmax.cpp.props" />
+  </ImportGroup>
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir>$(MaxBuildStdplugs)</OutDir>
+    <TargetName>vrmlexp</TargetName>
+    <TargetExt>.dle</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(MaxSdkInc);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>vrml.h</ForcedIncludeFiles>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>vrml.h</PrecompiledHeaderFile>
+      <PreprocessorDefinitions>_CRT_NON_CONFORMING_SWPRINTFS;_LEC_;MAX_SILENCE_DEPRECATED_MATRIX_BOOL_CTOR;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <ResourceCompile>
+      <AdditionalIncludeDirectories>$(MaxSdkInc);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(MaxSdkLib);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <ModuleDefinitionFile>.\vrmlexp.def</ModuleDefinitionFile>
+      <AdditionalDependencies>bmm.lib;core.lib;maxscrpt.lib;maxutil.lib;mesh.lib;MouseCursors.lib;version.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="anchor.cpp" />
+    <ClCompile Include="audio.cpp" />
+    <ClCompile Include="backgrnd.cpp" />
+    <ClCompile Include="bboard.cpp" />
+    <ClCompile Include="bookmark.cpp" />
+    <ClCompile Include="cppout.cpp" />
+    <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="EvalCol.cpp" />
+    <ClCompile Include="fog.cpp" />
+    <ClCompile Include="inline.cpp" />
+    <ClCompile Include="lod.cpp" />
+    <ClCompile Include="navinfo.cpp" />
+    <ClCompile Include="pmesh.cpp" />
+    <ClCompile Include="prox.cpp" />
+    <ClCompile Include="sound.cpp" />
+    <ClCompile Include="timer.cpp" />
+    <ClCompile Include="touch.cpp" />
+    <ClCompile Include="vrml2.cpp" />
+    <ClCompile Include="vrml_api.cpp" />
+    <ClCompile Include="vrmlexp.cpp" />
+    <ClCompile Include="vrmlpch.cpp">
+      <PrecompiledHeader>Create</PrecompiledHeader>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="acob.inl" />
+    <None Include="anchorob.inl" />
+    <None Include="bbob.inl" />
+    <None Include="bgob.inl" />
+    <None Include="clockob.inl" />
+    <None Include="fogob.inl" />
+    <None Include="lodob.inl" />
+    <None Include="niob.inl" />
+    <None Include="touchob.inl" />
+    <None Include="vrmlexp.def" />
+    <None Include="dmtlbut.bmp" />
+    <None Include="dmtlmsk.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="vrmlexp.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="anchor.h" />
+    <ClInclude Include="appd.h" />
+    <ClInclude Include="audio.h" />
+    <ClInclude Include="backgrnd.h" />
+    <ClInclude Include="bboard.h" />
+    <ClInclude Include="bookmark.h" />
+    <ClInclude Include="evalcol.h" />
+    <ClInclude Include="fog.h" />
+    <ClInclude Include="inline.h" />
+    <ClInclude Include="inlist.h" />
+    <ClInclude Include="lod.h" />
+    <ClInclude Include="navinfo.h" />
+    <ClInclude Include="normtab.h" />
+    <ClInclude Include="pmesh.h" />
+    <ClInclude Include="prox.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="sound.h" />
+    <ClInclude Include="timer.h" />
+    <ClInclude Include="touch.h" />
+    <ClInclude Include="veroverrides.h" />
+    <ClInclude Include="vrml.h" />
+    <ClInclude Include="vrml2.h" />
+    <ClInclude Include="vrmlexp.h" />
+    <ClInclude Include="vrml_api.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+</Project>

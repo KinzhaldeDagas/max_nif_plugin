@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build" ToolsVersion="Current">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Hybrid|x64">
+      <Configuration>Hybrid</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectName>ColorConverter</ProjectName>
+    <ProjectGuid>{8B17546A-0477-4B64-A95B-066EC804DD8B}</ProjectGuid>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <MaxSDK>../../../../maxsdk</MaxSDK>
+    <Keyword>QtVS_v302</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <Import Project="$(MaxSDK)\ProjectSettings\PropertySheets\3dsmax.general.project.settings.props" />
+  <Import Project="$(GeomProps)" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(MaxSDK)\ProjectSettings\PropertySheets\3dsmax.cpp.props" />
+  </ImportGroup>
+  <PropertyGroup Condition="'$(QtMsBuild)'=='' or !Exists('$(QtMsBuild)\qt.targets')">
+    <QtMsBuild>$(MSBuildProjectDirectory)\QtMsBuild</QtMsBuild>
+  </PropertyGroup>
+  <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')">
+    <Message Importance="High" Text="QtMsBuild: could not locate qt.targets, qt.props; project may not build correctly." />
+  </Target>
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt.props')">
+    <Import Project="$(QtMsBuild)\qt.props" />
+  </ImportGroup>
+  <PropertyGroup Label="QtSettings">
+    <QtModules>core;gui;widgets</QtModules>
+  </PropertyGroup>
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir>$(MaxBuildStdplugs)</OutDir>
+    <TargetName>ColorConverter</TargetName>
+    <TargetExt>.dlu</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <ForcedIncludeFiles>ColorConverter_pch.h</ForcedIncludeFiles>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>ColorConverter_pch.h</PrecompiledHeaderFile>
+      <PreprocessorDefinitions>_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(MaxSdkInc);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <WarningLevel>Level4</WarningLevel>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(MaxSdkLib);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <ModuleDefinitionFile>ColorConverter.def</ModuleDefinitionFile>
+      <AdditionalDependencies>core.lib;maxutil.lib;paramblk2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="ColorConverter.cpp" />
+    <ClCompile Include="QColorConverterWidget.cpp" />
+    <ClCompile Include="DllEntry.cpp" />
+    <ClCompile Include="QtPluginRollup.cpp" />
+    <ClCompile Include="utils\QColorEyeDropper.cpp" />
+    <ClCompile Include="utils\QColorRectWidget.cpp" />
+    <ClCompile Include="utils\QColorSwatchWidget.cpp" />
+    <ClCompile Include="utils\ColorManagementAPIs.cpp" />
+    <ClCompile Include="ColorConverter_pch.cpp">
+      <PrecompiledHeader>Create</PrecompiledHeader>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="plugin_form.ui" />
+    <QtUic Include="QColorConverterWidget.ui" />
+    <None Include="ColorConverter.def" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="3dsmaxsdk_preinclude.h" />
+    <ClInclude Include="ColorConverter.h" />
+    <ClInclude Include="resource.h" />
+    <QtMoc Include="utils\QColorEyeDropper.h" />
+    <QtMoc Include="utils\QColorRectWidget.h" />
+    <QtMoc Include="utils\QColorSwatchWidget.h" />
+    <ClInclude Include="utils\ColorManagementAPIs.h" />
+    <QtMoc Include="QtPluginRollup.h" />
+    <QtMoc Include="QColorConverterWidget.h" />
+    <ClInclude Include="ColorConverter_pch.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="ColorConverter.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
+    <Import Project="$(QtMsBuild)\qt.targets" />
+  </ImportGroup>
+<ItemGroup>
+    <ClCompile Include="GeneratedFiles\qrc_ColorConverter_translations.cpp">
+    <PrecompiledHeader />
+    </ClCompile>
+</ItemGroup></Project>

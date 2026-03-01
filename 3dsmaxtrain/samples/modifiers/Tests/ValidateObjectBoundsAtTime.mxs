@@ -1,0 +1,43 @@
+--------------------------------------------------------------------------------------
+-- Utility function to check the bounds of a given object at a given time
+--
+-- Author: Tom Hudson
+-- Created: July 2022
+--------------------------------------------------------------------------------------
+
+-- Function checks the specified node's world bounding box at a given time and compares to expected
+-- minimum and maximum values; throws an assert if the min and max values are not within a
+-- small tolerance.
+--
+-- node:               the node to test; input
+-- testTime:           the time at which to compare the bounding box; input
+-- boundsArray:        array of two Point3 expected bounding box values; [1] = min, [2] = max; input
+-- testName:           test case name for the present comparison, used for output messages; input
+
+Function ValidateObjectBoundsAtTime node testTime &boundsArray testName = 
+(
+	at time testTime
+	(
+		bbox = nodeGetBoundingBox node (Matrix3(1))
+		assert_point3_equal boundsArray[1] bbox[1] tolerance:0.005 message: (testName + " bounds min error at time " + (testTime as string))
+		assert_point3_equal boundsArray[2] bbox[2] tolerance:0.005 message: (testName + " bounds max error at time " + (testTime as string))
+	)
+)
+
+-- Function checks the specified node's world bounding box size at a given time and compares to expected
+-- size values; throws an assert if the min and max values are not within a small tolerance.
+--
+-- node:               the node to test; input
+-- testTime:           the time at which to compare the bounding box; input
+-- size:               Point3 expected box size value; input
+-- testName:           test case name for the present comparison, used for output messages; input
+
+Function ValidateObjectSizeAtTime node testTime size testName = 
+(
+	at time testTime
+	(
+		bb = nodeGetBoundingBox node (Matrix3(1))
+		boxSize = bb[2] - bb[1]
+		assert_point3_equal size boxSize tolerance:0.005 message: (testName + " size error at time " + (testTime as string))
+	)
+)

@@ -1,0 +1,522 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>SliceRollup</class>
+ <widget class="QWidget" name="SliceRollup">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>154</width>
+    <height>669</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout_3">
+   <item row="5" column="0" colspan="3">
+    <widget class="QPushButton" name="ReferenceObject">
+     <property name="toolTip">
+      <string>Select to pick a reference object from your scene</string>
+     </property>
+     <property name="text">
+      <string>Pick Object</string>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="0" colspan="3">
+    <widget class="QGroupBox" name="Slice_TypeGroup">
+     <property name="toolTip">
+      <string/>
+     </property>
+     <property name="title">
+      <string>Slice Type</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+     <property name="flat">
+      <bool>false</bool>
+     </property>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="3" column="0">
+       <widget class="QRadioButton" name="removeBottom_radio">
+        <property name="toolTip">
+         <string>Remove the negative portion of the mesh</string>
+        </property>
+        <property name="text">
+         <string>Remove Negative</string>
+        </property>
+        <attribute name="buttonGroup">
+         <string notr="true">Slice_Type</string>
+        </attribute>
+       </widget>
+      </item>
+      <item row="6" column="0">
+       <widget class="QCheckBox" name="Cap">
+        <property name="text">
+         <string>Cap</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QRadioButton" name="splitMesh_radio">
+        <property name="toolTip">
+         <string>Split the the Mesh along the slicing plane, maintaining both sections</string>
+        </property>
+        <property name="text">
+         <string>Split Mesh</string>
+        </property>
+        <attribute name="buttonGroup">
+         <string notr="true">Slice_Type</string>
+        </attribute>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QRadioButton" name="removeTop_radio">
+        <property name="toolTip">
+         <string>Remove the positive portion of the mesh</string>
+        </property>
+        <property name="text">
+         <string>Remove Positive</string>
+        </property>
+        <attribute name="buttonGroup">
+         <string notr="true">Slice_Type</string>
+        </attribute>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QRadioButton" name="refineMesh_radio">
+        <property name="toolTip">
+         <string>Refine the mesh to include new vertices created by the slice</string>
+        </property>
+        <property name="text">
+         <string>Refine Mesh</string>
+        </property>
+        <attribute name="buttonGroup">
+         <string notr="true">Slice_Type</string>
+        </attribute>
+       </widget>
+      </item>
+      <item row="5" column="0">
+       <widget class="QRadioButton" name="radial_removeBottom_radio">
+        <property name="toolTip">
+         <string>Remove the negative portion of the mesh</string>
+        </property>
+        <property name="text">
+         <string>Remove Negative</string>
+        </property>
+        <attribute name="buttonGroup">
+         <string notr="true">Radial_Type</string>
+        </attribute>
+       </widget>
+      </item>
+      <item row="8" column="0">
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="QLabel" name="MaterialIDL">
+          <property name="text">
+           <string>Material  ID:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="MaxSDK::QmaxSpinBox" name="MaterialID">
+          <property name="value">
+           <number>1</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="4" column="0">
+       <widget class="QRadioButton" name="radial_removeTop_radio">
+        <property name="toolTip">
+         <string>Remove the positive portion of the mesh</string>
+        </property>
+        <property name="text">
+         <string>Remove Positive</string>
+        </property>
+        <attribute name="buttonGroup">
+         <string notr="true">Radial_Type</string>
+        </attribute>
+       </widget>
+      </item>
+      <item row="7" column="0">
+       <widget class="QCheckBox" name="SetMaterial">
+        <property name="text">
+         <string>Set Cap Material</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="0" column="0" colspan="3">
+    <widget class="QComboBox" name="SliceFormat">
+     <property name="currentIndex">
+      <number>1</number>
+     </property>
+     <item>
+      <property name="text">
+       <string>Planar</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Radial</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="4" column="0" colspan="2">
+    <widget class="QPushButton" name="AlignToFace">
+     <property name="toolTip">
+      <string>Select a face that is used to align the gizmo</string>
+     </property>
+     <property name="text">
+      <string>Align to Face</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0" colspan="3">
+    <widget class="QGroupBox" name="PlanarAxis_groupBox">
+     <property name="title">
+      <string>Slice Along</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_6">
+      <item row="2" column="0">
+       <widget class="QPushButton" name="PlanarZ">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>../ICONS CATALOGUE/Dark/EditUVW/AlignToZ_48.png</normaloff>../ICONS CATALOGUE/Dark/EditUVW/AlignToZ_48.png</iconset>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QPushButton" name="PlanarX">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>../ICONS CATALOGUE/Dark/EditUVW/AlignToX_48.png</normaloff>../ICONS CATALOGUE/Dark/EditUVW/AlignToX_48.png</iconset>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QPushButton" name="PlanarY">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>../ICONS CATALOGUE/Dark/EditUVW/AlignToY_48.png</normaloff>../ICONS CATALOGUE/Dark/EditUVW/AlignToY_48.png</iconset>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QCheckBox" name="PlanarFlipY">
+        <property name="text">
+         <string>Flip</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QCheckBox" name="PlanarFlipZ">
+        <property name="text">
+         <string>Flip</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QCheckBox" name="PlanarFlipX">
+        <property name="text">
+         <string>Flip</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="4" column="2">
+    <widget class="QPushButton" name="ResetTransform">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>23</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>23</width>
+       <height>16777215</height>
+      </size>
+     </property>
+     <property name="font">
+      <font>
+       <family>MS Shell Dlg 2</family>
+      </font>
+     </property>
+     <property name="toolTip">
+      <string>Reset Gizmo</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>../../../ICONS CATALOGUE/Dark/MaxScript/ParamWiring/Refresh_32.png</normaloff>../../../ICONS CATALOGUE/Dark/MaxScript/ParamWiring/Refresh_32.png</iconset>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0" colspan="3">
+    <widget class="QGroupBox" name="RadialAxis_groupBox">
+     <property name="title">
+      <string>Slice Along</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_2">
+      <item row="0" column="0" colspan="2">
+       <layout class="QHBoxLayout" name="horizontalLayout_6">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QPushButton" name="RadialX">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset>
+            <normaloff>../ICONS CATALOGUE/Dark/EditUVW/AlignToX_48.png</normaloff>../ICONS CATALOGUE/Dark/EditUVW/AlignToX_48.png</iconset>
+          </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
+          <attribute name="buttonGroup">
+           <string notr="true">RadialAxis</string>
+          </attribute>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="RadialY">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset>
+            <normaloff>../ICONS CATALOGUE/Dark/EditUVW/AlignToY_48.png</normaloff>../ICONS CATALOGUE/Dark/EditUVW/AlignToY_48.png</iconset>
+          </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
+          <attribute name="buttonGroup">
+           <string notr="true">RadialAxis</string>
+          </attribute>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="RadialZ">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset>
+            <normaloff>../ICONS CATALOGUE/Dark/EditUVW/AlignToZ_48.png</normaloff>../ICONS CATALOGUE/Dark/EditUVW/AlignToZ_48.png</iconset>
+          </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+          <attribute name="buttonGroup">
+           <string notr="true">RadialAxis</string>
+          </attribute>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="3" column="0" colspan="3">
+    <widget class="QGroupBox" name="RadialSlice_groupBox">
+     <property name="title">
+      <string>Radial Slice</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_5">
+      <item row="0" column="0">
+       <widget class="QLabel" name="MinL">
+        <property name="layoutDirection">
+         <enum>Qt::LeftToRight</enum>
+        </property>
+        <property name="text">
+         <string>Angle 1:</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="MaxSDK::QmaxDoubleSpinBox" name="Angle1">
+        <property name="maximum">
+         <double>180.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="MaxL">
+        <property name="layoutDirection">
+         <enum>Qt::LeftToRight</enum>
+        </property>
+        <property name="text">
+         <string>Angle 2:</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="MaxSDK::QmaxDoubleSpinBox" name="Angle2">
+        <property name="maximum">
+         <double>180.000000000000000</double>
+        </property>
+        <property name="value">
+         <double>180.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="7" column="0">
+    <widget class="QLabel" name="OperateL">
+     <property name="layoutDirection">
+      <enum>Qt::LeftToRight</enum>
+     </property>
+     <property name="text">
+      <string>Operate On:</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="7" column="1" colspan="2">
+    <widget class="QComboBox" name="Faces___Polygons_Toggle">
+     <property name="currentText">
+      <string/>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>MaxSDK::QmaxSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header location="global">Qt/QmaxSpinBox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MaxSDK::QmaxDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header location="global">Qt/QmaxSpinBox.h</header>
+  </customwidget>
+ </customwidgets>
+ <tabstops>
+  <tabstop>SliceFormat</tabstop>
+  <tabstop>RadialX</tabstop>
+  <tabstop>RadialY</tabstop>
+  <tabstop>RadialZ</tabstop>
+  <tabstop>PlanarX</tabstop>
+  <tabstop>PlanarFlipX</tabstop>
+  <tabstop>PlanarY</tabstop>
+  <tabstop>PlanarFlipY</tabstop>
+  <tabstop>PlanarZ</tabstop>
+  <tabstop>PlanarFlipZ</tabstop>
+  <tabstop>Angle1</tabstop>
+  <tabstop>Angle2</tabstop>
+  <tabstop>AlignToFace</tabstop>
+  <tabstop>ResetTransform</tabstop>
+  <tabstop>ReferenceObject</tabstop>
+  <tabstop>refineMesh_radio</tabstop>
+  <tabstop>splitMesh_radio</tabstop>
+  <tabstop>removeTop_radio</tabstop>
+  <tabstop>removeBottom_radio</tabstop>
+  <tabstop>radial_removeTop_radio</tabstop>
+  <tabstop>radial_removeBottom_radio</tabstop>
+  <tabstop>Cap</tabstop>
+  <tabstop>SetMaterial</tabstop>
+  <tabstop>MaterialID</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+ <buttongroups>
+  <buttongroup name="Slice_Type"/>
+  <buttongroup name="RadialAxis"/>
+  <buttongroup name="Radial_Type"/>
+ </buttongroups>
+</ui>

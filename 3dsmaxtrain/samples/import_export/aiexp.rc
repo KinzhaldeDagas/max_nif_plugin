@@ -1,0 +1,96 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "aieres.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include <winres.h>
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "aieres.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""winres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "\r\n"
+    "#include ""veroverrides.h""\r\n"
+    "#include ""maxversion.r""\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_TH_AIEXP            "AIEXP"
+    IDS_TH_SCENEEXPORT      "Scene Export"
+    IDS_LIBDESCRIPTION      "AI File Exporter (Autodesk)"
+    IDS_TH_NODATATOEXPORT   "No data to export"
+    IDS_TH_CANTCREATE       "Can't create output file"
+    IDS_TH_WRITEERROR       "Write error on file"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_TH_3DSTUDIO         "3D Studio"
+    IDS_TH_ADOBE            "Adobe Illustrator"
+    IDS_TH_AI_EXP_LONG      "Adobe Illustrator 8 AI File"
+    IDS_TH_AI_EXP_SHORT     "Adobe Illustrator 8"
+    IDS_TH_TOM_HUDSON       "Tom Hudson"
+    IDS_TH_COPYRIGHT_YOST_GROUP "Copyright 2006 Autodesk"
+END
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+#include "veroverrides.h"
+#include "maxversion.r"
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

@@ -1,0 +1,9 @@
+Samples\Modifiers\PointCache
+
+The Point Cache modifier requires the FBX SDK to compile.
+
+Version 2016.1 VS2015 or newer is required, but it is recommended to use the latest versions (2019.2 VS2015 or 2019.2 VS2017), since those versions fix some security issues.
+The FBX SDK can be found at www.autodesk.com/fbx
+After installing, create two environment variables called FBX_SDK_INC_DIR and FBX_SDK_LIB_DIR that point to the include and library directories of the installed sdk, respectively. For example:
+FBX_SDK_INC_DIR=C:\Program Files\Autodesk\FBX\FBX SDK\2019.2\include
+FBX_SDK_LIB_DIR=C:\Program Files\Autodesk\FBX\FBX SDK\2019.2\lib\vs2017

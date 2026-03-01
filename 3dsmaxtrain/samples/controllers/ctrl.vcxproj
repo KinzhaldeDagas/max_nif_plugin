@@ -1,0 +1,141 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build" ToolsVersion="Current">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Hybrid|x64">
+      <Configuration>Hybrid</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{5BEC1EF6-15F7-443C-96F4-6CBCB4A5984F}</ProjectGuid>
+    <RootNamespace>ctrl</RootNamespace>
+    <MaxSDK>../../../maxsdk</MaxSDK>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <Keyword>QtVS_v302</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <Import Project="$(MaxSDK)\ProjectSettings\PropertySheets\3dsmax.general.project.settings.props" />
+  <Import Project="$(GeomProps)" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(MaxSDK)\ProjectSettings\PropertySheets\3dsmax.cpp.props" />
+  </ImportGroup>
+  <PropertyGroup Condition="'$(QtMsBuild)'=='' or !Exists('$(QtMsBuild)\qt.targets')">
+  <QtMsBuild>$(MSBuildProjectDirectory)\QtMsBuild</QtMsBuild>
+  </PropertyGroup>
+  <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')">
+    <Message Importance="High" Text="QtMsBuild: could not locate qt.targets, qt.props; project may not build correctly." />
+  </Target>
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt_defaults.props')">
+    <Import Project="$(QtMsBuild)\qt_defaults.props" />
+  </ImportGroup>
+  <PropertyGroup Label="QtSettings">
+    <QtModules>core;gui;widgets</QtModules>
+  </PropertyGroup>
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt.props')">
+    <Import Project="$(QtMsBuild)\qt.props" />
+  </ImportGroup>
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir>$(MaxBuildStdplugs)</OutDir>
+    <TargetName>ctrl</TargetName>
+    <TargetExt>.dlc</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(MaxSdkInc);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>ctrl.h</ForcedIncludeFiles>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>ctrl.h</PrecompiledHeaderFile>
+      <PreprocessorDefinitions>_CRT_NON_CONFORMING_SWPRINTFS;BUILD_CTRL;MAX_SILENCE_DEPRECATED_MATRIX_BOOL_CTOR;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <ResourceCompile>
+      <AdditionalIncludeDirectories>$(MaxSdkInc);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(MaxSdkLib);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <ModuleDefinitionFile>.\ctrl.def</ModuleDefinitionFile>
+      <ImportLibrary>$(IntDir)\$(TargetName).lib</ImportLibrary>
+      <AdditionalDependencies>core.lib;expr.lib;gfx.lib;maxscrpt.lib;maxutil.lib;mesh.lib;paramblk2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="attach.cpp" />
+    <ClCompile Include="boolctrl.cpp" />
+    <ClCompile Include="ctrl.cpp">
+      <PrecompiledHeader>Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="eulrctrl.cpp" />
+    <ClCompile Include="exprctrl.cpp" />
+    <ClCompile Include="followu.cpp" />
+    <ClCompile Include="indepos.cpp" />
+    <ClCompile Include="indescale.cpp" />
+    <ClCompile Include="layerctrl.cpp" />
+    <ClCompile Include="LimitController.cpp" />
+    <ClCompile Include="Link_cnstrnt.cpp" />
+    <ClCompile Include="link_timectrl.cpp" />
+    <ClCompile Include="listctrl.cpp" />
+    <ClCompile Include="loceulrc.cpp" />
+    <ClCompile Include="lodctrl.cpp" />
+    <ClCompile Include="LookAt_cnstrnt.cpp" />
+    <ClCompile Include="NodeMonitor.cpp" />
+    <ClCompile Include="NodeTransformMonitor.cpp" />
+    <ClCompile Include="noizctrl.cpp" />
+    <ClCompile Include="Orientation_cnstrnt.cpp" />
+    <ClCompile Include="Path_cnstrnt.cpp" />
+    <ClCompile Include="perlin.cpp" />
+    <ClCompile Include="Position_cnstrnt.cpp" />
+    <ClCompile Include="RefTargMonitorClass.cpp" />
+    <ClCompile Include="surfctrl.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="control.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ctrl.def" />
+    <None Include="ico00001.ico" />
+    <None Include="ico00002.ico" />
+    <None Include="icon1.ico" />
+    <None Include="icon2.ico" />
+    <None Include="locked.ico" />
+    <None Include="unlocked2.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="attach.h" />
+    <ClInclude Include="CTRL.H" />
+    <ClInclude Include="eulrctrl.h" />
+    <ClInclude Include="iexprctrl.h" />
+    <ClInclude Include="layerctrl.h" />
+    <ClInclude Include="LimitController.h" />
+    <ClInclude Include="Link_cnstrnt.h" />
+    <ClInclude Include="link_timectrl.h" />
+    <ClInclude Include="listctrl.h" />
+    <ClInclude Include="loceulrc.h" />
+    <ClInclude Include="MatrixMath.h" />
+    <ClInclude Include="NodeMonitor.h" />
+    <ClInclude Include="NodeTransformMonitor.h" />
+    <ClInclude Include="noise.h" />
+    <ClInclude Include="RefTargMonitorClass.h" />
+    <ClInclude Include="resource.h" />
+    <QtMoc Include="listControlUI.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="ListControl.ui" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
+    <Import Project="$(QtMsBuild)\qt.targets" />
+  </ImportGroup>
+<ItemGroup>
+    <ClCompile Include="GeneratedFiles\qrc_ctrl_translations.cpp">
+    <PrecompiledHeader />
+    </ClCompile>
+</ItemGroup></Project>

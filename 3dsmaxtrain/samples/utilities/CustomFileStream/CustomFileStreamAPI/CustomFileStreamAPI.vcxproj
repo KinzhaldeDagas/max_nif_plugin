@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Hybrid|x64">
+      <Configuration>Hybrid</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectName>CustomFileStreamAPI</ProjectName>
+    <ProjectGuid>{5D51C259-6087-962B-CB01-4EE64C2F1A78}</ProjectGuid>
+    <RootNamespace>CustomFileStreamAPI</RootNamespace>
+    <MaxSDK>../../../../../maxsdk</MaxSDK>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <Import Project="$(MaxSDK)\ProjectSettings\PropertySheets\3dsmax.general.project.settings.props" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(MaxSDK)\ProjectSettings\PropertySheets\3dsmax.cpp.props" />
+  </ImportGroup>
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir>$(MaxBuild)</OutDir>
+    <TargetName>CustomFileStreamAPI</TargetName>
+    <TargetExt>.dll</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(MaxSdkInc);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>CustomFileStreamAPI_banned.h</ForcedIncludeFiles>
+      <WholeProgramOptimization Condition="'$(MAXBUILD_DISABLE_WPO_IN_SDK)'=='true'">false</WholeProgramOptimization>
+      <PreprocessorDefinitions>BLD_CUSTOMFILESTREAM_API;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <ResourceCompile>
+      <AdditionalIncludeDirectories>$(MaxSdkInc);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Link>
+      <ModuleDefinitionFile>.\CustomFileStreamAPI.def</ModuleDefinitionFile>
+      <ImportLibrary>$(MaxSdkLib)\$(TargetName).lib</ImportLibrary>
+      <LinkTimeCodeGeneration Condition="'$(MAXBUILD_DISABLE_WPO_IN_SDK)'=='true'">Default</LinkTimeCodeGeneration>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="CustomFileStreamAPI_banned.h" />
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="CustomFileStreamAPI.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="CustomFileStreamAPI.def" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="CustomFileStreamAPI.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+</Project>

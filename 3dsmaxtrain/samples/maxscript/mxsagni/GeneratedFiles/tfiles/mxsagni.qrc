@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<RCC version="1.0">
+	<qresource prefix="__qmax_translations">
+        
+		<file>mxsagni_de-DE.qm</file>
+		
+		<file>mxsagni_fr-FR.qm</file>
+		
+		<file>mxsagni_ja-JP.qm</file>
+		
+		<file>mxsagni_ko-KR.qm</file>
+		
+		<file>mxsagni_pt-BR.qm</file>
+		
+		<file>mxsagni_zh-CN.qm</file>
+		
+	</qresource>
+</RCC>

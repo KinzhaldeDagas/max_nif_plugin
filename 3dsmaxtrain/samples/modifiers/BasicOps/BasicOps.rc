@@ -1,0 +1,128 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#define APSTUDIO_HIDDEN_SYMBOLS
+#include "windows.h"
+#undef APSTUDIO_HIDDEN_SYMBOLS
+
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (United States) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#define APSTUDIO_HIDDEN_SYMBOLS\r\n"
+    "#include ""windows.h""\r\n"
+    "#undef APSTUDIO_HIDDEN_SYMBOLS\r\n"
+    "\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#include ""veroverrides.h""\r\n"
+    "#include ""maxversion.r""\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE
+BEGIN
+    IDS_RADIAL_MIRROR       "RadialMirror"
+    IDS_CAP                 "Cap"
+    IDS_SET_MATERIAL        "SetMaterial"
+    IDS_SYM_FLIP            "Flip"
+    IDS_SLICE_TYPE          "Slice_Type"
+    IDS_FACE_TYPE           "FaceType"
+    IDS_SLICE_CLEAN         "Clean"
+    IDS_SLICEMOD            "Slice"
+    IDS_SLICEPLANE          "Slice Plane"
+    IDS_SLICEPARAMS         "Slice Parameters"
+    IDS_LIBDESCRIPTION      "Basic Operations (Autodesk)"
+    IDS_PARAMETERS          "Parameters"
+    IDS_MAX_STANDARD        "MAX STANDARD"
+    IDS_VERTEX_WELD_MOD     "Vertex Weld"
+    IDS_VW_THRESHOLD        "Threshold"
+    IDS_SYMMETRY_MOD        "Symmetry"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_SYM_MIRROR          "Mirror"
+    IDS_SYM_AXIS            "Axis"
+    IDS_SYM_THRESHOLD       "Threshold"
+    IDS_SYM_WELD            "Weld Seam"
+    IDS_SYM_SLICE           "Slice"
+    IDS_MATERIAL_ID         "MaterialID"
+    IDS_SYM_PROXIMITY_ACTIVE "UseProximityThreshold"
+    IDS_EDGE_COLLAPSE_PERCENT "Edge Collapse Percent"
+    IDS_WELD_N_OBJECTS_SELECTED "%d Object Selected"
+    IDS_WELD_STATS          "Before %d  After %d"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_SLICE_FORMAT        "SliceFormat"
+    IDS_PLANARX             "PlanarX"
+    IDS_PLANARY             "PlanarY"
+    IDS_PLANARZ             "PlanarZ"
+    IDS_PLANAR_FLIPX        "PlanarFlipX"
+    IDS_PLANAR_FLIPY        "PlanarFlipY"
+    IDS_PLANAR_FLIPZ        "PlanarFlipZ"
+    IDS_RADIAL_AXIS         "RadialAxis"
+    IDS_RADIAL_ANGLE1       "Angle1"
+    IDS_RADIAL_ANGLE2       "Angle2"
+    IDS_REFERENCE_OBJECT    "ReferenceObject"
+    IDS_RADIAL_TYPE         "Radial_Type"
+    IDS_SYMMETRY_FORMAT     "SymmetryFormat"
+    IDS_RADIAL_FLIP         "RadialFlip"
+    IDS_RADIAL_COUNT        "RadialCount"
+END
+
+#endif    // English (United States) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#include "veroverrides.h"
+#include "maxversion.r"
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

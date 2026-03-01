@@ -1,0 +1,4 @@
+// Microsoft Visual C++ generated Help ID include file.
+// Used by MaterialSwitcher.rc
+//
+#define HIDC_NAME_STATIC                0x8079040f    // IDD_MATERIAL_SWITCHER

@@ -1,0 +1,202 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{c47a987a-0dd3-465c-89da-eb1501345923}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;rc;def;r;odl;hpj;bat;for;f90</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{ff754d8b-ece7-4200-b057-90fa9108527e}</UniqueIdentifier>
+      <Extensions>ico;cur;bmp;dlg;rc2;rct;bin;cnt;rtf;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
+    <Filter Include="Inline Files">
+      <UniqueIdentifier>{b1db69bb-dd23-4eac-a468-147b187a3012}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;fi;fd</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{508982f7-370f-49fb-af5f-297bcaad6f90}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="anchor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="audio.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="backgrnd.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="bboard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="bookmark.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cppout.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="dllmain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EvalCol.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="fog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="inline.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lod.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="navinfo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pmesh.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="prox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sound.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="timer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="touch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vrml2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vrml_api.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vrmlexp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vrmlpch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="vrmlexp.def">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="dmtlbut.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="dmtlmsk.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="acob.inl">
+      <Filter>Inline Files</Filter>
+    </None>
+    <None Include="anchorob.inl">
+      <Filter>Inline Files</Filter>
+    </None>
+    <None Include="bbob.inl">
+      <Filter>Inline Files</Filter>
+    </None>
+    <None Include="bgob.inl">
+      <Filter>Inline Files</Filter>
+    </None>
+    <None Include="clockob.inl">
+      <Filter>Inline Files</Filter>
+    </None>
+    <None Include="fogob.inl">
+      <Filter>Inline Files</Filter>
+    </None>
+    <None Include="lodob.inl">
+      <Filter>Inline Files</Filter>
+    </None>
+    <None Include="niob.inl">
+      <Filter>Inline Files</Filter>
+    </None>
+    <None Include="touchob.inl">
+      <Filter>Inline Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="vrmlexp.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="vrml.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="evalcol.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="audio.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="touch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="veroverrides.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="bboard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="fog.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="bookmark.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="timer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lod.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="backgrnd.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="anchor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sound.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="navinfo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vrml_api.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vrmlexp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inline.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pmesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="prox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inlist.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="appd.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="normtab.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vrml2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

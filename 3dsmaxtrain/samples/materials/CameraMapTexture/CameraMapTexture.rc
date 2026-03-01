@@ -1,0 +1,103 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include <winres.h>
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (United States) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""winres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "\r\n"
+    "#include ""veroverrides.h""\r\n"
+    "#include ""maxversion.r""\r\n"
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE
+BEGIN
+    IDS_LIBDESCRIPTION      "Camera Map Texture (Autodesk)"
+    IDS_CATEGORY            "CameraMapTexture"
+    IDS_CLASS_NAME          "Camera Map Per Pixel "
+    IDS_PARAMS              "Camera Map Parameters"
+    IDS_SPIN                "Map Channel"
+    IDS_MASKUSESPROJECTION  "Mask Uses the Camera Projection"
+    IDS_COORDS              "Coordinates"
+    IDS_PW_NODE             "Camera"
+    IDS_TEXTURE             "Texture"
+    IDS_BACKFACE            "BackFace"
+    IDS_USEZBUFFER          "UseZBuffer"
+    IDS_ZBUFFER             "ZBuffer"
+    IDS_ZFUDGE              "Z Fudge"
+    IDS_ANGLE               "Angle Threshold"
+    IDS_MASK                "Mask"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_USEMASK             "Use Mask"
+    IDS_AFFECTBEHINDCAM     "Affect Points Behind Camera"
+    IDS_EMPTY               "empty"
+    IDS_CLASS_NAME_IMP      "Camera Map Per Pixel "
+    IDS_ASPECTMODE          "Aspect Mode"
+    IDS_ASPECT_H            "Horizontal Aspect"
+    IDS_ASPECT_V            "Vertical Aspect"
+END
+
+#endif    // English (United States) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+#include "veroverrides.h"
+#include "maxversion.r"
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

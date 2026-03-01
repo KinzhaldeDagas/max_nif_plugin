@@ -1,0 +1,309 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+// Generated Help ID header file
+#define APSTUDIO_HIDDEN_SYMBOLS
+#include "resource.hm"
+#undef APSTUDIO_HIDDEN_SYMBOLS
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (United States) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_MATERIAL_SWITCHER DIALOGEX 0, 0, 219, 610
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_VISIBLE
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_SELECTION_EDIT,"CustEdit",WS_TABSTOP,17,23,24,10
+    CONTROL         "",IDC_SELECTION_SPIN,"SpinnerControl",0x0,42,23,7,10
+    CONTROL         "",IDC_NAME_SELECTION_EDIT,"CustEdit",NOT WS_VISIBLE | WS_TABSTOP,69,7,102,10
+    CONTROL         "",IDC_PSTAMP_ACTIVE,"Static",SS_BLACKFRAME | SS_SUNKEN,183,11,24,22
+    CONTROL         "",IDC_NUMMATS_EDIT,"CustEdit",WS_TABSTOP,78,53,24,10
+    CONTROL         "",IDC_NUMMATS_SPIN,"SpinnerControl",0x0,103,53,7,10
+    PUSHBUTTON      "Insert",IDC_SWITCHER_INSERT,140,51,32,12
+    PUSHBUTTON      "Delete",IDC_SWITCHER_DELETE,175,51,32,12
+    PUSHBUTTON      "ID",IDC_INDEX_SORT,28,70,24,16
+    PUSHBUTTON      "Name",IDC_NAME_SORT,56,70,56,16
+    PUSHBUTTON      "Material",IDC_MATERIAL_SORT,116,70,84,16
+    CONTROL         "",IDC_PSTAMP1,"Static",SS_BLACKFRAME,7,89,16,14
+    CONTROL         "Custom1",IDC_MTL_ID0,"CustStatus",WS_TABSTOP,27,90,25,12
+    CONTROL         "Custom1",IDC_MTL_NAME0,"CustEdit",WS_TABSTOP,56,90,56,12
+    CONTROL         "Custom1",IDC_SWITCHER_MTL0,"CustButton",WS_TABSTOP,116,90,84,12
+    CONTROL         "",IDC_PSTAMP2,"Static",SS_BLACKFRAME,7,106,16,14
+    CONTROL         "Custom1",IDC_MTL_ID1,"CustStatus",WS_TABSTOP,27,107,25,12
+    CONTROL         "Custom1",IDC_MTL_NAME1,"CustEdit",WS_TABSTOP,56,107,56,12
+    CONTROL         "Custom1",IDC_SWITCHER_MTL1,"CustButton",WS_TABSTOP,116,107,84,12
+    CONTROL         "",IDC_PSTAMP3,"Static",SS_BLACKFRAME,7,123,16,14
+    CONTROL         "Custom1",IDC_MTL_ID2,"CustStatus",WS_TABSTOP,27,124,26,12
+    CONTROL         "Custom1",IDC_MTL_NAME2,"CustEdit",WS_TABSTOP,56,124,56,12
+    CONTROL         "Custom1",IDC_SWITCHER_MTL2,"CustButton",WS_TABSTOP,116,124,84,12
+    CONTROL         "",IDC_PSTAMP4,"Static",SS_BLACKFRAME,7,140,16,14
+    CONTROL         "Custom1",IDC_MTL_ID3,"CustStatus",WS_TABSTOP,27,141,26,12
+    CONTROL         "Custom1",IDC_MTL_NAME3,"CustEdit",WS_TABSTOP,56,141,56,12
+    CONTROL         "Custom1",IDC_SWITCHER_MTL3,"CustButton",WS_TABSTOP,116,141,84,12
+    CONTROL         "",IDC_PSTAMP5,"Static",SS_BLACKFRAME,7,157,16,14
+    CONTROL         "Custom1",IDC_MTL_ID4,"CustStatus",WS_TABSTOP,27,158,26,12
+    CONTROL         "Custom1",IDC_MTL_NAME4,"CustEdit",WS_TABSTOP,56,158,56,12
+    CONTROL         "Custom1",IDC_SWITCHER_MTL4,"CustButton",WS_TABSTOP,116,158,84,12
+    CONTROL         "",IDC_PSTAMP6,"Static",SS_BLACKFRAME,7,174,16,14
+    CONTROL         "Custom1",IDC_MTL_ID5,"CustStatus",WS_TABSTOP,27,175,26,12
+    CONTROL         "Custom1",IDC_MTL_NAME5,"CustEdit",WS_TABSTOP,56,175,56,12
+    CONTROL         "Custom1",IDC_SWITCHER_MTL5,"CustButton",WS_TABSTOP,116,175,84,12
+    CONTROL         "",IDC_PSTAMP7,"Static",SS_BLACKFRAME,7,191,16,14
+    CONTROL         "Custom1",IDC_MTL_ID6,"CustStatus",WS_TABSTOP,27,192,26,12
+    CONTROL         "Custom1",IDC_MTL_NAME6,"CustEdit",WS_TABSTOP,56,192,56,12
+    CONTROL         "Custom1",IDC_SWITCHER_MTL6,"CustButton",WS_TABSTOP,116,192,84,12
+    CONTROL         "",IDC_PSTAMP8,"Static",SS_BLACKFRAME,7,208,16,14
+    CONTROL         "Custom1",IDC_MTL_ID7,"CustStatus",WS_TABSTOP,27,209,26,12
+    CONTROL         "Custom1",IDC_MTL_NAME7,"CustEdit",WS_TABSTOP,56,209,56,12
+    CONTROL         "Custom1",IDC_SWITCHER_MTL7,"CustButton",WS_TABSTOP,116,209,84,12
+    CONTROL         "",IDC_PSTAMP9,"Static",SS_BLACKFRAME,7,225,16,14
+    CONTROL         "Custom1",IDC_MTL_ID8,"CustStatus",WS_TABSTOP,27,226,26,12
+    CONTROL         "Custom1",IDC_MTL_NAME8,"CustEdit",WS_TABSTOP,56,226,56,12
+    CONTROL         "Custom1",IDC_SWITCHER_MTL8,"CustButton",WS_TABSTOP,116,226,84,12
+    CONTROL         "",IDC_PSTAMP10,"Static",SS_BLACKFRAME,7,242,16,14
+    CONTROL         "Custom1",IDC_MTL_ID9,"CustStatus",WS_TABSTOP,27,243,26,12
+    CONTROL         "Custom1",IDC_MTL_NAME9,"CustEdit",WS_TABSTOP,56,243,56,12
+    CONTROL         "Custom1",IDC_SWITCHER_MTL9,"CustButton",WS_TABSTOP,116,243,84,12
+    SCROLLBAR       IDC_SWITCHER_SCROLL,204,90,9,505,SBS_VERT
+    GROUPBOX        "",IDC_MATERIALS_FRAME,3,40,213,561
+    GROUPBOX        "Output Material",IDC_STATIC,3,2,213,38
+    LTEXT           "ID",IDC_STATIC,18,12,8,8
+    LTEXT           "Name",IDC_STATIC,71,12,19,8
+    LTEXT           "Number of Materials",IDC_STATIC,10,53,65,8
+    CONTROL         "Name",IDC_NAME_STATIC,"Static",SS_LEFTNOWORDWRAP | SS_SUNKEN | WS_GROUP,70,23,104,10,0,HIDC_NAME_STATIC
+    CONTROL         "",IDC_PSTAMP11,"Static",SS_BLACKFRAME,7,259,16,14
+    CONTROL         "Custom1",IDC_MTL_ID10,"CustStatus",WS_TABSTOP,27,260,26,12
+    CONTROL         "Custom1",IDC_MTL_NAME10,"CustEdit",WS_TABSTOP,56,260,56,12
+    CONTROL         "Custom1",IDC_SWITCHER_MTL10,"CustButton",WS_TABSTOP,116,260,84,12
+    CONTROL         "",IDC_PSTAMP12,"Static",SS_BLACKFRAME,7,276,16,14
+    CONTROL         "Custom1",IDC_MTL_ID11,"CustStatus",WS_TABSTOP,27,277,26,12
+    CONTROL         "Custom1",IDC_MTL_NAME11,"CustEdit",WS_TABSTOP,56,277,56,12
+    CONTROL         "Custom1",IDC_SWITCHER_MTL11,"CustButton",WS_TABSTOP,116,277,84,12
+    CONTROL         "",IDC_PSTAMP13,"Static",SS_BLACKFRAME,7,293,16,14
+    CONTROL         "Custom1",IDC_MTL_ID12,"CustStatus",WS_TABSTOP,27,294,26,12
+    CONTROL         "Custom1",IDC_MTL_NAME12,"CustEdit",WS_TABSTOP,56,294,56,12
+    CONTROL         "Custom1",IDC_SWITCHER_MTL12,"CustButton",WS_TABSTOP,116,294,84,12
+    CONTROL         "",IDC_PSTAMP14,"Static",SS_BLACKFRAME,7,310,16,14
+    CONTROL         "Custom1",IDC_MTL_ID13,"CustStatus",WS_TABSTOP,27,311,26,12
+    CONTROL         "Custom1",IDC_MTL_NAME13,"CustEdit",WS_TABSTOP,56,311,56,12
+    CONTROL         "Custom1",IDC_SWITCHER_MTL13,"CustButton",WS_TABSTOP,116,311,84,12
+    CONTROL         "",IDC_PSTAMP15,"Static",SS_BLACKFRAME,7,327,16,14
+    CONTROL         "Custom1",IDC_MTL_ID14,"CustStatus",WS_TABSTOP,27,328,26,12
+    CONTROL         "Custom1",IDC_MTL_NAME14,"CustEdit",WS_TABSTOP,56,328,56,12
+    CONTROL         "Custom1",IDC_SWITCHER_MTL14,"CustButton",WS_TABSTOP,116,328,84,12
+    CONTROL         "",IDC_PSTAMP16,"Static",SS_BLACKFRAME,7,344,16,14
+    CONTROL         "Custom1",IDC_MTL_ID15,"CustStatus",WS_TABSTOP,27,345,26,12
+    CONTROL         "Custom1",IDC_MTL_NAME15,"CustEdit",WS_TABSTOP,56,345,56,12
+    CONTROL         "Custom1",IDC_SWITCHER_MTL15,"CustButton",WS_TABSTOP,116,345,84,12
+    CONTROL         "",IDC_PSTAMP17,"Static",SS_BLACKFRAME,7,361,16,14
+    CONTROL         "Custom1",IDC_MTL_ID16,"CustStatus",WS_TABSTOP,27,362,26,12
+    CONTROL         "Custom1",IDC_MTL_NAME16,"CustEdit",WS_TABSTOP,56,362,56,12
+    CONTROL         "Custom1",IDC_SWITCHER_MTL16,"CustButton",WS_TABSTOP,116,362,84,12
+    CONTROL         "",IDC_PSTAMP18,"Static",SS_BLACKFRAME,7,378,16,14
+    CONTROL         "Custom1",IDC_MTL_ID17,"CustStatus",WS_TABSTOP,27,379,26,12
+    CONTROL         "Custom1",IDC_MTL_NAME17,"CustEdit",WS_TABSTOP,56,379,56,12
+    CONTROL         "Custom1",IDC_SWITCHER_MTL17,"CustButton",WS_TABSTOP,116,379,84,12
+    CONTROL         "",IDC_PSTAMP19,"Static",SS_BLACKFRAME,7,395,16,14
+    CONTROL         "Custom1",IDC_MTL_ID18,"CustStatus",WS_TABSTOP,27,396,26,12
+    CONTROL         "Custom1",IDC_MTL_NAME18,"CustEdit",WS_TABSTOP,56,396,56,12
+    CONTROL         "Custom1",IDC_SWITCHER_MTL18,"CustButton",WS_TABSTOP,116,396,84,12
+    CONTROL         "",IDC_PSTAMP20,"Static",SS_BLACKFRAME,7,412,16,14
+    CONTROL         "Custom1",IDC_MTL_ID19,"CustStatus",WS_TABSTOP,27,413,26,12
+    CONTROL         "Custom1",IDC_MTL_NAME19,"CustEdit",WS_TABSTOP,56,413,56,12
+    CONTROL         "Custom1",IDC_SWITCHER_MTL19,"CustButton",WS_TABSTOP,116,413,84,12
+    CONTROL         "",IDC_PSTAMP21,"Static",SS_BLACKFRAME,7,429,16,14
+    CONTROL         "Custom1",IDC_MTL_ID20,"CustStatus",WS_TABSTOP,27,430,26,12
+    CONTROL         "Custom1",IDC_MTL_NAME20,"CustEdit",WS_TABSTOP,56,430,56,12
+    CONTROL         "Custom1",IDC_SWITCHER_MTL20,"CustButton",WS_TABSTOP,115,430,84,12
+    CONTROL         "",IDC_PSTAMP22,"Static",SS_BLACKFRAME,7,446,16,14
+    CONTROL         "Custom1",IDC_MTL_ID21,"CustStatus",WS_TABSTOP,27,447,26,12
+    CONTROL         "Custom1",IDC_MTL_NAME21,"CustEdit",WS_TABSTOP,56,447,56,12
+    CONTROL         "Custom1",IDC_SWITCHER_MTL21,"CustButton",WS_TABSTOP,115,447,84,12
+    CONTROL         "",IDC_PSTAMP23,"Static",SS_BLACKFRAME,7,463,16,14
+    CONTROL         "Custom1",IDC_MTL_ID22,"CustStatus",WS_TABSTOP,27,464,26,12
+    CONTROL         "Custom1",IDC_MTL_NAME22,"CustEdit",WS_TABSTOP,56,464,56,12
+    CONTROL         "Custom1",IDC_SWITCHER_MTL22,"CustButton",WS_TABSTOP,115,464,84,12
+    CONTROL         "",IDC_PSTAMP24,"Static",SS_BLACKFRAME,7,484,16,14
+    CONTROL         "Custom1",IDC_MTL_ID23,"CustStatus",WS_TABSTOP,27,481,26,12
+    CONTROL         "Custom1",IDC_MTL_NAME23,"CustEdit",WS_TABSTOP,56,481,56,12
+    CONTROL         "Custom1",IDC_SWITCHER_MTL23,"CustButton",WS_TABSTOP,115,481,84,12
+    CONTROL         "",IDC_PSTAMP25,"Static",SS_BLACKFRAME,7,497,16,14
+    CONTROL         "Custom1",IDC_MTL_ID24,"CustStatus",WS_TABSTOP,27,498,26,12
+    CONTROL         "Custom1",IDC_MTL_NAME24,"CustEdit",WS_TABSTOP,56,498,56,12
+    CONTROL         "Custom1",IDC_SWITCHER_MTL24,"CustButton",WS_TABSTOP,115,498,84,12
+    CONTROL         "",IDC_PSTAMP26,"Static",SS_BLACKFRAME,7,514,16,14
+    CONTROL         "Custom1",IDC_MTL_ID25,"CustStatus",WS_TABSTOP,27,515,26,12
+    CONTROL         "Custom1",IDC_MTL_NAME25,"CustEdit",WS_TABSTOP,56,515,56,12
+    CONTROL         "Custom1",IDC_SWITCHER_MTL25,"CustButton",WS_TABSTOP,115,515,84,12
+    CONTROL         "",IDC_PSTAMP27,"Static",SS_BLACKFRAME,7,531,16,14
+    CONTROL         "Custom1",IDC_MTL_ID26,"CustStatus",WS_TABSTOP,27,532,26,12
+    CONTROL         "Custom1",IDC_MTL_NAME26,"CustEdit",WS_TABSTOP,56,532,56,12
+    CONTROL         "Custom1",IDC_SWITCHER_MTL26,"CustButton",WS_TABSTOP,115,532,84,12
+    CONTROL         "",IDC_PSTAMP28,"Static",SS_BLACKFRAME,7,548,16,14
+    CONTROL         "Custom1",IDC_MTL_ID27,"CustStatus",WS_TABSTOP,27,549,26,12
+    CONTROL         "Custom1",IDC_MTL_NAME27,"CustEdit",WS_TABSTOP,56,549,56,12
+    CONTROL         "Custom1",IDC_SWITCHER_MTL27,"CustButton",WS_TABSTOP,115,549,84,12
+    CONTROL         "",IDC_PSTAMP29,"Static",SS_BLACKFRAME,7,565,16,14
+    CONTROL         "Custom1",IDC_MTL_ID28,"CustStatus",WS_TABSTOP,27,566,26,12
+    CONTROL         "Custom1",IDC_MTL_NAME28,"CustEdit",WS_TABSTOP,56,566,56,12
+    CONTROL         "Custom1",IDC_SWITCHER_MTL28,"CustButton",WS_TABSTOP,115,566,84,12
+    CONTROL         "",IDC_PSTAMP30,"Static",SS_BLACKFRAME,7,582,16,14
+    CONTROL         "Custom1",IDC_MTL_ID29,"CustStatus",WS_TABSTOP,27,583,26,12
+    CONTROL         "Custom1",IDC_MTL_NAME29,"CustEdit",WS_TABSTOP,56,583,56,12
+    CONTROL         "Custom1",IDC_SWITCHER_MTL29,"CustButton",WS_TABSTOP,115,583,84,12
+    CONTROL         "",IDC_LOCK,"CustButton",WS_TABSTOP,7,70,16,16
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_MATERIAL_SWITCHER, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 212
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 603
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// AFX_DIALOG_LAYOUT
+//
+
+IDD_ABOUT AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_MATERIAL_SWITCHER AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_NEW_LOCK_ALPHA      BITMAP                  "Locked - Alpha.bmp"
+
+IDB_NEW_LOCK            BITMAP                  "Locked.bmp"
+
+IDB_NEW_OPEN_ALPHA      BITMAP                  "Open - Alpha.bmp"
+
+IDB_NEW_OPEN            BITMAP                  "Open.bmp"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE
+BEGIN
+    IDS_LIBDESCRIPTION      "Material Switcher"
+    IDS_MATERIAL_PARAMS     "Material Switcher"
+    IDS_MATERIAL_SWITCHER_CLASSNAME "Material Switcher"
+    IDS_MATERIALS           "Materials"
+    IDS_SELECTION           "Selection"
+    IDS_SORTED_ORDER        "Sorted_Order"
+    IDS_INSERT_SUBMTL       "Insert SubMaterial"
+    IDS_INDEX               "ID"
+    IDS_NAME                "Name"
+    IDS_MAP                 "Map"
+    IDS_MATERIAL            "Material"
+    IDS_ADD_SUBMTL          "Add SubMaterial"
+    IDS_DEL_SUBMTL          "Delete SubMaterial"
+    IDS_PARAM_CHANGE        "Param Change"
+    IDS_NONE                "None"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_NUM_MAPS            "NumMaps"
+    IDS_INDEX_MAP           "IndexMap"
+    IDS_UILOCKED            "UILocked"
+    IDS_SELECTED_NAME       "SelectedName"
+    IDS_TT_ID               "Sets the output material to the ID number shown."
+    IDS_TT_NAME             "Display the user-defined name of the selected output material."
+    IDS_TT_NUMATS           "Controls the number of materials available in the list."
+    IDS_TT_LOCK_HEADER      "Toggles the ability to switch materials by selecting material icons."
+    IDS_TT_INSERT           "Inserts a new entry into the list."
+    IDS_TT_DELETE           "Deletes the selected entry from the list."
+    IDS_TT_ID_HEADER        "Sorts the materials by ascending or descending material index."
+    IDS_TT_NAME_HEADER      "Sorts the material by user-defined name."
+    IDS_TT_MATERIAL_HEADER  "Sorts the materials by material name."
+    IDS_TT_MATERIAL_NONE    "Picks a material."
+END
+
+#endif    // English (United States) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Hybrid|x64">
+      <Configuration>Hybrid</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{9DE1DC25-AA8D-4A22-93B7-93D895AC08FD}</ProjectGuid>
+    <MaxSDK>../../../../maxsdk</MaxSDK>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <Import Project="$(MaxSDK)\ProjectSettings\PropertySheets\3dsmax.general.project.settings.props" />
+  <Import Project="$(GeomProps)" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(MaxSDK)\ProjectSettings\PropertySheets\3dsmax.cpp.props" />
+  </ImportGroup>
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir>$(MaxBuildStdplugs)</OutDir>
+    <TargetName>update1</TargetName>
+    <TargetExt>.dlo</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <ForcedIncludeFiles>pack1_pch.h</ForcedIncludeFiles>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pack1_pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(MaxSdkInc);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ResourceCompile>
+      <AdditionalIncludeDirectories>$(MaxSdkInc);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(MaxSdkLib);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <ModuleDefinitionFile>.\pack1.def</ModuleDefinitionFile>
+      <AdditionalDependencies>core.lib;gfx.lib;maxscrpt.lib;maxutil.lib;mesh.lib;MouseCursors.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="approxui.cpp" />
+    <ClCompile Include="..\..\EditableModifierCommon\CreateFaceMouseProcTemplate.cpp" />
+    <ClCompile Include="pack1.cpp" />
+    <ClCompile Include="triedui.cpp" />
+    <ClCompile Include="triobjed.cpp" />
+    <ClCompile Include="triops.cpp" />
+    <ClCompile Include="pack1_pch.cpp">
+      <PrecompiledHeader>Create</PrecompiledHeader>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="pack1.def" />
+    <None Include="mask_subobjtypes.bmp" />
+    <None Include="subobjtypes.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pack1.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="..\..\EditableModifierCommon\CreateFaceMouseProcTemplate.h" />
+    <ClInclude Include="..\..\..\include\mesh.h" />
+    <ClInclude Include="..\..\..\include\meshadj.h" />
+    <ClInclude Include="..\..\..\include\meshdelta.h" />
+    <ClInclude Include="resourceOverride.h" />
+    <ClInclude Include="..\..\..\include\tab.h" />
+    <ClInclude Include="..\..\..\include\triobj.h" />
+    <ClInclude Include="triedui.h" />
+    <ClInclude Include="triobjed.h" />
+    <ClInclude Include="..\..\..\include\vedge.h" />
+    <ClInclude Include="pack1_pch.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="pack1.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+</Project>

@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<RCC version="1.0">
+	<qresource prefix="__qmax_translations">
+        
+		<file>mods_de-DE.qm</file>
+		
+		<file>mods_fr-FR.qm</file>
+		
+		<file>mods_ja-JP.qm</file>
+		
+		<file>mods_ko-KR.qm</file>
+		
+		<file>mods_pt-BR.qm</file>
+		
+		<file>mods_zh-CN.qm</file>
+		
+	</qresource>
+</RCC>
