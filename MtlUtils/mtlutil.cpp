@@ -10,6 +10,20 @@ HISTORY:
 **********************************************************************/
 #include "pch.h"
 #include "niutils.h"
+
+namespace {
+	template <typename Dummy = int>
+	auto NifConvertByteToFloatCompat(unsigned int v, int) -> decltype(Niflib::ConvertByteToFloat(v))
+	{
+		return Niflib::ConvertByteToFloat(v);
+	}
+
+	inline float NifConvertByteToFloatCompat(unsigned int v, long)
+	{
+		return static_cast<float>(v) / 255.0f;
+	}
+}
+
 #include "mtldefine.h"
 #include <string.h>
 #include <ctype.h>
@@ -165,9 +179,9 @@ bool ReadObject(const rapidjson::Value& value, Niflib::Color3& x, const char *na
 		const char *str = value.GetString();
 		if (str && str[0] == '#') {
 			int ival = strtol(str + 1, nullptr, 16);
-			x.r = Niflib::ConvertByteToFloat((ival & 0xFF0000) >> 16);
-			x.g = Niflib::ConvertByteToFloat((ival & 0x00FF00) >> 8);
-			x.b = Niflib::ConvertByteToFloat((ival & 0x0000FF) >> 0);
+			x.r = NifConvertByteToFloatCompat((ival & 0xFF0000) >> 16, 0);
+			x.g = NifConvertByteToFloatCompat((ival & 0x00FF00) >> 8, 0);
+			x.b = NifConvertByteToFloatCompat((ival & 0x0000FF) >> 0, 0);
 			return true;
 		}
 	}
