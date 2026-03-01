@@ -257,7 +257,7 @@ bhkCapsuleObject::~bhkCapsuleObject()
 
 void bhkCapsuleObject::BeginEditParams(IObjParam *ip,ULONG flags,Animatable *prev)
 {
-   SimpleObject::BeginEditParams(ip,flags,prev);
+   SimpleObject2::BeginEditParams(ip,flags,prev);
 
    capsuleDesc.BeginEditParams(ip,this,flags,prev);
    param_blk.SetUserDlgProc(new CapsuleParamDlgProc(this));
@@ -268,7 +268,7 @@ void bhkCapsuleObject::BeginEditParams(IObjParam *ip,ULONG flags,Animatable *pre
 void bhkCapsuleObject::EndEditParams( IObjParam *ip, ULONG flags,Animatable *next )
 {		
    param_blk.SetUserDlgProc();
-   SimpleObject::EndEditParams(ip,flags,next);
+   SimpleObject2::EndEditParams(ip,flags,next);
    this->ip = NULL;
    pmapParam = NULL;
 
