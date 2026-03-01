@@ -9,11 +9,15 @@
     <NiflibRoot Condition="'$(NiflibRoot)'==''">C:\src\niflib</NiflibRoot>
   </PropertyGroup>
   <PropertyGroup>
+    <!-- Keep modern niflib fallback opt-in to avoid silently selecting incompatible builds. -->
+    <EnableModernNiflibFallback Condition="'$(EnableModernNiflibFallback)'==''">false</EnableModernNiflibFallback>
+  </PropertyGroup>
+  <PropertyGroup>
     <HasNiflibGeneratedHeaders Condition="Exists('$(NiflibRoot)\include\gen\BSVertexData.h') and Exists('$(NiflibRoot)\include\obj\BSTriShape.h')">true</HasNiflibGeneratedHeaders>
     <HasNiflibGeneratedHeaders Condition="'$(HasNiflibGeneratedHeaders)'=='' and Exists('$(NiflibRoot)\src\gen\BSVertexData.h') and Exists('$(NiflibRoot)\src\obj\BSTriShape.h')">true</HasNiflibGeneratedHeaders>
     <NiflibLibraryName Condition="'$(NiflibLibraryName)'=='' and Exists('$(NiflibRoot)\lib\niflib_static_$(NifBuildType)_$(PlatformShortName).lib')">niflib_static_$(NifBuildType)_$(PlatformShortName).lib</NiflibLibraryName>
-    <NiflibLibraryName Condition="'$(NiflibLibraryName)'=='' and '$(HasNiflibGeneratedHeaders)'=='true' and Exists('$(NiflibRoot)\build_vs2022_x64\Release\niflib.lib')">niflib.lib</NiflibLibraryName>
-    <NiflibLibraryName Condition="'$(NiflibLibraryName)'=='' and '$(HasNiflibGeneratedHeaders)'=='true' and Exists('$(NiflibRoot)\lib\niflib.lib')">niflib.lib</NiflibLibraryName>
+    <NiflibLibraryName Condition="'$(NiflibLibraryName)'=='' and '$(EnableModernNiflibFallback)'=='true' and '$(HasNiflibGeneratedHeaders)'=='true' and Exists('$(NiflibRoot)\build_vs2022_x64\Release\niflib.lib')">niflib.lib</NiflibLibraryName>
+    <NiflibLibraryName Condition="'$(NiflibLibraryName)'=='' and '$(EnableModernNiflibFallback)'=='true' and '$(HasNiflibGeneratedHeaders)'=='true' and Exists('$(NiflibRoot)\lib\niflib.lib')">niflib.lib</NiflibLibraryName>
     <NiflibLibraryName Condition="'$(NiflibLibraryName)'==''">niflib_static_$(NifBuildType)_$(PlatformShortName).lib</NiflibLibraryName>
   </PropertyGroup>
   <PropertyGroup>
