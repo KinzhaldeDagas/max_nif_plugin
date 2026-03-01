@@ -701,10 +701,10 @@ struct VertexHolder
 	Tab<INode*> boneNodeList;
 	Tab<float> weights;
 };
-namespace std
+	namespace std
 {
 	template<>
-	struct less<Face> : public binary_function<Face, Face, bool>
+	struct less<Face>
 	{
 		bool operator()(const Face& s1, const Face& s2) const {
 			int d = 0;

@@ -678,9 +678,10 @@ bool CollisionImport::ImportPackedNiTriStripsShape(INode *rbody, bhkRigidBodyRef
 				CreatebhkCollisionModifier(inode, bv_type_packed, mtlIdx, lyrIdx, s.colFilter);
 				ImportBase(body, shape, parent, inode, ltm);
 
-				if (n > 1)
+				if (n > 1) {
 					TSTR partName = FormatText(TEXT("%s:%d"), TEXT("OblivionSubShape"), i);
 					inode->SetName(partName);
+				}
 
 				nodes.Append(1, &inode);
 			}

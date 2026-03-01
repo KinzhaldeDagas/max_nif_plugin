@@ -1145,7 +1145,7 @@ void BuildFileNameMapW(NameValueCollectionW & collection, const wchar_t *root, c
 	}
 }
 // Implementation for BuildFileNameMap which will search for a specific set of extensions
-struct ExtensionMatchA : public std::unary_function<LPCSTR, bool>
+struct ExtensionMatchA
 {
 	stringlist extns;
 	ExtensionMatchA(string extnlist) {
@@ -1163,7 +1163,7 @@ struct ExtensionMatchA : public std::unary_function<LPCSTR, bool>
 	}
 };
 // Implementation for BuildFileNameMap which will search for a specific set of extensions
-struct ExtensionMatchW : public std::unary_function<LPCSTR, bool>
+struct ExtensionMatchW
 {
 	wstringlist extns;
 	ExtensionMatchW(wstring extnlist) {
@@ -1554,7 +1554,7 @@ static Value* LocalExecuteScript(CharStream* source, bool *res) {
 
 		source->flush_whitespace();
 		while (!source->at_eos()) {
-			vl.code = vl.parser->compile(source, 0);
+			vl.code = vl.parser->compile(source, static_cast<MAXScript::ScriptSource>(0));
 			vl.result = vl.code->eval()->get_heap_ptr();
 			source->flush_whitespace();
 		}

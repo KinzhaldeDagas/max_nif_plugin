@@ -1534,7 +1534,6 @@ bool NifImporter::ImportMaterialAnimation( int paramBlockID, int subAnimID, Nifl
 		if( Control* tmpCtrl = (Control*) gi->CreateInstance( CTRL_FLOAT_CLASS_ID, Class_ID( HYBRIDINTERP_FLOAT_CLASS_ID, 0 ) ) )
 		{
 			MergeKeys<IBezFloatKey, FloatKey>( tmpCtrl, keys, 0.0f );
-				TSTR str = mtl->SubAnimName(paramBlockID);
 			mtl->SubAnim( paramBlockID )->AssignController( tmpCtrl, subAnimID );
 			
 			return true;

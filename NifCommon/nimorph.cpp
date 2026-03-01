@@ -33,6 +33,12 @@ HISTORY:
 #else
 #include "maxscript/maxscript.h"
 #include <maxscript/compiler/parser.h>
+#if VERSION_3DSMAX >= ((10000<<16)+(26<<8)+0) // 3ds Max 2024+
+static inline void save_current_frames() {}
+static inline void restore_current_frames() {}
+static inline void set_error_trace_back_active(BOOL) {}
+static inline void pop_value_locals() {}
+#endif
 #endif
 
 using namespace std;
