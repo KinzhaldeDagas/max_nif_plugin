@@ -338,7 +338,7 @@ NameValueCollectionW ReadIniSection(LPCWSTR Section, LPCWSTR iniFileName)
 	DWORD len = 2048 * sizeof(wchar_t);
 	LPWSTR buf = (LPWSTR)calloc(len + 2, 1);
 	while (nullptr != buf) {
-		DWORD rlen = ::GetPrivateProfileSectionW(Section, buf, len, iniFileName);
+		DWORD rlen = MaxSDK::Util::GetPrivateProfileSectionW(Section, buf, len, iniFileName);
 		if (rlen != (len - 2)) break;
 		len += 2;
 		buf = (LPWSTR)realloc(buf, len*sizeof(wchar_t));
@@ -392,7 +392,7 @@ bool ReadIniSectionAsList(LPCWSTR Section, LPCWSTR iniFileName, NameValueListW& 
 	DWORD len = 2048 * sizeof(wchar_t);
 	LPWSTR buf = (LPWSTR)calloc(len + 2, 1);
 	while (nullptr != buf) {
-		DWORD rlen = ::GetPrivateProfileSectionW(Section, buf, len, iniFileName);
+		DWORD rlen = MaxSDK::Util::GetPrivateProfileSectionW(Section, buf, len, iniFileName);
 		if (rlen != (len - 2)) break;
 		len += 2;
 		buf = (LPWSTR)realloc(buf, len*sizeof(wchar_t));

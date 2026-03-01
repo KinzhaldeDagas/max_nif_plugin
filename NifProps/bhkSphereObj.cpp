@@ -267,7 +267,7 @@ bhkSphereObject::~bhkSphereObject() {
 
 void bhkSphereObject::BeginEditParams(IObjParam *ip,ULONG flags,Animatable *prev)
 {
-   SimpleObject::BeginEditParams(ip,flags,prev);
+   SimpleObject2::BeginEditParams(ip,flags,prev);
 
    // Gotta make a new one.
    //if (NULL == pmapParam) 
@@ -295,7 +295,7 @@ void bhkSphereObject::EndEditParams( IObjParam *ip, ULONG flags,Animatable *next
 {		
    param_blk.SetUserDlgProc();
 
-   SimpleObject::EndEditParams(ip,flags,next);
+   SimpleObject2::EndEditParams(ip,flags,next);
    this->ip = NULL;
    pmapParam = NULL;
 

@@ -363,7 +363,7 @@ bhkListObject::~bhkListObject()
 
 void bhkListObject::BeginEditParams(IObjParam *ip,ULONG flags,Animatable *prev)
 {
-   SimpleObject::BeginEditParams(ip,flags,prev);
+   SimpleObject2::BeginEditParams(ip,flags,prev);
    mIP = ip;
 
    //if (pmapParam == NULL) {
@@ -398,7 +398,7 @@ void bhkListObject::EndEditParams( IObjParam *ip, ULONG flags,Animatable *next )
 {		
    param_blk.SetUserDlgProc();
 
-   SimpleObject::EndEditParams(ip,flags,next);
+   SimpleObject2::EndEditParams(ip,flags,next);
    this->ip = NULL;
    pmapParam = NULL;
    //if (pmapParam && flags&END_EDIT_REMOVEUI ) {
