@@ -19,10 +19,14 @@ HISTORY:
 #endif
 #include "../NifProps/iNifProps.h"
 #include "obj/BSDismemberSkinInstance.h"
+#if __has_include(<obj/BSTriShape.h>)
 #include <obj/BSTriShape.h>
+#endif
 #include <obj/BSSkin__Instance.h>
 #include <obj/BSSkin__BoneData.h>
+#if __has_include(<obj/BSSubIndexTriShape.h>)
 #include <obj/BSSubIndexTriShape.h>
+#endif
 
 using namespace Niflib;
 

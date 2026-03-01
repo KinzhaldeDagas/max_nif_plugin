@@ -17,10 +17,14 @@
 #include "obj/bhkCapsuleShape.h"
 #include "obj/BSDismemberSkinInstance.h"
 #include "ObjectRegistry.h"
+#if __has_include(<obj/BSTriShape.h>)
 #include <obj/BSTriShape.h>
+#endif
 #include <obj/BSSkin__Instance.h>
 #include <obj/BSSkin__BoneData.h>
+#if __has_include(<obj/BSSubIndexTriShape.h>)
 #include <obj/BSSubIndexTriShape.h>
+#endif
 #include <gen/SphereBV.h>
 
 #pragma region Comparison Utilities

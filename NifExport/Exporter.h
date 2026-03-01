@@ -1,8 +1,14 @@
 #ifndef __EXPORTER_H__
 #define __EXPORTER_H__
+#if __has_include(<gen/BSVertexData.h>)
 #include <gen/BSVertexData.h>
+#endif
+#if __has_include(<obj/BSTriShape.h>)
 #include <obj/BSTriShape.h>
+#endif
+#if __has_include(<obj/BSSubIndexTriShape.h>)
 #include <obj/BSSubIndexTriShape.h>
+#endif
 
 namespace Niflib
 {

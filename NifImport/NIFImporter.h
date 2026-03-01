@@ -20,7 +20,9 @@ HISTORY:
 #include <obj/NiPSysGravityModifier.h>
 #include <obj/NiTimeController.h>
 #include <AnimKey.h>
+#if __has_include(<obj/BSTriShape.h>)
 #include <obj/BSTriShape.h>
+#endif
 #include "../NifProps/iNifProps.h"
 
 namespace Niflib
