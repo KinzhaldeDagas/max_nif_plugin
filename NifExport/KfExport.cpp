@@ -332,6 +332,7 @@ int	KfExport::DoExport(const TCHAR *name, ExpInterface *ei, Interface *i, BOOL s
 
 		if (!Exporter::mNifVersion.empty())
 		{
+			nifVersion = ParseVersionString(T2AString(Exporter::mNifVersion));
 			if (!IsSupportedVersion(nifVersion))
 			{
 				string tmp = FormatVersionString(nifVersion);
