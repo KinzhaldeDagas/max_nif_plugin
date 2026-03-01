@@ -51,16 +51,17 @@
 #  include "gen/QuaternionXYZW.h"
 #endif
 
-#if __has_include(<gen/HalfTexCoord.h>)
-#  include <gen/HalfTexCoord.h>
-#elif __has_include("gen/HalfTexCoord.h")
-#  include "gen/HalfTexCoord.h"
-#endif
-
-#if __has_include(<gen/HalfVector3.h>)
-#  include <gen/HalfVector3.h>
-#elif __has_include("gen/HalfVector3.h")
-#  include "gen/HalfVector3.h"
+#if defined(NIUTILS_USE_NIFLIB_HALF_TYPES)
+#  if __has_include(<gen/HalfTexCoord.h>)
+#    include <gen/HalfTexCoord.h>
+#  elif __has_include("gen/HalfTexCoord.h")
+#    include "gen/HalfTexCoord.h"
+#  endif
+#  if __has_include(<gen/HalfVector3.h>)
+#    include <gen/HalfVector3.h>
+#  elif __has_include("gen/HalfVector3.h")
+#    include "gen/HalfVector3.h"
+#  endif
 #endif
 
 #include "nif_math.h"
@@ -102,6 +103,24 @@ static inline unsigned int _FloatToBits(float f)
 
 static const float FloatINF = _BitsToFloat(IntegerInf);
 static const float FloatNegINF = _BitsToFloat(IntegerNegInf);
+
+#if !defined(NIUTILS_USE_NIFLIB_HALF_TYPES)
+namespace Niflib
+{
+	struct HalfTexCoord
+	{
+		std::uint16_t u;
+		std::uint16_t v;
+	};
+
+	struct HalfVector3
+	{
+		std::uint16_t x;
+		std::uint16_t y;
+		std::uint16_t z;
+	};
+}
+#endif
 
 namespace Niflib
 {
