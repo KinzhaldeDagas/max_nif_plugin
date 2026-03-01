@@ -204,6 +204,10 @@ int MaxNifImport::DoImport(const TCHAR *filename,ImpInterface *i, Interface *gi,
             return FALSE;
          ok = importer.DoImport();
       }
+      else
+      {
+         return FALSE;
+      }
    }
    catch (exception &e)
    {
