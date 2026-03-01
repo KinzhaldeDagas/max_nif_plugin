@@ -12,7 +12,7 @@ HISTORY:
 **********************************************************************/
 // Max Headers
 #pragma once
-#include <Max.h>
+#include <max.h>
 #include <tab.h>
 
 // Niflib Headers

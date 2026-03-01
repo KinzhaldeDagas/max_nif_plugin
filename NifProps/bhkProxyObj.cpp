@@ -20,7 +20,7 @@ HISTORY:
 #include "Simpobj.h"
 #include "surf_api.h"
 #include "notify.h"
-#include "macroRec.h"
+#include "macrorec.h"
 #include "bhkRigidBodyInterface.h"
 #include "NifGui.h"
 #include "NifStrings.h"

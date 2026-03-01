@@ -1,4 +1,4 @@
-#include "Max.h"
+#include "max.h"
 #include "MeshDelta.h"
 
 #if __has_include(<../qhull/src/libqhull/libqhull.h>)
