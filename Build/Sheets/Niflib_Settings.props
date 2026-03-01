@@ -4,6 +4,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
+    <NiflibRoot Condition="'$(NiflibRoot)'=='' and Exists('C:\src\niflib\include\niflib.h')">C:\src\niflib</NiflibRoot>
     <NiflibRoot Condition="'$(NiflibRoot)'=='' and Exists('$(ProjectDir)..\..\niflib\include\niflib.h')">$(ProjectDir)..\..\niflib</NiflibRoot>
     <NiflibRoot Condition="'$(NiflibRoot)'=='' and Exists('C:\Users\mello\Desktop\xaxSource\niflib\include\niflib.h')">C:\Users\mello\Desktop\xaxSource\niflib</NiflibRoot>
     <NiflibRoot Condition="'$(NiflibRoot)'==''">C:\src\niflib</NiflibRoot>
