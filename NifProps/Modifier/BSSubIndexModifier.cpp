@@ -916,10 +916,11 @@ int BSSIModifier::HitTest(TimeValue t, INode* inode, int type, int crossing, int
 		vpt->LogHit(inode, mc, rec->dist, rec->index, NULL);
 		rec = rec->Next();
 	}
-#else
+	#endif
+	#else
 	res = mesh.SubObjectHitTest(gw, gw->getMaterial(), &hr, flags | hitFlags, hitList);
 	(void)hitList;
-#endif
+	#endif
 
 	gw->setRndLimits(savedLimits);
 	CHECKHEAP();
