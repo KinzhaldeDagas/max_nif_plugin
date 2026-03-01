@@ -1,0 +1,16 @@
+﻿cl : command line  warning D9035: option 'Zc:forScope-' has been deprecated and will be removed in a future release
+  pch.cpp
+C:\Users\mello\Desktop\xaxSource\niflib\include\nif_math.h(1399,37): error C2872: 'byte': ambiguous symbol
+  (compiling source file '../NifPlugins/pch.cpp')
+      C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\shared\rpcndr.h(202,23):
+      could be 'unsigned char byte'
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cstddef(34,24):
+      or       'std::byte'
+  
+C:\Users\mello\Desktop\xaxSource\niflib\include\nif_math.h(1400,12): error C2872: 'byte': ambiguous symbol
+  (compiling source file '../NifPlugins/pch.cpp')
+      C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\shared\rpcndr.h(202,23):
+      could be 'unsigned char byte'
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cstddef(34,24):
+      or       'std::byte'
+  
