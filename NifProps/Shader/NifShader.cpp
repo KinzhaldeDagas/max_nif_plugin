@@ -253,8 +253,13 @@ public:
 
 	// texture maps
 	long nTexChannelsSupported() { return C_MAX_SUPPORTED; }
+#if VERSION_3DSMAX >= ((10000<<16)+(26<<8)+0) // 3ds Max 2024+
+	MSTR GetTexChannelName(long nChan, bool localized = true) { return GetString(texChannelNames[nChan].channelName); }
+	MSTR GetTexChannelInternalName(long nChan, bool localized = true) { return GetString(texChannelNames[nChan].maxName); }
+#else
 	TSTR GetTexChannelName(long nChan) { return GetString(texChannelNames[nChan].channelName); }
 	TSTR GetTexChannelInternalName(long nChan) { return GetString(texChannelNames[nChan].maxName); }
+#endif
 	long ChannelType(long nChan) { return texChannelNames[nChan].channelType; }
 	long StdIDToChannel(long stdID) { return nifShaderStdIDToChannel[stdID]; }
 
@@ -267,13 +272,13 @@ public:
 
 	Class_ID ClassID() { return NIFSHADER_CLASS_ID; }
 	SClass_ID SuperClassID() { return SHADER_CLASS_ID; }
-	TSTR GetName() { return GetString(IDS_SH_NAME); }
-	void GetClassName(TSTR& s) { s = GetName(); }
+	MSTR GetName() { return GetString(IDS_SH_NAME); }
+	void GetClassName(MSTR& s) { s = GetName(); }
 	void DeleteThis() { delete this; }
 
 	int NumSubs() { return 1; }
 	Animatable* SubAnim(int i) { return (i == 0) ? pb : NULL; }
-	TSTR SubAnimName(int i) { return TSTR(GetString(IDS_SH_PARAMETERS)); }
+	MSTR SubAnimName(int i) { return MSTR(GetString(IDS_SH_PARAMETERS)); }
 	int SubNumToRefNum(int subNum) { return subNum; }
 
 	// add direct ParamBlock2 access
@@ -1237,9 +1242,11 @@ NifShaderDlg::NifShaderDlg(HWND hwMtlEdit, IMtlParams *pParams)
 
 NifShaderDlg::~NifShaderDlg()
 {
+	#if VERSION_3DSMAX < ((10000<<16)+(26<<8)+0) // pre-3ds Max 2024
 	HDC hdc = GetDC(hRollup);
 	GetGPort()->RestorePalette(hdc, hOldPal);
 	ReleaseDC(hRollup, hdc);
+	#endif
 
 	if (pShader) pShader->SetParamDlg(NULL, 0);
 
@@ -1306,9 +1313,11 @@ INT_PTR NifShaderDlg::PanelProc(HWND hwndDlg, UINT msg, WPARAM wParam, LPARAM lP
 	switch (msg) {
 	case WM_INITDIALOG:
 	{
+		#if VERSION_3DSMAX < ((10000<<16)+(26<<8)+0) // pre-3ds Max 2024
 		HDC theHDC = GetDC(hwndDlg);
 		hOldPal = GetGPort()->PlugPalette(theHDC);
 		ReleaseDC(hwndDlg, theHDC);
+		#endif
 
 		InitializeControls(hwndDlg);
 		LoadDialog(TRUE);
@@ -1436,7 +1445,9 @@ void NifShaderDlg::InitializeControls(HWND hWnd)
 {
 
 	HDC theHDC = GetDC(hWnd);
+	#if VERSION_3DSMAX < ((10000<<16)+(26<<8)+0) // pre-3ds Max 2024
 	hOldPal = GetGPort()->PlugPalette(theHDC);
+	#endif
 	ReleaseDC(hWnd, theHDC);
 
 	//////////////////////////////////////////////////////////////////////////
@@ -1568,6 +1579,7 @@ void NifShaderDlg::InitializeControls(HWND hWnd)
 
 void NifShaderDlg::ReleaseControls()
 {
+	#if VERSION_3DSMAX < ((10000<<16)+(26<<8)+0) // pre-3ds Max 2024
 	if (hOldPal)
 	{
 		HDC hdc = GetDC(hRollup);
@@ -1575,6 +1587,7 @@ void NifShaderDlg::ReleaseControls()
 		ReleaseDC(hRollup, hdc);
 		hOldPal = NULL;
 	}
+	#endif
 
 	if (clrAmbient) { ReleaseIColorSwatch(clrAmbient); clrAmbient = NULL; }
 	if (clrDiffuse) { ReleaseIColorSwatch(clrDiffuse); clrDiffuse = NULL; };

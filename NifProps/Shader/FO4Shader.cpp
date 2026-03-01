@@ -255,7 +255,8 @@ public:
 	// texture maps
 	long nTexChannelsSupported() override { return STD2_NMAX_TEXMAPS - 4; }
 	MSTR GetTexChannelName(long nChan, bool localized = true) override { return GetString(texChannelNames[nChan].channelName); }
-	MSTR GetTexChannelInternalName(long nChan, bool localized = true) override { return GetString(texChannelNames[nChan].maxName); }
+	MSTR GetTexChannelInternalName(long nChan, bool localized = true) { return GetString(texChannelNames[nChan].maxName); }
+	MSTR GetTexChannelInternalName(long nChan) { return GetString(texChannelNames[nChan].maxName); }
 	long ChannelType(long nChan) override { return texChannelNames[nChan].channelType; }
 	long StdIDToChannel(long stdID) override { return FO4ShaderStdIDToChannel[stdID]; }
 
@@ -269,14 +270,14 @@ public:
 
 	Class_ID ClassID() override { return FO4SHADER_CLASS_ID; }
 	SClass_ID SuperClassID() override { return SHADER_CLASS_ID; }
-	TSTR GetName() override { return GetString(IDS_FO4_SHADER); }
-	void GetClassName(MSTR& s) override { s = GetName(); }
+	MSTR GetName() { return GetString(IDS_FO4_SHADER); }
+	void GetClassName(MSTR& s) { s = GetName(); }
 	void DeleteThis() override { delete this; }
 
 	int NumSubs() override { return 1; }
 
 	Animatable* SubAnim(int i) override;
-	MSTR SubAnimName(int i) override;
+	MSTR SubAnimName(int i);
 
 	int SubNumToRefNum(int subNum) override { return subNum; }
 
@@ -1637,16 +1638,16 @@ Animatable* FO4Shader::SubAnim(int i)
 	return nullptr;
 }
 
-TSTR FO4Shader::SubAnimName(int i)
+MSTR FO4Shader::SubAnimName(int i)
 {
 	USES_CONVERSION;
 	switch (i) {
-	case 0: return TSTR(GetString(IDS_FOS_BASENAME));
-	case 1: return TSTR(GetString(IDS_FOS_MTLNAME));
-	case 2: return TSTR(GetString(IDS_FOS_BGSMNAME));
-	case 3: return TSTR(GetString(IDS_FOS_BGEMNAME));
+	case 0: return MSTR(GetString(IDS_FOS_BASENAME));
+	case 1: return MSTR(GetString(IDS_FOS_MTLNAME));
+	case 2: return MSTR(GetString(IDS_FOS_BGSMNAME));
+	case 3: return MSTR(GetString(IDS_FOS_BGEMNAME));
 	}
-	return TSTR(GetString(IDS_FOS_BASENAME));
+	return MSTR(GetString(IDS_FOS_BASENAME));
 }
 
 IParamBlock2* FO4Shader::GetParamBlock(int i)
@@ -2820,9 +2821,11 @@ FO4ShaderRollupBase::FO4ShaderRollupBase(FO4ShaderDlg *dlg)
 
 void FO4ShaderRollupBase::FreeRollup()
 {
+	#if VERSION_3DSMAX < ((10000<<16)+(26<<8)+0) // pre-3ds Max 2024
 	HDC hdc = GetDC(hRollup);
 	GetGPort()->RestorePalette(hdc, hOldPal);
 	ReleaseDC(hRollup, hdc);
+	#endif
 
 	DLSetWindowLongPtr(hRollup, NULL);
 	DLSetWindowLongPtr(hwHilite, NULL);
@@ -2892,9 +2895,11 @@ INT_PTR FO4ShaderRollupBase::PanelProc(HWND hwndDlg, UINT msg, WPARAM wParam, LP
 	switch (msg) {
 	case WM_INITDIALOG:
 	{
+		#if VERSION_3DSMAX < ((10000<<16)+(26<<8)+0) // pre-3ds Max 2024
 		HDC theHDC = GetDC(hwndDlg);
 		hOldPal = GetGPort()->PlugPalette(theHDC);
 		ReleaseDC(hwndDlg, theHDC);
+		#endif
 
 		InitializeControls(hwndDlg);
 		LoadPanel(TRUE);
