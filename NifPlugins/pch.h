@@ -8,8 +8,11 @@
 //------------------------------
 // Standard Library
 //------------------------------
+#ifndef _HAS_STD_BYTE
+#  define _HAS_STD_BYTE 0
+#endif
+
 #include <algorithm>
-#include <cstddef>
 #include <cmath>
 #include <cstdint>
 #include <deque>
@@ -111,11 +114,6 @@ struct binary_function {
 //------------------------------
 // Niflib
 //------------------------------
-// Niflib headers use legacy unqualified `byte` in many declarations.
-// With C++17, that becomes ambiguous against `std::byte` + WinSDK `::byte`.
-// Force legacy semantics for unqualified `byte` tokens across the niflib
-// include block, then restore normal behavior immediately afterward.
-#define byte unsigned char
 #include "niflib.h"
 
 // Generated headers are layout-dependent across niflib forks/builds.
