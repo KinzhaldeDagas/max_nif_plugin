@@ -24,7 +24,9 @@
 #include <obj/BSEffectShaderProperty.h>
 #include "../NifProps/iNifProps.h"
 #include "../MtlUtils/mtldefine.h"
+#if __has_include(<obj/BSTriShape.h>)
 #include <obj/BSTriShape.h>
+#endif
 
 enum {
 	C_BASE, C_DARK, C_DETAIL, C_GLOSS, C_GLOW, C_BUMP, C_NORMAL,
