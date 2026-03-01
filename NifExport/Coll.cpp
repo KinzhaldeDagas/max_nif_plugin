@@ -2182,7 +2182,7 @@ bhkShapeRef Exporter::makeModCMSD(INode *tnode, Matrix3& tm, int mtlDefault)
 	return makeModPackedTriStripShape(tnode, tm, mtlDefault);
 }
 
-struct bhkCMSDMaterial_equal : std::unary_function<bhkCMSDMaterial, bool>
+struct bhkCMSDMaterial_equal
 {
 	const bhkCMSDMaterial &idx_;
 	bhkCMSDMaterial_equal(const bhkCMSDMaterial &idx) : idx_(idx) {}

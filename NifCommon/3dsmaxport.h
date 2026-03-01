@@ -29,6 +29,10 @@
 #  include <cstdlib>
 #endif
 
+#if VERSION_3DSMAX >= ((10000<<16)+(26<<8)+0) // 3ds Max 2024+
+#  include <3dsmaxdlport.h>
+#else
+
 /*
    Set/GetWindowLong() should never be used to store/retrieve pointers in an HWND, as
    they end up truncating 64 bit pointers in Win64.
@@ -526,5 +530,7 @@ inline long double DL_abs(long double f) { return std::fabsl(f); }
 #     define DL_TYPENAME_OUTSIDE_TEMPLATE  typename
 #  endif
 #endif
+
+#endif // VERSION_3DSMAX >= ((10000<<16)+(26<<8)+0)
 
 #endif

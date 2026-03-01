@@ -2304,7 +2304,6 @@ void BSSIData::SetActivePartition(DWORD partition)
 
 void BSSIData::RemovePartition(DWORD partition)
 {
-	int nPartitions = partitions.size();
 	if (partition < partitions.size() && partitions.size() > 1)
 	{
 		Tab<DWORD> &ids = fselSet.ids;
@@ -2335,8 +2334,8 @@ void BSSIData::RemovePartition(DWORD partition)
 			if (partID > partition)
 				*id = getID(partID-1, subPartID);
 		}
-		if (partition >= partitions.size())
-			SetActivePartition(partitions.size()-1);
+			if (partition >= partitions.size())
+				SetActivePartition(static_cast<DWORD>(partitions.size() - 1));
 	}
 }
 
@@ -2344,7 +2343,7 @@ void BSSIData::RemovePartition(DWORD partition)
 DWORD BSSIData::AddSubPartition() {
 	BSSubIndexData& data = partitions[activePartition];
 	BSSubIndexMaterial si_mat;
-	si_mat.id = data.materials.size();
+	si_mat.id = static_cast<uint32_t>(data.materials.size());
 	si_mat.materialHash = 0xFFFFFFFF;
 	si_mat.visible = false;
 	data.materials.push_back(si_mat);
@@ -2360,7 +2359,7 @@ DWORD BSSIData::AddSubPartition() {
 void BSSIData::RemoveSubPartition(DWORD subPartition)
 {
 	BSSubIndexData& data = partitions[activePartition];
-	DWORD subIndexCount = data.materials.size();
+	DWORD subIndexCount = static_cast<DWORD>(data.materials.size());
 	if (subIndexCount > 1 && subPartition < subIndexCount)
 	{
 		DWORD id = getID(activePartition, subPartition);
@@ -2399,7 +2398,7 @@ void BSSIData::SetActiveSubPartition(DWORD subPartition)
 	BitArray empty;
 	BSSubIndexData &si_data = partitions[activePartition];
 	if (subPartition >= si_data.materials.size()) {
-		for (DWORD i = si_data.materials.size(); i <= subPartition; ++i)
+		for (DWORD i = static_cast<DWORD>(si_data.materials.size()); i <= subPartition; ++i)
 		{
 			DWORD id = getID(activePartition, i);
 			BitArray *ba = fselSet.GetSet(id);
@@ -2417,7 +2416,7 @@ void BSSIData::SetActiveSubPartition(DWORD subPartition)
 DWORD BSSIData::GetActivePartitionSubCount()
 {
 	if (activePartition >= 0 && activePartition <partitions.size()) {
-		return partitions[activePartition].materials.size();
+		return static_cast<DWORD>(partitions[activePartition].materials.size());
 	}
 	return 0;
 }

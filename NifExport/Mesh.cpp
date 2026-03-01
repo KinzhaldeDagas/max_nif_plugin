@@ -139,10 +139,10 @@ typedef std::pair< std::vector<int>::iterator, std::vector<int>::iterator > IntR
 
 
 
-namespace std
+	namespace std
 {
 	template<>
-	struct less<Triangle> : public binary_function<Triangle, Triangle, bool>
+	struct less<Triangle>
 	{
 		bool operator()(const Triangle& s1, const Triangle& s2) const {
 			int d = 0;
@@ -153,7 +153,7 @@ namespace std
 		}
 	};
 	template<>
-	struct less<SkinWeight> : public binary_function<SkinWeight, SkinWeight, bool>
+	struct less<SkinWeight>
 	{
 		bool operator()(const SkinWeight& lhs, const SkinWeight& rhs) {
 			if (lhs.weight == 0.0) {
@@ -311,7 +311,8 @@ Exporter::Result Exporter::exportMesh(NiNodeRef &ninode, INode *node, TimeValue 
 		}
 		tm = TOMATRIX4(Inverse(mtx)) * tm;
 
-		string basename = T2AHelper(buffer, node->NodeName(), _countof(buffer));
+		const MSTR nodeName = node->NodeName();
+		string basename = T2AHelper(buffer, nodeName, _countof(buffer));
 		LPCSTR format = (!basename.empty() && grps.size() > 1) ? "%s:%d" : "%s";
 
 		int i = 1;
