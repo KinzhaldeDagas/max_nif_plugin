@@ -1582,6 +1582,7 @@ INT_PTR BSDSModifierMainDlgProc::DlgProc(TimeValue t, IParamMap2 *map,
 	if (!mod) return FALSE;
 	ICustToolbar *iToolbar;
 	ICustButton *but;
+	(void)but;
 	int matid;
 	int nParts;
 	int nActive;
