@@ -9,7 +9,7 @@
 // Standard Library
 //------------------------------
 #ifndef _HAS_STD_BYTE
-#  define _HAS_STD_BYTE 0
+#  define _HAS_STD_BYTE 1
 #endif
 
 #include <algorithm>

@@ -4,15 +4,20 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
+    <NiflibRoot Condition="'$(NiflibRoot)'=='' and Exists('$(ProjectDir)..\..\niflib\include\niflib.h')">$(ProjectDir)..\..\niflib</NiflibRoot>
+    <NiflibRoot Condition="'$(NiflibRoot)'=='' and Exists('C:\Users\mello\Desktop\xaxSource\niflib\include\niflib.h')">C:\Users\mello\Desktop\xaxSource\niflib</NiflibRoot>
+    <NiflibRoot Condition="'$(NiflibRoot)'==''">C:\src\niflib</NiflibRoot>
+  </PropertyGroup>
+  <PropertyGroup>
     <_ProjectFileVersion>14.0.23107.0</_ProjectFileVersion>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\niflib\include;$(ProjectDir)..\..\niflib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(NiflibRoot)\include;$(NiflibRoot);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>USE_NIFLIB_TEMPLATE_HELPERS;NIFLIB_STATIC_LINK;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\..\niflib\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(NiflibRoot)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>niflib_static_$(NifBuildType)_$(PlatformShortName).lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
