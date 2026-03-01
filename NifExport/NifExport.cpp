@@ -415,27 +415,31 @@ static DWORD WINAPI dummyProgress(LPVOID arg) {
 
 int	NifExport::DoExport(const TCHAR *name, ExpInterface *ei, Interface *i, BOOL suppressPrompts, DWORD options)
 {
+	int result = FALSE;
 	try
 	{
 		TSTR title = FormatText(TEXT("Exporting '%s'..."), PathFindFileName(name));
 		i->PushPrompt(title);
 		if (!suppressPrompts)
 			i->ProgressStart(title, TRUE, dummyProgress, nullptr);
-		DoExportInternal(name, ei, i, suppressPrompts, options);
+		result = DoExportInternal(name, ei, i, suppressPrompts, options);
 	}
 	catch (Exporter::CancelExporterException&)
 	{
 		// Special user cancellation exception
+		result = FALSE;
 	}
 	catch (exception &e)
 	{
 		if (!suppressPrompts)
 			MessageBoxA(nullptr, e.what(), "Export Error", MB_OK);
+		result = FALSE;
 	}
 	catch (...)
 	{
 		if (!suppressPrompts)
 			MessageBox(nullptr, TEXT("Unknown error."), TEXT("Export Error"), MB_OK);
+		result = FALSE;
 	}
 	try
 	{
@@ -446,7 +450,7 @@ int	NifExport::DoExport(const TCHAR *name, ExpInterface *ei, Interface *i, BOOL 
 	catch (...)
 	{
 	}
-	return true;
+	return result;
 }
 
 int NifExport::DoExportInternal(const TCHAR *name, ExpInterface *ei, Interface *i, BOOL suppressPrompts, DWORD options)
@@ -478,12 +482,14 @@ int NifExport::DoExportInternal(const TCHAR *name, ExpInterface *ei, Interface *
 	// locate the "default" app setting
 	tstring fname = path;
 	AppSettings *appSettings = Exporter::importAppSettings(fname);
+	if (appSettings == nullptr)
+		return FALSE;
 
 	Exporter::mSuppressPrompts = suppressPrompts;
 	if (!suppressPrompts)
 	{
 		if (DialogBoxParam(hInstance, MAKEINTRESOURCE(IDD_NIF_PANEL), GetActiveWindow(), NifExportOptionsDlgProc, (LPARAM)this) != IDOK)
-			return true;
+			return FALSE;
 
 		// write config to registry
 		Exporter::writeConfig(i);
@@ -491,6 +497,8 @@ int NifExport::DoExportInternal(const TCHAR *name, ExpInterface *ei, Interface *
 		Exporter::writeConfig(i->GetRootNode());
 
 		appSettings = Exporter::exportAppSettings();
+		if (appSettings == nullptr)
+			return FALSE;
 		appSettings->WriteSettings(i);
 	}
 
@@ -592,7 +600,7 @@ int NifExport::DoExportInternal(const TCHAR *name, ExpInterface *ei, Interface *
 			WinExec(T2A(nifskope.c_str()), SW_SHOWNORMAL);
 		}
 	}
-	return true;
+	return TRUE;
 }
 
 

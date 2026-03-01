@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Max.h"
+#include "max.h"
 #include "resource.h"
 #include "istdplug.h"
 #include "iparamb2.h"

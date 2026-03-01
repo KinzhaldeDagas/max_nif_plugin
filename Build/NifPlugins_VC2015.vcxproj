@@ -724,8 +724,6 @@
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release - Max 2026|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="$(ProjectDir)Sheets\Max_Version_2016.props" />
-    <Import Project="$(ProjectDir)Sheets\Max_System_$(Platform).props" />
     <Import Project="$(ProjectDir)Sheets\Release_Settings.props" />
     <Import Project="Max2026.props" />
   </ImportGroup>
@@ -737,9 +735,8 @@
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug - Max 2026|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="$(ProjectDir)Sheets\Max_Version_2016.props" />
-    <Import Project="$(ProjectDir)Sheets\Max_System_$(Platform).props" />
     <Import Project="$(ProjectDir)Sheets\Debug_Settings.props" />
+    <Import Project="Max2026.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release - Max 2012|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -1275,10 +1272,8 @@
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <DataExecutionPrevention>
       </DataExecutionPrevention>
-      <AdditionalLibraryDirectories>C:\Users\mello\Desktop\xaxSource\niflib\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Users\mello\Desktop\xaxSource\niflib;C:\Users\mello\Desktop\xaxSource\niflib\include;C:\Users\mello\Desktop\xaxSource\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release - Max 2016|x64'">
@@ -1292,12 +1287,10 @@
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <DataExecutionPrevention>
       </DataExecutionPrevention>
-      <AdditionalLibraryDirectories>C:\Users\mello\Desktop\xaxSource\niflib\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <ClCompile>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <ForceConformanceInForLoopScope>false</ForceConformanceInForLoopScope>
-      <AdditionalIncludeDirectories>C:\Users\mello\Desktop\xaxSource\niflib;C:\Users\mello\Desktop\xaxSource\niflib\include;C:\Users\mello\Desktop\xaxSource\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>

@@ -1,4 +1,4 @@
-#include "Max.h"
+#include "max.h"
 #include "NifPlugins.h"
 
 bool npIsCollision(INode *node)

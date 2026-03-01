@@ -19,7 +19,7 @@ HISTORY:
 #include "iparamm.h"
 #include "Simpobj.h"
 #include "notify.h"
-#include "macroRec.h"
+#include "macrorec.h"
 #include "bhkRigidBodyInterface.h"
 #include "NifPlugins.h"
 #include "NifGui.h"

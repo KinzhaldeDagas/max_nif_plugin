@@ -94,7 +94,8 @@ MaxNifImport::~MaxNifImport()
 
 int MaxNifImport::ExtCount()
 {
-	return 2;
+	// NIF, KF and KFM are all supported by DoImport.
+	return 3;
 }
 
 const TCHAR *MaxNifImport::Ext(int n)
@@ -203,23 +204,27 @@ int MaxNifImport::DoImport(const TCHAR *filename,ImpInterface *i, Interface *gi,
             return FALSE;
          ok = importer.DoImport();
       }
+      else
+      {
+         return FALSE;
+      }
    }
    catch (exception &e)
    {
       MessageBoxA(nullptr, e.what(), "Import Error", MB_OK);
-      return TRUE;
+      return FALSE;
    }
    catch (RuntimeError &e)
    {
 #if VERSION_3DSMAX > ((5000<<16)+(15<<8)+0) // Version 6+
       MessageBox(nullptr, e.desc1, TEXT("Import Error"), MB_OK);
 #endif
-      return TRUE;
+      return FALSE;
    }
    catch (...)
    {
       MessageBox(nullptr, TEXT("Unknown error."), TEXT("Import Error"), MB_OK);
-      return TRUE;
+      return FALSE;
    }
    return ok ? TRUE : FALSE;
 }

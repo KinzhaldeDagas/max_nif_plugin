@@ -302,6 +302,8 @@ int	KfExport::DoExport(const TCHAR *name, ExpInterface *ei, Interface *i, BOOL s
 		}
 		if (appSettings == NULL && !TheAppSettings.empty())
 			appSettings = &TheAppSettings.front();
+		if (appSettings == NULL)
+			throw exception("No application settings are configured.");
 
 		Exporter::mGameName = appSettings->Name;
 		Exporter::mNifVersion = appSettings->NiVersion;
@@ -310,7 +312,7 @@ int	KfExport::DoExport(const TCHAR *name, ExpInterface *ei, Interface *i, BOOL s
 		if (!suppressPrompts)
 		{
 			if (DialogBoxParam(hInstance, MAKEINTRESOURCE(IDD_KF_PANEL), GetActiveWindow(), KfExportOptionsDlgProc, (LPARAM)this) != IDOK)
-				return true;
+				return FALSE;
 
 			// write config to registry
 			Exporter::writeKfConfig(i);
@@ -332,6 +334,7 @@ int	KfExport::DoExport(const TCHAR *name, ExpInterface *ei, Interface *i, BOOL s
 
 		if (!Exporter::mNifVersion.empty())
 		{
+			nifVersion = ParseVersionString(T2AString(Exporter::mNifVersion));
 			if (!IsSupportedVersion(nifVersion))
 			{
 				string tmp = FormatVersionString(nifVersion);
@@ -366,13 +369,13 @@ int	KfExport::DoExport(const TCHAR *name, ExpInterface *ei, Interface *i, BOOL s
 	catch (exception &e)
 	{
 		MessageBoxA(nullptr, e.what(), "Export Error", MB_OK);
-		return true;
+		return FALSE;
 	}
 
 	catch (...)
 	{
 		MessageBox(NULL, TEXT("Unknown error."), TEXT("Export Error"), MB_OK);
-		return true;
+		return FALSE;
 	}
 
 	return TRUE;

@@ -12,7 +12,7 @@ HISTORY:
 **********************************************************************/
 #include "pch.h"
 // Max Headers
-#include <Max.h>
+#include <max.h>
 #include <control.h>
 // Niflib Headers
 #include <niflib.h>
